@@ -6,7 +6,6 @@ VPATH	:= src/ src/parsing/ src/env/
 OBJ_DIR	:= obj/
 
 SRC		:=	main.c \
-			parsing.c \
 			env.c \
 			env_too.c \
 			split_token.c

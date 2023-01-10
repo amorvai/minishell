@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 17:27:55 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/09 23:46:56 by amorvai          ###   ########.fr       */
+/*   Created: 2023/01/09 21:18:36 by amorvai           #+#    #+#             */
+/*   Updated: 2023/01/10 00:52:19 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/minishell.h"
+#ifndef PARSING_H
+# define PARSING_H
 
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	char	*line;
+# include "../../inc/minishell.h"
+
+int	no_of_tokens(const char *s, int *tokens);
 
 
-// 	line = readline("say something: ");
-// 	// ft_printf("%s\n", line);
-	
-// }
+int	parsing(t_command *command_string);
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_command	command_string;
-
-	(void)argc;
-	(void)argv;
-	(void)envp;
-
-	command_string = (t_command){0};
-	// if (parsing(&command_string))
-		return (1);
-	// print_overview(command_string);
+enum token {
+	WORD, PIPE, GREAT, LESS, GGREAT, LLESS
 }
+
+typedef struct s_token
+{
+	enum token		token;
+	char			*word;
+	struct s_token	*next;
+}				t_token;
+
+#endif
