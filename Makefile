@@ -1,6 +1,6 @@
 NAME	:= minishell
 CC		:= cc
-CFLAGS	:= -I src/ -I lib/ -g3 -fsanitize=address #-Wall -Werror -Wextra
+CFLAGS	:= -I src/ -I lib/ -g3 -fsanitize=address -Wall -Werror -Wextra
 LDFLAGS	:= -L ./lib/the_lib -l_extended -lreadline -L ~/.brew/opt/readline/lib/
 VPATH	:= src/ src/parsing/ src/env/
 OBJ_DIR	:= obj/
@@ -40,4 +40,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all, clean, fclean, re, libft
-a
