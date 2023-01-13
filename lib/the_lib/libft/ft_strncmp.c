@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/30 13:53:17 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/07 14:09:32 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/01/13 17:13:41 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ int	ft_strcmp(const char *s1, const char *s2)
 	size_t	t;
 
 	t = 0;
+	if (s1 == NULL && s2 == NULL)
+		return(0);
+	else if (s1 == NULL)
+		return(*(unsigned char *)s2);
+	else if (s2 == NULL)
+		return(*(unsigned char *)s2);
 	while (s1[t] == s2[t])
 	{
 		if (s1[t] == '\0' && s2[t] == '\0')

@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/09 18:58:59 by pnolte            #+#    #+#             */
-/*   Updated: 2023/01/13 14:48:11 by pnolte           ###   ########.fr       */
+/*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
+/*   Updated: 2023/01/13 14:25:15 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "builtins.h"
+#include "../env/env.h"
 
-# include "../../inc/minishell.h"
 
-void	bi_echo(char *string, int flag);
-void	bi_cd(char *path);
-void	bi_pwd();
-void	bi_exit();
-void	bi_unset();
-int		bi_env(char *value);
-void	bi_export();
-
-#endif
+void bi_unset(char *env_var)
+{
+	del_env(env_var);
+}

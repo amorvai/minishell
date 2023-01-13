@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:18:15 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/11 13:17:04 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/01/11 15:01:44 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "../lib/the_lib/lib.h"
+# include <stdbool.h>
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>

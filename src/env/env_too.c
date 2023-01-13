@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_too.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 18:00:03 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/07 18:01:57 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/01/13 17:42:14 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ int	add_env(char *key, char *value)
 	i = 0;
 	while (g_envp[i] != NULL)
 	{
-		if (!ft_strcmp(g_envp[i]->key, key))
+		
+		//if (!ft_strcmp(g_envp[i]->key, key))
+		if (ft_strcmp(g_envp[i]->key, key) == 0)
 		{
 			free(g_envp[i]->value);
 			g_envp[i]->value = ft_strdup(value);

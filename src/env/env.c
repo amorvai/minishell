@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 01:25:40 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/07 18:01:28 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/01/13 17:14:44 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	init_env(void)
 	g_envp = ft_calloc(j + 1, sizeof(t_env *));
 	while (i < j)
 	{
-		printf("line: %i\n", i);
+		// printf("line: %i\n", i);
 		g_envp[i] = get_env_line(environ[i]);
 		if (g_envp[i] == NULL)
 			return (1);
