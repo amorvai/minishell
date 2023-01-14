@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:58:59 by pnolte            #+#    #+#             */
-/*   Updated: 2023/01/13 14:48:11 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/01/14 19:18:26 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ void	bi_pwd();
 void	bi_exit();
 void	bi_unset();
 int		bi_env(char *value);
-void	bi_export();
+void	bi_export(char *value);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:33:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/01/13 18:25:02 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/01/14 19:21:47 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,21 @@ int cd_test()
 	return (EXIT_SUCCESS);	
 }
 
+int export_test()
+{
+	char *testcases[] = {"new=", "new=filled", };
+	char *output[] = {"", };
+	
+	return (EXIT_FAILURE);
+}
+
 int main()
 {
 	if (init_env() == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	if (cd_test() == EXIT_FAILURE)
 		return (EXIT_FAILURE);
+	if (export_test() == EXIT_FAILURE)
+		rerturn(EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
