@@ -1,39 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 22:18:15 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/16 22:14:33 by amorvai          ###   ########.fr       */
+/*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
+/*   Updated: 2023/01/16 22:10:29 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
+#include "../env/env.h"
+#include "../token/token.h"
 
-# include "../lib/the_lib/lib.h"
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
-// typedef struct s_minishell
-// {
-//     /* data */
-// }               t_minishell;
+int	get_user_input()
+{
+	char	*read_line;
 
-// typedef struct s_token
-// {
-//     char *read;
+	read_line = readline("miesmushell is listening 🐚\n>>");
+	add_history(read_line);
+	return (read_line);
+}
 
-// }               t_token;
+int	minishell()
+{
+	char	*read_line;
+	t_token	*tokens;
 
-// typedef struct s_minishell
-// {
-// 	/* data */
-// }				t_minishell;
-
-int create_list(char **splits, t_command *command_string);
-
-#endif
+	init_env();
+	read_line = get_user_input();
+	if (tokens_init(tokens, read_line))
+		return (1); //there can only be quoting errors
+	// if (read_line)d
+	free_env();
+	return (0);
+}

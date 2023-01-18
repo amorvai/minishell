@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 21:24:46 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/10 00:59:43 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/01/16 21:18:14 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ static int	token_quote(const char *s, size_t *i, char quote_type)
 	return (0);
 }
 
-static int	token_detected(const char *s, int *tokens, size_t *i)
+static int	token_detected(const char *s, int *nb_tokens, size_t *i)
 {
 	while (s[*i] != '\0' && s[*i] != ' ')
 	{
 		if (s[*i] == '|')
 		{
 			if (*i > 0 && s[*i - 1] != ' ')
-				(*tokens)++;
+				(*nb_tokens)++;
 			(*i)++;
 			break ;
 		}
@@ -46,7 +46,7 @@ static int	token_detected(const char *s, int *tokens, size_t *i)
 	return (0);
 }
 
-int	no_of_tokens(t_token **token, const char *s, int *tokens)
+int	no_of_tokens(const char *s, int *nb_tokens)
 {
 	size_t	i;
 
@@ -59,13 +59,43 @@ int	no_of_tokens(t_token **token, const char *s, int *tokens)
 			i++;
 		if (s[i] == '\0')
 			break ;
-		if (s[i] != '\0' && s[i] != ' ' && token_detected(s, tokens, &i))
+		if (token_detected(s, nb_tokens, &i))
 			return (1);
-		(*tokens)++;
+		(*nb_tokens)++;
 	}
 	return (0);
 }
 
+int	add_token(t_token **head, char *s, int *i)
+{
+	t_token	*new;
+	int		token_len;
+
+	// new = ft_calloc(1, sizeof(t_token));
+	// while ()
+}
+
+t_token **get_tokens(char *s)
+{
+	t_token	*head;
+	size_t	i;
+
+	i = 0;
+	head = NULL;
+	if (s[i] == '\0')
+		return (0);
+	while (s[i] != '\0')
+	{
+		while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n')
+			i++;
+		if (s[i] == '\0')
+			break ;
+		if (s[i] != ' ' && s[i] != '\t' && s[i] != '\n')
+			if (add_token(&head, s, &i))
+				return (free_tokens(head), NULL);
+	}
+	return (&head);
+}
 
 // static char	**real_token(const char *s, char **splits)
 // {
