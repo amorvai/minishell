@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 01:30:43 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/07 17:57:15 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/01/18 19:31:47 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_env
 
 int		init_env(void);
 void	free_env(void);
+int		get_len(char *environ_line, int *key, int *value);
 
 int		add_env(char *key, char *value);
 int		del_env(char *key);

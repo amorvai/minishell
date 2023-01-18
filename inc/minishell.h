@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:18:15 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/16 19:05:49 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/01/18 17:18:59 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_simple_command
 	int	no_avail_args;
 	int	no_args;
 	char **arguments;
+	t_simple_command *next;
 }				t_simple_command;
 
 typedef struct s_command

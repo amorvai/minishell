@@ -1,4 +1,5 @@
 inspiration/
+.vscode/
 minishell
 # Prerequisites
 *.d
