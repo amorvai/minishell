@@ -1,15 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/13 11:00:04 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/18 19:45:08 by pnolte           ###   ########.fr       */
+/*   Created: 2023/01/09 21:18:36 by amorvai           #+#    #+#             */
+/*   Updated: 2023/01/18 15:09:15 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#ifndef PARSING_H
+# define PARSING_H
 
+# include "../../inc/minishell.h"
+# include "stdbool.h"
 
+#endif

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 01:30:43 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/18 19:31:47 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/01/18 19:44:46 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int		init_env(void);
 void	free_env(void);
 int		get_len(char *environ_line, int *key, int *value);
 
-int		add_env(char *key, char *value);
-int		del_env(char *key);
-void	print_env(void);
+int		add_env(char *key, char *value); // export
+int		del_env(char *key); // unset
+void	print_env(void); // env
 
 char	*get_env(char *key);
 

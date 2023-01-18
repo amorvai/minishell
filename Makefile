@@ -2,14 +2,15 @@ NAME	:= minishell
 CC		:= cc
 CFLAGS	:= -I src/ -I lib/ -g3 -fsanitize=address -Wall -Werror -Wextra
 LDFLAGS	:= -L ./lib/the_lib -l_extended -lreadline -L ~/.brew/opt/readline/lib/
-VPATH	:= src/ src/parsing/ src/env/
+VPATH	:= src/ src/env/ src/parsing/ src/token/
 OBJ_DIR	:= obj/
 
-SRC		:=	main.c \
-			parsing.c \
+SRC		:=	token_test.c \
 			env.c \
 			env_too.c \
-			split_token.c
+			parsing.c \
+			token.c \
+			token_init.c \
 
 OBJ		:= $(addprefix $(OBJ_DIR), $(patsubst %.c, %.o, $(SRC)))
 
