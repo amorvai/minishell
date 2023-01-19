@@ -6,13 +6,16 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/01/14 18:53:31 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/01/19 16:05:34 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtins.h"
 #include "../env/env.h"
 #include <sys/stat.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include "../../lib/the_lib/lib.h"
+#include <stdio.h>
 
 static void	bi_cd2(char *path, char *cwd);
 static char *check_for_cwd();

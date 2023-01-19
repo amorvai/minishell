@@ -6,14 +6,14 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 01:25:40 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/18 19:32:26 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/01/19 14:36:48 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-#include "../../inc/minishell.h"
 #include "../../lib/the_lib/lib.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 extern char	**environ;
 t_env		**g_envp;

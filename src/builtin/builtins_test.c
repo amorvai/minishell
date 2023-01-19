@@ -6,12 +6,13 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 13:33:45 by pnolte            #+#    #+#             */
-/*   Updated: 2023/01/16 17:42:52 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/01/19 14:35:40 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "../env/env.h"
+#include <stdlib.h>
 
 // int cd_test()
 // {

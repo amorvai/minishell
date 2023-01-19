@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/16 22:10:29 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/01/19 14:42:58 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-int	get_user_input()
+char *get_user_input()
 {
 	char	*read_line;
 
@@ -34,7 +34,7 @@ int	minishell()
 
 	init_env();
 	read_line = get_user_input();
-	if (tokens_init(tokens, read_line))
+	if (tokens_init(&tokens, read_line))
 		return (1); //there can only be quoting errors
 	// if (read_line)d
 	free_env();

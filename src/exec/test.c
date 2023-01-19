@@ -1,10 +1,17 @@
 #include <sys/stat.h>
 #include <stdio.h>
+#include <unistd.h>
 
 int main(){
-	int i;
-	struct stat *h;
+	char *cmd = "/usr/bin/ls";
+	char *env[] = {NULL};
+	char *argVec[] = {"ls", "-l", "-a", NULL};
+	struct stat s;
 	
-	if (stat("not here", h) != 0)
-		printf("Not Found");
+	if (stat(cmd, &s) == 0)
+		printf("%d", s.st_mode);
+		
+	// if (execve(cmd, argVec, env) == -1)
+	// 	printf("Error");
+	printf("huh");
 }

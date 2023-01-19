@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:05:14 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/16 22:15:17 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/01/19 14:33:27 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,7 @@ typedef struct s_command
 	int						background;
 	/* static */ t_simple_command	*current_s_command;
 }				t_command;
+
+int	minishell();
 
 #endif

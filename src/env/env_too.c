@@ -6,12 +6,12 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 18:00:03 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/16 14:45:36 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/01/19 14:32:02 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-#include "../../inc/minishell.h"
+#include "../minishell/minishell.h"
 #include "../../lib/the_lib/lib.h"
 #include <stdlib.h>
 

@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 17:27:55 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/16 22:04:43 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/01/19 14:31:00 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell/minishell.h"
 
 int	main()
 {
