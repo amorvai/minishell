@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/19 14:42:58 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/01/24 12:46:36 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,12 @@ int	minishell()
 	t_token	*tokens;
 
 	init_env();
-	read_line = get_user_input();
-	if (tokens_init(&tokens, read_line))
-		return (1); //there can only be quoting errors
+	while (1)
+	{
+		read_line = get_user_input();
+		if (tokens_init(&tokens, read_line))
+			return (1); //there can only be quoting errors	
+	}
 	// if (read_line)d
 	free_env();
 	return (0);

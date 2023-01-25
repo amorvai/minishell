@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+         #
+#    By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/04 14:52:03 by amorvai           #+#    #+#              #
-#    Updated: 2023/01/07 17:34:27 by amorvai          ###   ########.fr        #
+#    Updated: 2023/01/24 14:50:33 by pnolte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		:= cc
-CFLAGS	:= -Wall -Wextra -Werror
+CFLAGS	:= -Wall -Wextra -Werror -fsanitize=address
 VPATH	:= printf/ printf/print_conversions/ get_next_line/
 OBJ_DIR	:= obj/
 

@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 int main(){
-	char *cmd = "/usr/bin/ls";
+	char *cmd = "/bin/ls";
 	char *env[] = {NULL};
 	char *argVec[] = {"ls", "-l", "-a", NULL};
 	struct stat s;

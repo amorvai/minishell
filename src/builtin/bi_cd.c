@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/01/19 16:05:34 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/01/25 16:59:12 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ void bi_cd(char *path)
 	str = NULL;
 	cwd = check_for_cwd();
 	stat(path, &path_stat);
-	if (path == NULL || (path != NULL && path[0] == '~' && path[1] == '\0'))
+	if (path[0] == '.' && path[1] == '\0')
+		return;
+	else if (path == NULL || (path != NULL && path[0] == '~' && path[1] == '\0'))
 		add_env("PWD", get_env("HOME"));
-	else if (path[0] == '.' && path[1] == '.')
+	else if (path[0] == '.' && path[1] == '.' && path[2] == '\0')
 	{
 		str = cd_cut(cwd);
 		add_env("PWD", str);
