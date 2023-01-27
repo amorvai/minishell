@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/01/25 16:48:03 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/01/27 14:51:00 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,49 @@
 #include "../parsing/parsing.h"
 
 t_env		**g_envp;
+static void decider_bi_patch(char **simple_cmd);
+static void path_funct(char **simple_cmd);
+static char **env_to_dc();
 
-static char **env_to_dc()
+void	executer(t_simp_com *head)
 {
-	char **env;
-	int length;
+	t_simp_com *copy;
 	
-	length = 0;
-	while (g_envp[length] != NULL)
-		length++;
-	env = malloc(sizeof(char *) * (length + 1));
-	length = 0;
-	while (g_envp[length] != NULL)
-	{
-		env[length] = ft_strjoin(g_envp[length]->key, g_envp[length]->value);
-		length++;				
-	}
-	env[length] = NULL;
-	return (env);
+	(void)copy;
+	init_env();
+	decider_bi_path(head->command);
+	
+	// redirection()
+	// check_for_pipes()
+	// redirection()
+	// fork();
+		// 		exec_builtin();
+		// 	if (!buitlin)
+		// 		search_path()
+		// 		fork();
+		// 		execv();
+		// 		wait();	
+		// wait()	
+}
+
+static void	decider_bi_path(char **simple_cmd)
+{
+	if (ft_strcmp(simple_cmd[0], "cd") == 0)
+		bi_cd(simple_cmd[1]);
+	else if (ft_strcmp(simple_cmd[0], "echo") == 0)
+		bi_echo(simple_cmd);
+	else if (ft_strcmp(simple_cmd[0], "env") == 0)
+		bi_env(simple_cmd);
+	else if (ft_strcmp(simple_cmd[0], "exit") == 0)
+		bi_exit(simple_cmd);
+	else if (ft_strcmp(simple_cmd[0], "export") == 0)
+		bi_export(simple_cmd);
+	else if (ft_strcmp(simple_cmd[0], "pwd") == 0)
+		bi_pwd();
+	else if (ft_strcmp(simple_cmd[0], "unset") == 0)
+		bi_unset(simple_cmd);
+	else
+		path_funct(simple_cmd);
 }
 
 static void path_funct(char **simple_cmd)
@@ -74,43 +99,23 @@ static void path_funct(char **simple_cmd)
 	// free(tmp);
 }
 
-static void	decider_bi_path(char **simple_cmd)
+static char **env_to_dc()
 {
-	if (ft_strcmp(simple_cmd[0], "cd") == 0)
-		bi_cd(simple_cmd[1]);
-	else if (ft_strcmp(simple_cmd[0], "echo") == 0)
-		bi_echo(simple_cmd);
-	else if (ft_strcmp(simple_cmd[0], "env") == 0)
-		bi_env(simple_cmd);
-	else if (ft_strcmp(simple_cmd[0], "exit") == 0)
-		bi_exit(simple_cmd);
-	else if (ft_strcmp(simple_cmd[0], "export") == 0)
-		bi_export(simple_cmd);
-	else if (ft_strcmp(simple_cmd[0], "pwd") == 0)
-		bi_pwd();
-	else if (ft_strcmp(simple_cmd[0], "unset") == 0)
-		bi_unset(simple_cmd);
-	else
-		path_funct(simple_cmd);
+	char **env;
+	int length;
+	
+	length = 0;
+	while (g_envp[length] != NULL)
+		length++;
+	env = malloc(sizeof(char *) * (length + 1));
+	length = 0;
+	while (g_envp[length] != NULL)
+	{
+		env[length] = ft_strjoin(g_envp[length]->key, g_envp[length]->value);
+		length++;				
+	}
+	env[length] = NULL;
+	return (env);
 }
 
-void	executer(t_simp_com *head)
-{
-	t_simp_com *copy;
-	
-	(void)copy;
-	init_env();
-	decider_bi_path(head->command);
-	
-	// redirection()
-	// check_for_pipes()
-	// redirection()
-	// fork();
-		// 		exec_builtin();
-		// 	if (!buitlin)
-		// 		search_path()
-		// 		fork();
-		// 		execv();
-		// 		wait();	
-		// wait()	
-}
+
