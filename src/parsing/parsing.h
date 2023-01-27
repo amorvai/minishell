@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 21:18:36 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/24 14:45:49 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/01/27 15:37:03 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ typedef struct s_redirection
 	char			*file;
 }				t_redirection;
 
-typedef struct s_simp_command
+typedef struct s_simp_com
 {
 	char					**command;
 	t_redirection			*redirect_input;
 	t_redirection			*redirect_output;
-	struct s_simp_commands	*previous;
-	struct s_simp_commands	*next;
+	struct s_simp_com		*previous;
+	struct s_simp_com		*next;
 }				t_simp_com;
 
 #endif
