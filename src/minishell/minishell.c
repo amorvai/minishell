@@ -6,13 +6,14 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/16 22:10:29 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/01/31 17:20:58 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "../env/env.h"
 #include "../token/token.h"
+#include "../parsing/parsing.h"
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -29,13 +30,15 @@ int	get_user_input()
 
 int	minishell()
 {
-	char	*read_line;
-	t_token	*tokens;
+	char		*read_line;
+	t_token		*tokens;
+	t_simp_com	*commands;
 
 	init_env();
 	read_line = get_user_input();
 	if (tokens_init(tokens, read_line))
 		return (1); //there can only be quoting errors
+	commands = parse(&tokens);
 	// if (read_line)d
 	free_env();
 	return (0);

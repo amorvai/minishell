@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 23:02:06 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/16 22:08:32 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/01/19 18:45:44 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	get_token_enum(const char *s, size_t *i, t_token *new_token)
 	}
 }
 
-void	init_token_to_list(t_token **tokens, const char *s,
+void	init_token_to_list(t_token **token_lst, const char *s,
 							size_t *i, size_t *j)
 {
 	t_token	*new_token;
@@ -52,10 +52,10 @@ void	init_token_to_list(t_token **tokens, const char *s,
 		(*j)++;
 	*i = *i + *j;
 	*j = 0;
-	tokenadd_back(tokens, new_token);
+	tokenadd_back(token_lst, new_token);
 }
 
-static int	token_quote(const char *s, size_t *i, size_t *j, char quote_type)
+int	token_quote(const char *s, size_t *i, size_t *j, char quote_type)
 {
 	(*j)++;
 	while (s[*i + *j] != quote_type)
@@ -67,19 +67,17 @@ static int	token_quote(const char *s, size_t *i, size_t *j, char quote_type)
 	return (0);
 }
 
-static int	token_detected(t_token **tokens, const char *s, size_t *i)
+static int	token_detected(t_token **token_lst, const char *s, size_t *i)
 {
 	size_t	j;
 
 	j = 0;
-	while (s[*i + j] != '\0'
-		&& s[*i + j] != ' ' && s[*i + j] != '\t' && s[*i + j] != '\n')
+	while (s[*i + j] != '\0' && !ft_strchr(" \t\n", s[*i + j]))
 	{
-		if (s[*i + j] == '|' || s[*i + j] == '<' || s[*i + j] == '>')
+		if (ft_strchr("|<>", s[*i + j]))
 		{
-			if (*i + j > 0 && s[*i + j - 1] != ' '
-				&& s[*i + j - 1] != '\t' && s[*i + j - 1] != '\n')
-				init_token_to_list(tokens, s, i, &j);
+			if (*i + j > 0 && !ft_strchr(" \t\n", s[*i + j - 1]))
+				init_token_to_list(token_lst, s, i, &j);
 			j++;
 			break ;
 		}
@@ -89,11 +87,11 @@ static int	token_detected(t_token **tokens, const char *s, size_t *i)
 			return (1);
 		j++;
 	}
-	init_token_to_list(tokens, s, i, &j);
+	init_token_to_list(token_lst, s, i, &j);
 	return (0);
 }
 
-int	tokens_init(t_token **tokens, const char *s)
+int	token_lst_init(t_token **token_lst, const char *s)
 {
 	size_t	i;
 
@@ -102,11 +100,11 @@ int	tokens_init(t_token **tokens, const char *s)
 		return (0);
 	while (s[i] != '\0')
 	{
-		while (s[i] == ' ' || s[i] == '\t' || s[i] == '\n')
+		while (ft_strchr(" \t\n", s[i]))
 			i++;
 		if (s[i] == '\0')
 			break ;
-		if (token_detected(tokens, s, &i))
+		if (token_detected(token_lst, s, &i))
 			return (1);
 	}
 	return (0);
