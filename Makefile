@@ -12,7 +12,7 @@ SRC		:=	exec_test.c \
 			parsing.c \
 			token.c \
 			token_init.c \
-			exec.c \
+			exec.c pipes.c \
 			bi_cd.c bi_echo.c bi_env.c bi_exit.c bi_export.c bi_pwd.c bi_unset.c\
 			
 

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/01/27 17:29:20 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:51:35 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,60 +23,8 @@
 
 t_env		**g_envp;
 
-static void decisionmaker(char **simple_cmd);
 static void path_funct(char **simple_cmd);
 static char **env_to_dc();
-static int	command_and_counter(t_simp_com *head);
-
-static int command_and_counter(t_simp_com *head)
-{
-	int i;
-	
-	i = 0;
-	while (head != NULL)
-	{
-		i++;
-		head = head->next;
-	}
-	return (i);
-}
-
-static void piping_mother(t_simp_com *head, int simp_l)
-{
-	t_simp_com *copy;
-	pid_t pid[simp_l];
-	int fds[2];
-	int i;
-	
-	i = 0;
-	pipe(fds);
-	pid[i] = fork();
-	if (pid == 0)
-	{
-		dup2(fds[0], STDIN_FILENO);
-		close(fds[0]);
-		close(fds[1]);
-		head = head->next;
-		decisionmaker(head->command);
-	}
-	close(fds[0]);
-	// printf("parent\n");
-	dup2(fds[1], STDOUT_FILENO);
-	decisionmaker(head->command);
-	close(fds[1]);
-	waitpid(pid, &simp_l, 0);
-}
-
-static void where_ma_pipes(t_simp_com *head)
-{
-	int i;
-	
-	i = command_and_counter(head);
-	if (i > 1)
-		piping_mother(head, i);
-	else
-		decisionmaker(head->command);
-}
 
 void	executer(t_simp_com *head)
 {
@@ -98,7 +46,7 @@ void	executer(t_simp_com *head)
 		// wait()	
 }
 
-static void	decisionmaker(char **simple_cmd)
+void	decisionmaker(char **simple_cmd)
 {
 	if (ft_strcmp(simple_cmd[0], "cd") == 0)
 		bi_cd(simple_cmd[1]);
@@ -143,6 +91,7 @@ static void path_funct(char **simple_cmd)
 	if (i == 0)
 	{
 		env = env_to_dc();
+		// sleep(1000);
 		execve(tmp, simple_cmd, env);
 	}
 	else	

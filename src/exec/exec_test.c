@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/01/27 17:16:40 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/01 18:03:06 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,18 @@ int main()
 	t_simp_com *sc;
 	t_simp_com *new;
 	t_simp_com *new2;
-	char *testcase[] = {"ls", NULL};
+	t_simp_com *new3;
+	char *testcase[] = {"cat", "file2.txt", NULL};
 	char *testcase2[] = {"sort", NULL};
-	char *testcase3[] = {"grep", "i", NULL};
+	char *testcase3[] = {"grep", "c", NULL};
+	char *testcase4[] = {"grep", "e", NULL};
 
 	sc = malloc(sizeof(t_simp_com));
 	new = malloc(sizeof(t_simp_com));
 	new2 = malloc(sizeof(t_simp_com));
+	new3 = malloc(sizeof(t_simp_com));
+	new3->command = testcase4;
+	new3->next = NULL;
 	new2->command = testcase3;
 	new2->next = NULL;
 	new->command = testcase2;
