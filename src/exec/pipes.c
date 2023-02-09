@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/08 19:13:41 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/09 17:25:46 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,36 +34,11 @@ int command_and_counter(t_simp_com *head)
 	return (i);
 }
 
-// static void one_pipe(t_simp_com *head, int simp_l)
-// {
-// 	// t_simp_com *copy;
-// 	pid_t pid;
-// 	int fds[2];
-	
-// 	pipe(fds);
-// 	pid = fork();
-// 	if (pid == 0)
-// 	{
-// 		dup2(fds[0], STDIN_FILENO);
-// 		close(fds[0]);
-// 		close(fds[1]);
-// 		head = head->next;
-// 		decisionmaker(head->command);
-// 	}
-// 	close(fds[0]);
-// 	// printf("parent\n");
-// 	dup2(fds[1], STDOUT_FILENO);
-// 	decisionmaker(head->command);
-// 	close(fds[1]);
-// 	waitpid(pid, &simp_l, 0);
-// }
-
 static void multiple_pipes(t_simp_com *head, int simp_l)
 {
 	pid_t pids[10];
 	t_simp_com *copy;
 	int fds[simp_l][2];
-	int prevfds[2];
 	int i;
 	int j;
 	int status;
@@ -77,8 +52,6 @@ static void multiple_pipes(t_simp_com *head, int simp_l)
 		// printf("I:%d\n", i);
 		i++;
 	}
-	prevfds[0] = -1;
-	prevfds[1] = -1;
 	i = 0;
 	while(i < simp_l)
 	{
@@ -119,17 +92,18 @@ static void multiple_pipes(t_simp_com *head, int simp_l)
 			close(fds[i][0]);
 			if (i != simp_l - 1)
 				close(fds[i + 1][1]);
+			// printf("hey\n");
 			decisionmaker(copy->command);
 		}
 		i++;
 	}
 	close(fds[0][0]);
-	close(fds[1][0]);
+	// close(fds[1][0]);
 	// printf("parent\n");
 	// printf("Parent: %s\n", head->command[0]);
 	dup2(fds[0][1], STDOUT_FILENO);
 	close(fds[0][1]);
-	close(fds[1][1]);
+	// close(fds[1][1]);
 	decisionmaker(head->command);
 	while (simp_l > 0)
 	{

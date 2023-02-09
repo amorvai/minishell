@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/08 19:14:27 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/09 17:14:00 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static char **env_to_dc();
 
 void	executer(t_simp_com *head)
 {
-	
 	init_env();
 	where_ma_pipes(head);
 	
@@ -82,7 +81,7 @@ static void path_funct(char **simple_cmd)
 		// printf("%s\n", tmp);
 		if (stat(tmp, &s) == 0)
 		{
-			i = 0;	
+			i = 0;
 			break;
 		}
 		i++;

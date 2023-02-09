@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/08 19:20:38 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/09 17:25:16 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int main()
 	t_simp_com *new;
 	t_simp_com *new2;
 	t_simp_com *new3;
-	char *testcase[] = {"ls", NULL};
-	char *testcase2[] = {"echo", "42", NULL};
-	char *testcase3[] = {"uniq", NULL};
+	char *testcase[] = {"cd", "..", NULL};
+	char *testcase2[] = {"echo", "hey", NULL};
+	char *testcase3[] = {"env", NULL};
 	char *testcase4[] = {"grep", "e", NULL};
 
 	sc = malloc(sizeof(t_simp_com));
@@ -36,11 +36,11 @@ int main()
 	new2->command = testcase3;
 	new2->next = NULL;
 	new->command = testcase2;
-	new->next = NULL;
+	new->next = new2;
 	sc->command = testcase;
 	sc->next = new;
 	executer(sc);
-	printf("%s\n", get_env("PWD"));
+	// printf("%s\n", get_env("PWD"));
 	// printf("FirstEntry:%s", head->content);
 	// printf("SecondEntry:%s", head->next->content);
 	
