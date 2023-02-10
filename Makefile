@@ -2,13 +2,17 @@ NAME	:= minishell
 CC		:= cc
 CFLAGS	:= -I src/ -I lib/ -g3 -fsanitize=address -Wall -Werror -Wextra
 LDFLAGS	:= -L ./lib/the_lib -l_extended -lreadline -L ~/.brew/opt/readline/lib/
-VPATH	:= src/ src/env/ src/parsing/ src/token/
+VPATH	:= src/ src/minishell src/env/ src/parsing/ src/token/ 
 OBJ_DIR	:= obj/
 
-SRC		:=	token_test.c \
+SRC		:=	main.c \
+			minishell.c \
 			env.c \
 			env_too.c \
 			parsing.c \
+			command.c \
+			expansion.c \
+			redirection.c \
 			token.c \
 			token_init.c \
 

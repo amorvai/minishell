@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/31 17:20:58 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/09 18:53:18 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-int	get_user_input()
+char	*get_user_input()
 {
 	char	*read_line;
 
@@ -36,10 +36,12 @@ int	minishell()
 
 	init_env();
 	read_line = get_user_input();
-	if (tokens_init(tokens, read_line))
+	tokens = NULL;
+	if (token_lst_init(&tokens, read_line))
 		return (1); //there can only be quoting errors
-	commands = parse(&tokens);
-	// if (read_line)d
+	commands = parse_for_commands(&tokens);
+	print_commands(commands);
+	command_clear(&commands);
 	free_env();
 	return (0);
 }

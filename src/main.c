@@ -6,9 +6,11 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 17:27:55 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/16 22:04:43 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/08 17:02:00 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell/minishell.h"
 
 int	main()
 {

@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:41:55 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/31 17:50:05 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/10 00:00:37 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	command_add_back(t_simp_com **lst, t_simp_com *new_elem)
 	{
 		if (*lst != NULL)
 		{
+			tmp = *lst;
 			while (tmp->next != NULL)
 				tmp = tmp->next;
 			tmp->next = new_elem;
@@ -75,5 +76,25 @@ void	command_clear(t_simp_com **lst)
 			free(*lst);
 			*lst = mem;
 		}
+	}
+}
+
+void	print_commands(t_simp_com *command)
+{
+	int	i;
+
+	while (command)
+	{
+		i = 0;
+		while (command->command[i])
+		{
+			ft_printf("command[%i]\t%s\n", i, command->command[i]);
+			i++;
+		}
+		print_redirection(command->redirect_input);
+		print_redirection(command->redirect_output);
+		command = command->next;
+		if (command)
+			ft_printf("=== (pipe)\n");
 	}
 }

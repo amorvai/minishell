@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 23:02:06 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/19 18:45:44 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/10 01:05:28 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_token_to_list(t_token **token_lst, const char *s,
 		return ;
 	new_token = ft_calloc(1, sizeof(t_token));
 	// what to fail
-	if (*j > 1)
+	if (*j > 0)
 	{
 		new_token->token = WORD;
 		new_token->word = ft_substr(s, *i, *j);
@@ -100,7 +100,7 @@ int	token_lst_init(t_token **token_lst, const char *s)
 		return (0);
 	while (s[i] != '\0')
 	{
-		while (ft_strchr(" \t\n", s[i]))
+		while (s[i] != '\0' && ft_strchr(" \t\n", s[i]))
 			i++;
 		if (s[i] == '\0')
 			break ;

@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:32:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/19 18:06:59 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/09 16:26:16 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@
 
 void	token_delete(t_token **lst, t_token *tobedeleted)
 {
-	t_token	*tmp;
-
 	if (tobedeleted->prev == NULL)
 	{
 		*lst = (*lst)->next;
@@ -72,7 +70,7 @@ void	token_delete(t_token **lst, t_token *tobedeleted)
 			tobedeleted->next->prev = tobedeleted->prev;
 	}
 	if (tobedeleted->word)
-		free(tmp->word);
+		free(tobedeleted->word);
 	free(tobedeleted);
 }
 
@@ -129,4 +127,5 @@ void	token_lst_print(t_token *token_lst)
 			ft_printf("LLESS:\t<<\n");
 		token_lst = token_lst->next;
 	}
+			ft_printf("NO MORE TOKENS\n\n");
 }

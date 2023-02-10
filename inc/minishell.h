@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:18:15 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/16 22:14:33 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/08 17:11:24 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,5 @@
 // {
 // 	/* data */
 // }				t_minishell;
-
-int create_list(char **splits, t_command *command_string);
 
 #endif
