@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 23:02:06 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/10 01:05:28 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/10 13:09:06 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,26 @@
 #include "token.h"
 #include <stdio.h>
 
-void	get_token_enum(const char *s, size_t *i, t_token *new_token)
+void	get_token_enum(const char *s, size_t i, size_t j, t_token *new_token)
 {
-	if (s[*i] == '|')
+	if (s[i] == '|')
 		new_token->token = PIPE;
-	else if (s[*i] == '<')
+	else if (s[i] == '<')
 	{
 		new_token->token = LESS;
-		if (s[*i + 1] == '<')
+		if (s[i + 1] == '<')
 			new_token->token = LLESS;
 	}
-	else if (s[*i] == '>')
+	else if (s[i] == '>')
 	{
 		new_token->token = GREAT;
-		if (s[*i + 1] == '>')
+		if (s[i + 1] == '>')
 			new_token->token = GGREAT;
+	}
+	else
+	{
+		new_token->token = WORD;
+		new_token->word = ft_substr(s, i, j);
 	}
 }
 
@@ -41,13 +46,7 @@ void	init_token_to_list(t_token **token_lst, const char *s,
 		return ;
 	new_token = ft_calloc(1, sizeof(t_token));
 	// what to fail
-	if (*j > 0)
-	{
-		new_token->token = WORD;
-		new_token->word = ft_substr(s, *i, *j);
-	}
-	else
-		get_token_enum(s, i, new_token);
+	get_token_enum(s, *i, *j, new_token);
 	if (new_token->token == GGREAT || new_token->token == LLESS)
 		(*j)++;
 	*i = *i + *j;
