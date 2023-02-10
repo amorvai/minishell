@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/09 17:14:00 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/10 17:20:48 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 t_env		**g_envp;
 
 static void path_funct(char **simple_cmd);
-static char **env_to_dc();
+static char *path_hunt(char *cmd);
+static char **env_to_dchar();
 
 void	executer(t_simp_com *head)
 {
@@ -45,7 +46,7 @@ void	executer(t_simp_com *head)
 		// wait()	
 }
 
-void	decisionmaker(char **simple_cmd)
+void	decisionmaker(char **simple_cmd, char *flex)
 {
 	if (ft_strcmp(simple_cmd[0], "cd") == 0)
 		bi_cd(simple_cmd[1]);
@@ -63,42 +64,59 @@ void	decisionmaker(char **simple_cmd)
 		bi_unset(simple_cmd);
 	else
 		path_funct(simple_cmd);
+	// perror("hello");
+	if (ft_strcmp(flex, "child") == 0)
+		exit(EXIT_SUCCESS);
+	//exit functions needs to be switched
+}
+
+static char *path_hunt(char *cmd)
+{
+	int		i;
+	char	**paths;
+	char	*path_to_ex;
+	struct	stat	s;
+	
+	i = 0;
+	paths = ft_split(get_env("PATH"), ':');
+	while (paths[i] != NULL)
+	{
+		path_to_ex = ft_strjoin(paths[i], ft_strjoin("/", cmd));
+		if (stat(path_to_ex, &s) == 0)
+		{
+			break;
+		}
+		i++;
+		path_to_ex = NULL;
+		free(path_to_ex);
+	}
+	return(path_to_ex);
 }
 
 static void path_funct(char **simple_cmd)
 {
-	char **paths;
-	char **env;
-	char *tmp;
-	struct stat s;
-	int i;
+	char		**env;
+	char		*path_to_ex;
 	
-	paths = ft_split(get_env("PATH"), ':');
-	i = 0;
-	while (paths[i] != NULL)
+	path_to_ex = path_hunt(simple_cmd[0]);
+	if (path_to_ex != NULL)
 	{
-		tmp = ft_strjoin(paths[i], ft_strjoin("/", simple_cmd[0]));
-		// printf("%s\n", tmp);
-		if (stat(tmp, &s) == 0)
-		{
-			i = 0;
-			break;
-		}
-		i++;
-		free(tmp);
-	}
-	if (i == 0)
-	{
-		env = env_to_dc();
+		env = env_to_dchar();
 		// sleep(1000);
-		execve(tmp, simple_cmd, env);
+		execve(path_to_ex, simple_cmd, env);
+			// idle_mode(1);
+			//this shit so weird
 	}
-	else	
-		printf("bash: %s: command not found\n", simple_cmd[0]);
-	// free(tmp);
+	else
+	{
+		ft_putstr_fd("bash: ", 2);
+		ft_putstr_fd(simple_cmd[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+	}
+	free(path_to_ex);
 }
 
-static char **env_to_dc()
+static char **env_to_dchar()
 {
 	char **env;
 	int length;
