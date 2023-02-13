@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 01:30:43 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/19 14:36:32 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/13 16:54:05 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_env(void);
 
 int		add_env(char *key, char *value); // export
 int		del_env(char *key); // unset
-void	print_env(void); // env
+void	print_env(char *flex); // env
 
 char	*get_env(char *key);
 

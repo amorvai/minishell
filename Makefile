@@ -5,11 +5,14 @@ LDFLAGS	:= -L ./lib/the_lib -l_extended -lreadline -L ~/.brew/opt/readline/lib/
 VPATH	:= src/ src/env/ src/parsing/ src/token/ src/minishell/ src/builtin/ src/exec/
 OBJ_DIR	:= obj/
 
-SRC		:=	exec_test.c \
+SRC		:=	main.c \
 			minishell.c \
 			env.c \
 			env_too.c \
 			parsing.c \
+			command.c \
+			expansion.c \
+			redirection.c \
 			token.c \
 			token_init.c \
 			exec.c pipes.c \

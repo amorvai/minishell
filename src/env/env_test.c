@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 10:07:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/13 17:36:12 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/13 17:35:05 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ int	main()
 	
 	i = 0;
 	init_env();
-	print_env();
-	printf("\n%s\n", get_env("PWD"));
+	print_env("test");
+	add_env("hello", "hello");
+	print_env("test");
+	
 	// printf("\n\n shouldve\n\n");
 	// while (environ[i] != NULL)
 	// {

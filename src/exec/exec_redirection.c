@@ -1,19 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 17:27:55 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/13 13:21:24 by pnolte           ###   ########.fr       */
+/*   Created: 2023/02/13 11:38:05 by pnolte            #+#    #+#             */
+/*   Updated: 2023/02/13 11:38:54 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell/minishell.h"
+#include "exec.h"
+#include "../parsing/parsing.h"
 
-int	main()
-{
-	minishell();
-	return (1);
-}

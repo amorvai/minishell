@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 18:00:03 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/19 14:32:02 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/13 17:28:52 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	add_env(char *key, char *value)
 	i = 0;
 	while (g_envp[i] != NULL)
 	{
-		
 		//if (!ft_strcmp(g_envp[i]->key, key))
 		if (ft_strcmp(g_envp[i]->key, key) == 0)
 		{

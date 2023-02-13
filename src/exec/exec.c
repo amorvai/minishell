@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/10 17:20:48 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/13 13:46:55 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static char **env_to_dchar();
 
 void	executer(t_simp_com *head)
 {
-	init_env();
+	if (head == NULL)
+		return ;
 	where_ma_pipes(head);
 	
 	

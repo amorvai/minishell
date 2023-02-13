@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 01:25:40 by amorvai           #+#    #+#             */
-/*   Updated: 2023/01/19 14:36:48 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/13 17:29:55 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ int	init_env(void)
 	g_envp = ft_calloc(j + 1, sizeof(t_env *));
 	while (i < j)
 	{
-		// printf("line: %i\n", i);
 		g_envp[i] = get_env_line(environ[i]);
 		if (g_envp[i] == NULL)
 			return (1);
@@ -72,7 +71,7 @@ int	init_env(void)
 	return (0);
 }
 
-void	print_env(void)
+void	print_env(char *flex)
 {
 	int	i;
 
@@ -84,7 +83,10 @@ void	print_env(void)
 	}
 	while (g_envp && g_envp[i] != NULL)
 	{
-		printf("%s=%s\n", g_envp[i]->key, g_envp[i]->value);
+		if (ft_strcmp(flex, "export") == 0)
+			printf("declare -x %s=\"%s\"\n", g_envp[i]->key, g_envp[i]->value);
+		else	
+			printf("%s=%s\n", g_envp[i]->key, g_envp[i]->value);
 		i++;
 	}
 }

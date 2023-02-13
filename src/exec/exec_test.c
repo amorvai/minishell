@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/10 17:21:04 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/13 13:11:07 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int main()
 	new->command = testcase2;
 	new->next = NULL;
 	sc->command = testcase;
+	sc->redirect_input->file = "../../outfile";
+	sc->redirect_input->redir_type = 
 	sc->next = new;
 	executer(sc);
 	// printf("hey\n");
