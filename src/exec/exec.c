@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/13 13:46:55 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/14 17:12:00 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,14 @@ static char **env_to_dchar();
 
 void	executer(t_simp_com *head)
 {
+	init_env();
 	if (head == NULL)
 		return ;
-	where_ma_pipes(head);
+	where_ma_redirec(head);
+	if (command_and_counter(head) > 0)
+		multiple_pipes(head, command_and_counter(head) - 1);
+	else
+		decisionmaker(head->command,  "parent");
 	
 	
 	// redirection()
@@ -84,9 +89,7 @@ static char *path_hunt(char *cmd)
 	{
 		path_to_ex = ft_strjoin(paths[i], ft_strjoin("/", cmd));
 		if (stat(path_to_ex, &s) == 0)
-		{
 			break;
-		}
 		i++;
 		path_to_ex = NULL;
 		free(path_to_ex);

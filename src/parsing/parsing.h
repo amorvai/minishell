@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 21:18:36 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/13 10:52:48 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/14 16:15:12 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_redirection
 {
 	enum e_token			redir_type;
 	char					*file;
+	int						fd;
 	struct s_redirection	*next;
 }				t_redirection;
 

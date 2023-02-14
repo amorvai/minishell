@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/10 17:18:15 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/14 17:02:38 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void idle_mode(int amo_cmd)
 	}
 }
 
-static void multiple_pipes(t_simp_com *head, int amo_pipes)
+void multiple_pipes(t_simp_com *head, int amo_pipes)
 {
 	pid_t		pids[10];
 	int			fds[amo_pipes][2];
@@ -166,10 +166,3 @@ static void multiple_pipes(t_simp_com *head, int amo_pipes)
 	//this minus ONE so damn weird
 }
 
-void where_ma_pipes(t_simp_com *head)
-{
-	if (command_and_counter(head) > 0)
-		multiple_pipes(head, command_and_counter(head) - 1);
-	else
-		decisionmaker(head->command,  "parent");
-}
