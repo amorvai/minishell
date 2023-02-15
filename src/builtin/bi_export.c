@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/13 17:43:04 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/15 15:34:45 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,10 @@ int bi_export(char **simple_command)
 		if (ft_strchr(simple_command[i], '=') != NULL)
 		{
 			split = ft_split(simple_command[i], '=');
-			misery[0] = variable_name_allowed(split[1], simple_command[i]);
+			misery[0] = variable_name_allowed(split[0], simple_command[i]);
 			if (misery[0] == false)
 			{
 				add_env(split[0], split[1]);
-				printf("you dont come i here?");
 			}
 			// free(split);
 			//free should happen later, if im correct

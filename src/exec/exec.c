@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/14 17:12:00 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/15 16:47:55 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include "../builtin/builtins.h"
 #include "../parsing/parsing.h"
 
-t_env		**g_envp;
+extern t_env		**g_envp;
 
 static void path_funct(char **simple_cmd);
 static char *path_hunt(char *cmd);
@@ -29,15 +29,17 @@ static char **env_to_dchar();
 
 void	executer(t_simp_com *head)
 {
-	init_env();
+	// init_env();
 	if (head == NULL)
 		return ;
 	where_ma_redirec(head);
-	if (command_and_counter(head) > 0)
+	if (command_and_counter(head) > 1)
 		multiple_pipes(head, command_and_counter(head) - 1);
 	else
+	{
 		decisionmaker(head->command,  "parent");
-	
+	}
+	// close_ma_redirec(head);
 	
 	// redirection()
 	// check_for_pipes()
@@ -70,7 +72,6 @@ void	decisionmaker(char **simple_cmd, char *flex)
 		bi_unset(simple_cmd);
 	else
 		path_funct(simple_cmd);
-	// perror("hello");
 	if (ft_strcmp(flex, "child") == 0)
 		exit(EXIT_SUCCESS);
 	//exit functions needs to be switched
@@ -108,6 +109,11 @@ static void path_funct(char **simple_cmd)
 		env = env_to_dchar();
 		// sleep(1000);
 		execve(path_to_ex, simple_cmd, env);
+		//if (just one command)
+			// free_env();
+			// init_env();
+		//this env doesnt change our env
+		//global variable need protection from data races
 			// idle_mode(1);
 			//this shit so weird
 	}

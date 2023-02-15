@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:38:05 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/14 19:24:40 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/15 13:45:53 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void where_ma_redirec(t_simp_com *cmds)
 		{
 			if (stat(c_r->file, &s) != 0)
 			{
-				c_r->fd = open(c_r->file, O_RDWR | O_CREAT);
+				c_r->fd = open(c_r->file, O_RDWR | O_CREAT, 0644);
 				close(c_r->fd);
 			}
 			if (c_r->redir_type == GREAT)
@@ -84,8 +84,7 @@ void where_ma_redirec(t_simp_com *cmds)
 			{
 				if(c_r->next == NULL)
 				{
-					c_r->fd = open(c_r->file, O_WRONLY | O_APPEND);
-					// lseek(c_r->fd, 0, SEEK_END);
+					c_r->fd = open(c_r->file, O_RDWR | O_APPEND);
 					dup2(c_r->fd, STDOUT_FILENO);
 				}
 			}

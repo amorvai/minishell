@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/14 19:23:50 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/15 14:37:17 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int main()
 	t_redirection *output2;
 	t_redirection *output3;
 	char *testcase[] = {"cat", "-e", NULL};
-	char *testcase2[] = {"sort", NULL};
+	char *testcase2[] = {"cat", "-e", NULL};
 	char *testcase3[] = {"", NULL};
 	char *testcase4[] = {"grep", "e", NULL};
 	char i_f1[] = "infile1";
@@ -52,7 +52,7 @@ int main()
 	output2 = malloc(sizeof(t_redirection));
 	output3 = malloc(sizeof(t_redirection));
 	sc->next = new;
-	new->next = new3;
+	new->next = NULL;
 	new2->next = NULL;
 	new3->next = NULL;
 	sc->command = testcase;
@@ -61,8 +61,8 @@ int main()
 	new->command = testcase2;
 	sc->redirect_input = input1;
 	sc->redirect_output = output1;
-	new->redirect_input = NULL;
-	new->redirect_output = NULL;
+	new->redirect_input = input3;
+	new->redirect_output = output3;
 	new3->redirect_input = NULL;
 	new3->redirect_output = NULL;
 	output1->file = o_f1;
@@ -76,8 +76,8 @@ int main()
 	input3->redir_type = LESS;
 	output1->redir_type = GREAT;
 	output2->redir_type = GREAT;
-	output3->redir_type = GGREAT;
-	input1->next = input2;
+	output3->redir_type = GREAT;
+	input1->next = NULL;
 	input2->next = input3;
 	input3->next = NULL;
 	output1->next = output2;

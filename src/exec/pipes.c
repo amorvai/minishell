@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/14 17:02:38 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/15 16:46:05 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,54 +71,44 @@ static void	the_closer(int amo_pipes, int fds[amo_pipes][2], int i, char *flex)
 			z++;
 		}
 	}
-	// if (i == 0)
-	// {
-	// 	close(fds[0][0]);
-	// 	// close(fds[0][1]);
-	// 	close(fds[1][1]);
-	// 	close(fds[1][1]);
-	// }
-	// if (i == amo_pipes)
-	// {
-	// 	// close(fds[0][0]);
-	// 	close(fds[0][1]);
-	// 	close(fds[1][0]);
-	// 	close(fds[1][1]);
-	// }
-	// if (i != 0 && i != amo_pipes)
-	// {
-	// 	// close(fds[0][0]);
-	// 	close(fds[0][1]);
-	// 	close(fds[1][0]);
-	// 	// close(fds[1][1]);
-	// }
 }
 
-static void	childish_behaviour(t_simp_com *h, int a_p, int fds[a_p][2], int i)
+static void	childish_behaviour(t_simp_com *c, int a_p, int fds[a_p][2], int i)
 {
-	int j;
+	// int			j;
+	t_simp_com	*p_c;	
 	
-	j = 0;
-	the_closer(a_p, fds, i, "child");
-	// perror("Begin\n");
-	while (h != NULL && j < i)
-	{
-		h = h->next;
-		j++;
-	}
-	if (i != 0)
+	// j = 0;
+	// while (h != NULL && j < i)
+	// {
+	// 	h = h->next;
+	// 	j++;
+	// }
+	if (c->prev != NULL)
+		p_c = c->prev;
+	// if (where_ma_redirec() != 0);
+	// 	exit();
+	// if (h->redirect_input != NULL && h->redirect_output != NULL)
+	// 	the_closer(a_p, fds, i, "parent");
+	// else if (h->redirect_input != NULL && h->redirect_output == NULL)
+	// 	the_closer(a_p, fds, i, "child");
+	// else if (h->redirect_input == NULL && h->redirect_output != NULL)
+	// 	the_closer(a_p, fds, i, "child");
+	// else
+	// 	the_close(a_p, fds, i, "child");
+	if (i != 0 && c->redirect_input == NULL && p_c->redirect_output == NULL)
 	{
 		dup2(fds[i - 1][0], STDIN_FILENO);
 		close(fds[i - 1][0]);	
 	}
-	if (i < a_p)
+	if (i < a_p && c->redirect_output == NULL)
 	{
 		// perror("hey\n");
 		dup2(fds[i][1], STDOUT_FILENO);
 		close(fds[i][1]);
 	}
 	// perror("End\n");
-	decisionmaker(h->command, "child");
+	decisionmaker(c->command, "child");
 }
 
 void idle_mode(int amo_cmd)
@@ -128,13 +118,14 @@ void idle_mode(int amo_cmd)
 	while (amo_cmd > 0)
 	{
 		wait(&status);
+		//exit_status of child
 		amo_cmd--;
 	}
 }
 
-void multiple_pipes(t_simp_com *head, int amo_pipes)
+void multiple_pipes(t_simp_com *cmds, int amo_pipes)
 {
-	pid_t		pids[10];
+	pid_t		pids[amo_pipes + 1];
 	int			fds[amo_pipes][2];
 	int			amo_cmd;
 	// int			**fds;
@@ -155,7 +146,8 @@ void multiple_pipes(t_simp_com *head, int amo_pipes)
 			//exit functions needs to be switched
 		}
 		else if (pids[i] == 0)
-			childish_behaviour(head, amo_pipes, fds, i);
+			childish_behaviour(cmds, amo_pipes, fds, i);
+		cmds = cmds->next; 
 		i++;
 	}
 	the_closer(amo_pipes, fds, 0, "parent");
