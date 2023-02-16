@@ -2,6 +2,7 @@
 	"files.associations": {
 		"sstream": "c",
 		"minishell.h": "c",
-		"history.h": "c"
+		"history.h": "c",
+		"parsing.h": "c"
 	}
 }

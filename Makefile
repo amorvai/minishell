@@ -5,7 +5,7 @@ LDFLAGS	:= -L ./lib/the_lib -l_extended -lreadline -L ~/.brew/opt/readline/lib/
 VPATH	:= src/ src/env/ src/parsing/ src/token/ src/minishell/ src/builtin/ src/exec/
 OBJ_DIR	:= obj/
 
-SRC		:=	main.c \
+SRC		:=	exec_test.c \
 			minishell.c \
 			env.c \
 			env_too.c \

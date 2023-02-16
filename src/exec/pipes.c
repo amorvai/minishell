@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/15 16:46:05 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 15:25:07 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,39 +75,20 @@ static void	the_closer(int amo_pipes, int fds[amo_pipes][2], int i, char *flex)
 
 static void	childish_behaviour(t_simp_com *c, int a_p, int fds[a_p][2], int i)
 {
-	// int			j;
-	t_simp_com	*p_c;	
-	
-	// j = 0;
-	// while (h != NULL && j < i)
-	// {
-	// 	h = h->next;
-	// 	j++;
-	// }
-	if (c->prev != NULL)
-		p_c = c->prev;
-	// if (where_ma_redirec() != 0);
-	// 	exit();
-	// if (h->redirect_input != NULL && h->redirect_output != NULL)
-	// 	the_closer(a_p, fds, i, "parent");
-	// else if (h->redirect_input != NULL && h->redirect_output == NULL)
-	// 	the_closer(a_p, fds, i, "child");
-	// else if (h->redirect_input == NULL && h->redirect_output != NULL)
-	// 	the_closer(a_p, fds, i, "child");
-	// else
-	// 	the_close(a_p, fds, i, "child");
-	if (i != 0 && c->redirect_input == NULL && p_c->redirect_output == NULL)
+	if (where_ma_redirec(c) != 0)
 	{
+		//there needs to be a error handler
+		exit(EXIT_FAILURE);
+	}
+	the_closer(a_p, fds, i, "child");
+	if (i != 0 && c->redirect_input == NULL)
 		dup2(fds[i - 1][0], STDIN_FILENO);
+	if (i != 0)
 		close(fds[i - 1][0]);	
-	}
 	if (i < a_p && c->redirect_output == NULL)
-	{
-		// perror("hey\n");
 		dup2(fds[i][1], STDOUT_FILENO);
+	if (i < a_p)
 		close(fds[i][1]);
-	}
-	// perror("End\n");
 	decisionmaker(c->command, "child");
 }
 

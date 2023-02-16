@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/15 14:37:17 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 12:42:19 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int main()
 	char *testcase[] = {"cat", "-e", NULL};
 	char *testcase2[] = {"cat", "-e", NULL};
 	char *testcase3[] = {"", NULL};
-	char *testcase4[] = {"grep", "e", NULL};
+	char *testcase4[] = {"sort", NULL};
 	char i_f1[] = "infile1";
 	char i_f2[] = "infile2";
 	char i_f3[] = "infile3";
@@ -52,7 +52,7 @@ int main()
 	output2 = malloc(sizeof(t_redirection));
 	output3 = malloc(sizeof(t_redirection));
 	sc->next = new;
-	new->next = NULL;
+	new->next = new3;
 	new2->next = NULL;
 	new3->next = NULL;
 	sc->command = testcase;
@@ -80,7 +80,7 @@ int main()
 	input1->next = NULL;
 	input2->next = input3;
 	input3->next = NULL;
-	output1->next = output2;
+	output1->next = NULL;
 	output2->next = output3;
 	output3->next = NULL;
 	executer(sc);

@@ -1,8 +1,0 @@
-builtin
-env
-exec
-main.c
-minishell
-outfile
-parsing
-token

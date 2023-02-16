@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/15 16:47:55 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 15:22:57 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,18 @@ static void path_funct(char **simple_cmd);
 static char *path_hunt(char *cmd);
 static char **env_to_dchar();
 
-void	executer(t_simp_com *head)
+void	executer(t_simp_com *cmds)
 {
-	// init_env();
-	if (head == NULL)
+	init_env();
+	if (cmds == NULL)
 		return ;
-	where_ma_redirec(head);
-	if (command_and_counter(head) > 1)
-		multiple_pipes(head, command_and_counter(head) - 1);
+	// where_ma_redirec(head);
+	if (command_and_counter(cmds) > 1)
+		multiple_pipes(cmds, command_and_counter(cmds) - 1);
 	else
 	{
-		decisionmaker(head->command,  "parent");
+		where_ma_redirec(cmds);
+		decisionmaker(cmds->command,  "parent");
 	}
 	// close_ma_redirec(head);
 	

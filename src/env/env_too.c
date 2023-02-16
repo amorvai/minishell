@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 18:00:03 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/15 15:24:43 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 12:44:23 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../../lib/the_lib/lib.h"
 #include <stdlib.h>
 
-t_env		**g_envp;
+extern t_env		**g_envp;
 
 char	*get_env(char *key)
 {

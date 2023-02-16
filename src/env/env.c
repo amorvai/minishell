@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 01:25:40 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/15 16:03:27 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 12:44:29 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdio.h>
 
 extern char	**environ;
-extern t_env		**g_envp;
+t_env		**g_envp;
 
 static void	get_len(char *environ_line, int *key, int *value)
 {

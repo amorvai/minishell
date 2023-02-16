@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/15 15:34:45 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 13:06:00 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ bool variable_name_allowed(char *str, char *export_value)
 	{
 		misery = true;
 		if (ft_isalnum(str[j]) == true || str[j] == '_')
-		{
 			misery = false;
-		}
 		j++;
 	}
 	if (misery == true)
@@ -50,7 +48,7 @@ int bi_export(char **simple_command)
 {
 	char	**split;
 	int		i;
-	bool	misery[2];
+	bool	misery;
 	
 	i = 1;
 	if (simple_command[1] == NULL)
@@ -60,22 +58,17 @@ int bi_export(char **simple_command)
 		if (ft_strchr(simple_command[i], '=') != NULL)
 		{
 			split = ft_split(simple_command[i], '=');
-			misery[0] = variable_name_allowed(split[0], simple_command[i]);
-			if (misery[0] == false)
+			misery = variable_name_allowed(split[0], simple_command[i]);
+			if (misery == false)
 			{
 				add_env(split[0], split[1]);
 			}
 			// free(split);
 			//free should happen later, if im correct
 		}
-		else
-		{
-			puke_error(simple_command[i]);
-			misery[1] = true;
-		}
 		i++;
 	}
-	if (misery[1] == true || misery[0] == true)
+	if (misery == true)
 		return(EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
