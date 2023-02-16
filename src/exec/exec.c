@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/16 17:59:01 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 19:04:25 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ static void path_funct(char **simple_cmd)
 	if (path_to_ex != NULL)
 	{
 		// sleep(1000);
-		if *
 		execve(path_to_ex, simple_cmd, g_envp);
 		//if (just one command)
 			// free_env();

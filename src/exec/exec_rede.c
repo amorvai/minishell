@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:38:05 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/16 16:28:15 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 19:04:09 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	input_search(t_redirection *input)
 {
 	struct	stat s;
 
-	if (input->redir_type == LESS || input->redir_type == LLESS)
+	if (input->redir_type == LESS)
 	{
 		//stat call needs to be changed, it doesnt catch directorys
 		if (stat(input->file, &s) != 0)
