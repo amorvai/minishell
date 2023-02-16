@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/16 15:22:57 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 16:08:44 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,6 @@ void	executer(t_simp_com *cmds)
 		where_ma_redirec(cmds);
 		decisionmaker(cmds->command,  "parent");
 	}
-	// close_ma_redirec(head);
-	
-	// redirection()
-	// check_for_pipes()
-	// redirection()
-	// fork();
-		// 		exec_builtin();
-		// 	if (!buitlin)
-		// 		search_path()
-		// 		fork();
-		// 		execv();
-		// 		wait();	
-		// wait()	
 }
 
 void	decisionmaker(char **simple_cmd, char *flex)
