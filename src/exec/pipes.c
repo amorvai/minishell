@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/15 16:46:05 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 10:32:06 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,6 @@
 #include "../builtin/builtins.h"
 #include "../parsing/parsing.h"
 
-int command_and_counter(t_simp_com *head)
-{
-	int i;
-	
-	i = 0;
-	while (head != NULL)
-	{
-		i++;
-		head = head->next;
-	}
-	return (i);
-}
 
 static void fabricating_pipes(int amo_pipes, int fds[amo_pipes][2])
 {
@@ -157,4 +145,3 @@ void multiple_pipes(t_simp_com *cmds, int amo_pipes)
 	// decisionmaker(head->command, "parent");
 	//this minus ONE so damn weird
 }
-

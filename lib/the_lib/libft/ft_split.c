@@ -6,12 +6,22 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 21:24:46 by amorvai           #+#    #+#             */
-/*   Updated: 2022/12/13 12:07:42 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/16 14:45:37 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
+
+size_t	split_count(char **splits)
+{
+	size_t	i;
+
+	i = 0;
+	while (splits && splits[i])
+		i++;
+	return (i);
+}
 
 char	**free_splits(char **splits)
 {

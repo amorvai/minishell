@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:47:14 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/13 11:42:17 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 10:26:12 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "../env/env.h"
-#include <stdio.h>
 #include "../../lib/the_lib/lib.h"
+#include <stdio.h>
 
 char	*get_key_name(char *str, int i)
 {

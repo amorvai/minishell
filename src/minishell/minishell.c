@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/15 15:33:09 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 13:18:58 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	minishell()
 		if (token_lst_init(&tokens, read_line))
 			return (1); //there can only be quoting errors
 		commands = parse_for_commands(&tokens); //
-		print_commands(commands);
-		executer(commands);
-		command_clear(&commands);
+		print_command_lst(commands);
+		// executer(commands);
+		command_lst_clear(&commands);
 	}
 	free_env();
 	return (0);
