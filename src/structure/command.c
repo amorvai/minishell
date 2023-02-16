@@ -3,17 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:41:55 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/13 11:41:52 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 10:50:42 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
-#include "../../lib/the_lib/lib.h"
+#include "command.h"
+#include "redirection.h" // free_redirection
+#include "../../lib/the_lib/lib.h" // ft_printf / free_splits
 
-void	command_add_back(t_simp_com **lst, t_simp_com *new_elem)
+int command_lst_len(t_simp_com *head)
+{
+	int i;
+	
+	i = 0;
+	while (head != NULL)
+	{
+		i++;
+		head = head->next;
+	}
+	return (i);
+}
+
+void	command_lst_add_back(t_simp_com **lst, t_simp_com *new_elem)
 {
 	t_simp_com	*tmp;
 
@@ -32,37 +46,7 @@ void	command_add_back(t_simp_com **lst, t_simp_com *new_elem)
 	}
 }
 
-void	free_str_arr(char **str)
-{
-	int	i;
-
-	i = 0;
-	if (str)
-	{
-		while (str[i])
-		{
-			free(str[i]);
-			i++;
-		}
-		free(str);
-	}
-}
-
-static void	free_redirection(t_redirection *redirections)
-{
-	t_redirection *temp;
-
-	while (redirections)
-	{
-		if (redirections->file)
-			free(redirections->file);
-		temp = redirections->next;
-		free(redirections);
-		redirections = temp;
-	}
-}
-
-void	command_clear(t_simp_com **lst)
+void	command_lst_clear(t_simp_com **lst)
 {
 	t_simp_com	*mem;
 
@@ -70,7 +54,7 @@ void	command_clear(t_simp_com **lst)
 	{
 		while (*lst != NULL)
 		{
-			free_str_arr((*lst)->command);
+			free_splits((*lst)->command);
 			free_redirection((*lst)->redirect_input);
 			free_redirection((*lst)->redirect_output);
 			mem = (*lst)->next;
@@ -80,7 +64,7 @@ void	command_clear(t_simp_com **lst)
 	}
 }
 
-void	print_commands(t_simp_com *command)
+void	print_command_lst(t_simp_com *command)
 {
 	int	i;
 

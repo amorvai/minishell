@@ -6,35 +6,36 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/16 16:08:44 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 17:59:01 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-#include "../minishell/minishell.h"
 #include "../env/env.h"
+#include "../builtin/builtins.h"
+#include "../parsing/parsing.h" // for append_str only, will move into different file/header tho
+#include "../structure/command.h"
+#include "../../lib/the_lib/lib.h"
+
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/stat.h>
-#include "../../lib/the_lib/lib.h"
-#include "../builtin/builtins.h"
-#include "../parsing/parsing.h"
 
-extern t_env		**g_envp;
+extern char		**g_envp;
 
 static void path_funct(char **simple_cmd);
 static char *path_hunt(char *cmd);
-static char **env_to_dchar();
 
 void	executer(t_simp_com *cmds)
 {
 	init_env();
 	if (cmds == NULL)
 		return ;
-	// where_ma_redirec(head);
-	if (command_and_counter(cmds) > 1)
-		multiple_pipes(cmds, command_and_counter(cmds) - 1);
+	// heredoc()
+	printf("Commands: %d\n", command_lst_len(cmds));
+	if (command_lst_len(cmds) > 1)
+		multiple_pipes(cmds, command_lst_len(cmds));
 	else
 	{
 		where_ma_redirec(cmds);
@@ -69,6 +70,7 @@ static char *path_hunt(char *cmd)
 {
 	int		i;
 	char	**paths;
+	char	*path_w_slash;
 	char	*path_to_ex;
 	struct	stat	s;
 	
@@ -76,27 +78,37 @@ static char *path_hunt(char *cmd)
 	paths = ft_split(get_env("PATH"), ':');
 	while (paths[i] != NULL)
 	{
-		path_to_ex = ft_strjoin(paths[i], ft_strjoin("/", cmd));
+		//
+		path_w_slash = ft_strjoin(paths[i], "/");
+		path_to_ex = ft_strjoin(path_w_slash, cmd);
+		free(path_w_slash);
+		// ^ instead of:
+		// path_to_ex = ft_strjoin(paths[i], ft_strjoin("/", cmd));
+		// 										^ LEAKS (str_join returns newly allocated string)
+		// alternatively:
+		// 		path_to_ex = ft_strjoin(paths[i], "/");
+		// 		append_str(&path_to_ex, cmd, 0, ft_strlen(cmd));
+		
 		if (stat(path_to_ex, &s) == 0)
 			break;
 		i++;
-		path_to_ex = NULL;
 		free(path_to_ex);
+		path_to_ex = NULL;
 	}
+	free_splits(paths);
 	return(path_to_ex);
 }
 
 static void path_funct(char **simple_cmd)
 {
-	char		**env;
 	char		*path_to_ex;
 	
 	path_to_ex = path_hunt(simple_cmd[0]);
 	if (path_to_ex != NULL)
 	{
-		env = env_to_dchar();
 		// sleep(1000);
-		execve(path_to_ex, simple_cmd, env);
+		if *
+		execve(path_to_ex, simple_cmd, g_envp);
 		//if (just one command)
 			// free_env();
 			// init_env();
@@ -104,6 +116,7 @@ static void path_funct(char **simple_cmd)
 		//global variable need protection from data races
 			// idle_mode(1);
 			//this shit so weird
+		free(path_to_ex);
 	}
 	else
 	{
@@ -111,26 +124,23 @@ static void path_funct(char **simple_cmd)
 		ft_putstr_fd(simple_cmd[0], 2);
 		ft_putstr_fd(": command not found\n", 2);
 	}
-	free(path_to_ex);
 }
 
-static char **env_to_dchar()
-{
-	char **env;
-	int length;
+// static char **env_to_dchar()
+// {
+// 	char **env;
+// 	int length;
 	
-	length = 0;
-	while (g_envp[length] != NULL)
-		length++;
-	env = malloc(sizeof(char *) * (length + 1));
-	length = 0;
-	while (g_envp[length] != NULL)
-	{
-		env[length] = ft_strjoin(g_envp[length]->key, g_envp[length]->value);
-		length++;				
-	}
-	env[length] = NULL;
-	return (env);
-}
-
-
+// 	length = 0;
+// 	while (g_envp[length] != NULL)
+// 		length++;
+// 	env = malloc(sizeof(char *) * (length + 1));
+// 	length = 0;
+// 	while (g_envp[length] != NULL)
+// 	{
+// 		env[length] = ft_strjoin(g_envp[length]->key, g_envp[length]->value);
+// 		length++;				
+// 	}
+// 	env[length] = NULL;
+// 	return (env);
+// }

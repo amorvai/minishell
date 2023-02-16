@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:58:08 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/13 11:42:15 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 10:28:36 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "../structure/command.h"
+#include "../structure/redirection.h"
 #include "../../lib/the_lib/lib.h"
 // GIMME THE LOOT
 
@@ -115,10 +117,10 @@ t_simp_com	*parse_for_commands(t_token **token_lst)
 		curr_command = get_simp_command(token_lst);
 		if (!curr_command)
 		{
-			command_clear(&head_command);
+			command_lst_clear(&head_command);
 			return (NULL);
 		}
-		command_add_back(&head_command, curr_command);
+		command_lst_add_back(&head_command, curr_command);
 	}
 	return (head_command);
 }

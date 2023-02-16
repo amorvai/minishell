@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/01/25 16:59:12 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 16:53:15 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void bi_cd(char *path)
 	if (path[0] == '.' && path[1] == '\0')
 		return;
 	else if (path == NULL || (path != NULL && path[0] == '~' && path[1] == '\0'))
-		add_env("PWD", get_env("HOME"));
+		add_env(ft_strjoin("PWD=", get_env("HOME")));
 	else if (path[0] == '.' && path[1] == '.' && path[2] == '\0')
 	{
 		str = cd_cut(cwd);
-		add_env("PWD", str);
+		add_env(ft_strjoin("PWD=", str));
 	}
 	else if ((path_stat.st_mode & S_IFMT) == S_IFREG)
 		printf("MML: cd: %s: Not a directory:\n", path);
@@ -50,16 +50,19 @@ void bi_cd(char *path)
 static void	bi_cd2(char *path, char *cwd)
 {
 	char *str;
+	char *str2;
 	
 	if (path[0] != '/')
 	{
-		str = ft_strjoin(cwd, ft_strjoin("/", path));
+		str2 = ft_strjoin("/", path);
+		str = ft_strjoin(cwd, str2);
+		free(str2);
 		if (chdir(str) == -1)
 		{
 			printf("MML: cd: %s: No such file or directory:\n", path);
 			return ;
 		}	
-		add_env("PWD", str);
+		add_env(ft_strjoin("PWD=", str));
 		free(str);
 	}
 	else if (path[0] == '/')
@@ -69,7 +72,7 @@ static void	bi_cd2(char *path, char *cwd)
 			printf("MML: cd: %s: No such file or directory:\n", path);
 			return ;
 		}	
-		add_env("PWD", path);
+		add_env(ft_strjoin("PWD=", path));
 	}
 }
 
@@ -78,12 +81,12 @@ static char *check_for_cwd()
 	char *cwd;
 	
 	cwd = get_env("PWD");
-	if (get_env("HOME") == NULL)
-		add_env("HOME", "/");
-	if (cwd == NULL)
+	if (get_env("HOME") == NULL || ft_strcmp(get_env("HOME"), "") == 0)
+		add_env(ft_strjoin("HOME=", "/"));
+	if (cwd == NULL || ft_strcmp(cwd, "") == 0)
 	{
-		if (get_env("OLDPWD") == NULL)
-			add_env("PWD", "/");
+		if (get_env("OLDPWD") == NULL || ft_strcmp(get_env("OLDPWD"), "") == 0)
+			add_env(ft_strjoin("PWD=", "/"));
 		cwd = get_env("OLDPWD");
 	}
 	return (cwd);

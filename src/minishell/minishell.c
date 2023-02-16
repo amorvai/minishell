@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/15 15:33:09 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 17:01:57 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	minishell()
 		if (token_lst_init(&tokens, read_line))
 			return (1); //there can only be quoting errors
 		commands = parse_for_commands(&tokens); //
-		print_commands(commands);
+		print_command_lst(commands);
 		executer(commands);
-		command_clear(&commands);
+		command_lst_clear(&commands);
 	}
 	free_env();
 	return (0);

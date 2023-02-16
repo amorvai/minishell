@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 22:03:04 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/13 11:42:21 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 13:17:25 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
-#include "../../lib/the_lib/lib.h"
+#include "redirection.h"
+#include "../parsing/parsing.h"
+#include "../../lib/the_lib/lib.h" // should be removed later (ft_ calloc in extract_redirection; bc it doesnt belong here but that part needs to be rewritten anyways)
 
 t_redirection	*extract_redirection(t_token *temp_lst)
 {
@@ -39,6 +40,20 @@ void	redir_add_back(t_redirection **lst, t_redirection *new_elem)
 		}
 		else
 			*lst = new_elem;
+	}
+}
+
+void	free_redirection(t_redirection *redirections)
+{
+	t_redirection *temp;
+
+	while (redirections)
+	{
+		if (redirections->file)
+			free(redirections->file);
+		temp = redirections->next;
+		free(redirections);
+		redirections = temp;
 	}
 }
 

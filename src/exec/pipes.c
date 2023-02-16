@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/16 15:25:07 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 17:01:50 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,6 @@
 #include "../builtin/builtins.h"
 #include "../parsing/parsing.h"
 
-int command_and_counter(t_simp_com *head)
-{
-	int i;
-	
-	i = 0;
-	while (head != NULL)
-	{
-		i++;
-		head = head->next;
-	}
-	return (i);
-}
 
 static void fabricating_pipes(int amo_pipes, int fds[amo_pipes][2])
 {
@@ -77,7 +65,7 @@ static void	childish_behaviour(t_simp_com *c, int a_p, int fds[a_p][2], int i)
 {
 	if (where_ma_redirec(c) != 0)
 	{
-		//there needs to be a error handler
+		// there needs to be a error handler
 		exit(EXIT_FAILURE);
 	}
 	the_closer(a_p, fds, i, "child");
@@ -104,21 +92,17 @@ void idle_mode(int amo_cmd)
 	}
 }
 
-void multiple_pipes(t_simp_com *cmds, int amo_pipes)
+void multiple_pipes(t_simp_com *cmds, int amo_cmds)
 {
-	pid_t		pids[amo_pipes + 1];
-	int			fds[amo_pipes][2];
-	int			amo_cmd;
-	// int			**fds;
+	pid_t		pids[amo_cmds];
+	int			fds[amo_cmds - 1][2];
+	int			amo_pipes;
 	int			i;
 
-	// fds = malloc(sizeof(int *) * amo_pipe);
-	// *fds = malloc(sizeof(int) * 2);
 	i = 0;
-	// printf("Amo_Pipes %d\n", amo_pipes);
-	amo_cmd = amo_pipes + 1;
+	amo_pipes = amo_cmds - 1;
 	fabricating_pipes(amo_pipes, fds);
-	while(i < amo_cmd)
+	while(i < amo_cmds)
 	{
 		if ((pids[i] = fork()) < 0)
 		{
@@ -132,10 +116,5 @@ void multiple_pipes(t_simp_com *cmds, int amo_pipes)
 		i++;
 	}
 	the_closer(amo_pipes, fds, 0, "parent");
-	idle_mode(amo_cmd);
-	// dup2(fds[0][1], STDOUT_FILENO);
-	// close(fds[0][1]);
-	// decisionmaker(head->command, "parent");
-	//this minus ONE so damn weird
+	idle_mode(amo_cmds);
 }
-

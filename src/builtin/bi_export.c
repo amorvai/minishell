@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/16 13:06:00 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/16 16:55:08 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ int bi_export(char **simple_command)
 	bool	misery;
 	
 	i = 1;
-	if (simple_command[1] == NULL)
-		print_env("export");
 	while (simple_command[i] != NULL)
 	{
 		if (ft_strchr(simple_command[i], '=') != NULL)
@@ -60,10 +58,8 @@ int bi_export(char **simple_command)
 			split = ft_split(simple_command[i], '=');
 			misery = variable_name_allowed(split[0], simple_command[i]);
 			if (misery == false)
-			{
-				add_env(split[0], split[1]);
-			}
-			// free(split);
+				add_env(simple_command[i]);
+			free(split);
 			//free should happen later, if im correct
 		}
 		i++;
