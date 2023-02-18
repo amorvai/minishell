@@ -6,11 +6,21 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 16:56:34 by amorvai           #+#    #+#             */
-/*   Updated: 2022/03/31 17:10:14 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/17 14:29:01 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+char	*ft_xstrjoin(const char *s1, const char *s2)
+{
+	char	*str;
+
+	str = ft_strjoin(s1, s2);
+	if (str)
+		return (str);
+	exit (-1);
+}
 
 char	*ft_strjoin(const char *s1, const char *s2)
 {

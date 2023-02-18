@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   bi_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/01/19 16:05:20 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/17 16:22:29 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../env/env.h"
 
-void bi_unset(char *env_var)
+#include <unistd.h>
+
+void bi_unset(char **cmds)
 {
-	del_env(env_var);
+	int i;
+	
+	i = 1;
+	while (cmds[i] != NULL)
+	{
+		del_env(cmds[i]);
+		i++;
+	}
 }

@@ -6,12 +6,22 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/01 16:24:34 by amorvai           #+#    #+#             */
-/*   Updated: 2022/04/02 16:45:00 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/17 15:13:50 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
+
+char	*ft_xitoa(int n)
+{
+	char	*ptr;
+
+	ptr = ft_itoa(n);
+	if (ptr)
+		return (ptr);
+	exit (-1);
+}
 
 static char	*real_itoa(char *str, int n, int i)
 {

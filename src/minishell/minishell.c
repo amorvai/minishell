@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/18 13:03:30 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/18 13:30:37 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "../token/token.h"
 #include "../parsing/parsing.h"
 #include "../exec/exec.h"
+#include "../../lib/the_lib/lib.h"
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -24,7 +25,8 @@ char	*get_user_input()
 {
 	char	*read_line;
 
-	read_line = readline("miesmushell is listening\n🐚... ");
+	printf("miesmushell is listening from %s", get_env("PWD"));
+	read_line = readline("\n🐚... ");
 	add_history(read_line);
 	return (read_line);
 }

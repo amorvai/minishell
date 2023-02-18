@@ -6,12 +6,22 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 17:13:59 by amorvai           #+#    #+#             */
-/*   Updated: 2022/04/02 16:10:19 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/17 15:05:48 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
+
+char	*ft_xstrtrim(const char *s1, const char *set)
+{
+	char	*ptr;
+
+	ptr = ft_strtrim(s1, set);
+	if (ptr)
+		return (ptr);
+	exit (-1);
+}
 
 char	*ft_strtrim(const char *s1, const char *set)
 {

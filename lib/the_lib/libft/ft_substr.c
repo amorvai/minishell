@@ -6,11 +6,21 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/31 16:09:05 by amorvai           #+#    #+#             */
-/*   Updated: 2022/03/31 17:00:32 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/17 14:42:54 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+char	*ft_xsubstr(const char *s, unsigned int start, size_t len)
+{
+	char	*ptr;
+
+	ptr = ft_substr(s, start, len);
+	if (ptr)
+		return (ptr);
+	exit (-1);
+}
 
 char	*ft_substr(const char *s, unsigned int start, size_t len)
 {

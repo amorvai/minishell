@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/31 15:54:43 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/17 14:36:47 by amorvai          ###   ########.fr       */
+/*   Created: 2023/01/06 01:30:43 by amorvai           #+#    #+#             */
+/*   Updated: 2023/01/09 18:37:06 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef ENV_H
+# define ENV_H
 
-char	*ft_xstrdup(const char *s1)
+typedef struct s_env
 {
-	char	*ptr;
+	char	*key;
+	char	*value;
+}				t_env;
 
-	ptr = ft_strdup(s1);
-	if (ptr)
-		return (ptr);
-	exit (-1);
-}
+int		init_env(void);
+void	free_env(void);
 
-char	*ft_strdup(const char *s1)
-{
-	size_t	i;
-	char	*new;
+int		add_env(char *key, char *value); // export
+int		del_env(char *key); // unset
+void	print_env(void); // env
 
-	new = malloc(ft_strlen(s1) + 1);
-	if (new == NULL)
-		return (NULL);
-	i = 0;
-	while (s1[i] != '\0')
-	{
-		new[i] = s1[i];
-		i++;
-	}
-	new[i] = '\0';
-	return (new);
-}
+char	*get_env(char *key);
+
+#endif

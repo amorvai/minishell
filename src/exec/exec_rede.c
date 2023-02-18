@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:38:05 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/16 19:04:09 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/17 14:35:04 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ void	output_search(t_redirection *output)
 
 	if (stat(output->file, &s) != 0)
 	{
-		output->fd = open(output->file, O_RDWR | O_CREAT, 0644);
+		output->fd = open(output->file, O_WRONLY | O_CREAT, 0644);
 		close(output->fd);
 	}
 	if (output->redir_type == GREAT)
 	{
 		if (output->next == NULL)
 		{
-			output->fd = open(output->file, O_RDWR);
+			output->fd = open(output->file, O_WRONLY);
 			dup2(output->fd, STDOUT_FILENO);
 			close(output->fd);
 		}
@@ -67,7 +67,7 @@ void	output_search(t_redirection *output)
 	{
 		if (output->next == NULL)
 		{
-			output->fd = open(output->file, O_RDWR | O_APPEND);
+			output->fd = open(output->file, O_WRONLY | O_APPEND);
 			dup2(output->fd, STDOUT_FILENO);
 			close(output->fd);
 		}

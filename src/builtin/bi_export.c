@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/16 16:55:08 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/18 13:38:58 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,8 @@ int bi_export(char **simple_command)
 			split = ft_split(simple_command[i], '=');
 			misery = variable_name_allowed(split[0], simple_command[i]);
 			if (misery == false)
-				add_env(simple_command[i]);
-			free(split);
-			//free should happen later, if im correct
+				add_env(ft_strdup(simple_command[i]));
+			free_splits(split);
 		}
 		i++;
 	}
