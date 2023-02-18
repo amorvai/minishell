@@ -6,16 +6,16 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:47:14 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/16 10:26:12 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/18 08:31:23 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parsing.h"
+#include "utils.h"
 #include "../env/env.h"
 #include "../../lib/the_lib/lib.h"
-#include <stdio.h>
+#include <stdio.h> // for NULL
 
-char	*get_key_name(char *str, int i)
+static char	*get_key_name(char *str, int i)
 {
 	int	j;
 
@@ -27,7 +27,7 @@ char	*get_key_name(char *str, int i)
 	return (NULL);
 }
 
-void	expand_env_var(char **command_str, char *str, size_t *i)
+static void	expand_env_var(char **command_str, char *str, size_t *i)
 {
 	char	*env_key;
 	char	*env_value;
@@ -45,7 +45,7 @@ void	expand_env_var(char **command_str, char *str, size_t *i)
 	free(env_key);
 }
 
-void	expand_sing_quote(char **command_str, char *str, size_t *i)
+static void	expand_sing_quote(char **command_str, char *str, size_t *i)
 {
 	size_t	j;
 
@@ -56,7 +56,7 @@ void	expand_sing_quote(char **command_str, char *str, size_t *i)
 	*i = *i + j + 1;
 }
 
-void	expand_doub_quote(char **command_str, char *str, size_t *i)
+static void	expand_doub_quote(char **command_str, char *str, size_t *i)
 {
 	char	*quoted;
 	size_t	j;
@@ -109,4 +109,4 @@ char	*expand_token(char *str)
 	}
 	append_str(&command_str, str, i, j);
 	return (command_str);
-}
+} // one line too much, still

@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:41:55 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/16 10:50:42 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/18 10:52:08 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,16 @@ void	command_lst_add_back(t_simp_com **lst, t_simp_com *new_elem)
 {
 	t_simp_com	*tmp;
 
-	if (lst != NULL)
+	if (*lst != NULL)
 	{
-		if (*lst != NULL)
-		{
-			tmp = *lst;
-			while (tmp->next != NULL)
-				tmp = tmp->next;
-			tmp->next = new_elem;
-			new_elem->prev = tmp;
-		}
-		else
-			*lst = new_elem;
+		tmp = *lst;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new_elem;
+		new_elem->prev = tmp;
 	}
+	else
+		*lst = new_elem;
 }
 
 void	command_lst_clear(t_simp_com **lst)

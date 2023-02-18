@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   expansion.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/09 21:18:36 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/18 10:32:26 by amorvai          ###   ########.fr       */
+/*   Created: 2023/02/17 15:36:33 by amorvai           #+#    #+#             */
+/*   Updated: 2023/02/17 15:37:10 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef EXPANSION_H
+# define EXPANSION_H
 
-# include "../token/token.h"
-# include "../structure/command.h"
-
-int	parse(t_token **token_lst, t_simp_com **head_command);
-
-int	is_redirection(enum e_token token_type);
-int	extract_redirections(t_token *it, t_token *next_lst, t_simp_com *command);
-
-int	extract_command(t_token *it, t_simp_com *command);
+char	*expand_token(char *str);
 
 #endif

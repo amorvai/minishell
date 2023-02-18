@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:33:27 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/09 13:45:15 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/18 09:43:36 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ typedef struct s_token
 
 // t_token	*tokenlast(t_token *lst);
 
+void	token_lst_add_back(t_token **lst, t_token *new_token);
 void	token_delete(t_token **lst, t_token *tobedeleted);
-void	tokenadd_back(t_token **lst, t_token *new_token);
-void	tokenclear(t_token **lst);
+void	token_lst_clear(t_token **lst);
+void	free_token_lst_array(t_token **token_lst_array, int array_len);
 void	token_lst_print(t_token *token_lst);
 
 int		token_lst_init(t_token **token_lst, const char *s);
-int		token_quote(const char *s, size_t *i, size_t *j, char quote_type);
 
 #endif

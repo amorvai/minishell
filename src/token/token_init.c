@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 23:02:06 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/10 13:09:06 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/18 09:44:08 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "token.h"
 #include <stdio.h>
 
-void	get_token_enum(const char *s, size_t i, size_t j, t_token *new_token)
+static void	get_token_enum(const char *s, size_t i, size_t j, t_token *new_token)
 {
 	if (s[i] == '|')
 		new_token->token = PIPE;
@@ -37,7 +37,7 @@ void	get_token_enum(const char *s, size_t i, size_t j, t_token *new_token)
 	}
 }
 
-void	init_token_to_list(t_token **token_lst, const char *s,
+static void	init_token_to_list(t_token **token_lst, const char *s,
 							size_t *i, size_t *j)
 {
 	t_token	*new_token;
@@ -51,10 +51,10 @@ void	init_token_to_list(t_token **token_lst, const char *s,
 		(*j)++;
 	*i = *i + *j;
 	*j = 0;
-	tokenadd_back(token_lst, new_token);
+	token_lst_add_back(token_lst, new_token);
 }
 
-int	token_quote(const char *s, size_t *i, size_t *j, char quote_type)
+static int	token_quote(const char *s, size_t *i, size_t *j, char quote_type)
 {
 	(*j)++;
 	while (s[*i + *j] != quote_type)

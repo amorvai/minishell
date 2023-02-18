@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:32:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/09 16:26:16 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/18 10:02:30 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,23 @@
 // }
 
 
+void	token_lst_add_back(t_token **lst, t_token *new_token)
+{
+	t_token	*tmp;
+
+	if (*lst != NULL)
+	{
+		// tmp = tokenlast(*lst);
+
+		tmp = *lst;
+		while (tmp->next != NULL)
+			tmp = tmp->next;
+		tmp->next = new_token;
+		new_token->prev = tmp;
+	}
+	else
+		*lst = new_token;
+}
 
 void	token_delete(t_token **lst, t_token *tobedeleted)
 {
@@ -74,25 +91,8 @@ void	token_delete(t_token **lst, t_token *tobedeleted)
 	free(tobedeleted);
 }
 
-void	tokenadd_back(t_token **lst, t_token *new_token)
-{
-	t_token	*tmp;
 
-	if (*lst != NULL)
-	{
-		// tmp = tokenlast(*lst);
-
-		tmp = *lst;
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		tmp->next = new_token;
-		new_token->prev = tmp;
-	}
-	else
-		*lst = new_token;
-}
-
-void	tokenclear(t_token **lst)
+void	token_lst_clear(t_token **lst)
 {
 	t_token	*mem;
 
@@ -107,6 +107,19 @@ void	tokenclear(t_token **lst)
 			*lst = mem;
 		}
 	}
+}
+
+void	free_token_lst_array(t_token **token_lst_array, int array_len)
+{
+	int	i;
+
+	i = 0;
+	while (i < array_len)
+	{
+		token_lst_clear(&token_lst_array[i]);
+		i++;
+	}
+	free(token_lst_array);
 }
 
 void	token_lst_print(t_token *token_lst)
