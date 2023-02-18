@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/16 17:01:57 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/18 13:03:30 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,18 @@ int	minishell()
 	t_simp_com	*commands;
 
 	init_env();
+	add_env("?=0");
 	while (1)
 	{
 		read_line = get_user_input();
 		tokens = NULL;
-		if (token_lst_init(&tokens, read_line))
-			return (1); //there can only be quoting errors
-		commands = parse_for_commands(&tokens); //
-		print_command_lst(commands);
+		commands = NULL;
+		if (token_lst_init(&tokens, read_line) || !tokens || parse(&tokens, &commands))
+		{
+			// print_command_lst(commands);
+			continue ;
+		}
+		// print_command_lst(commands);
 		executer(commands);
 		command_lst_clear(&commands);
 	}
