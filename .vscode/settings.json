@@ -3,6 +3,11 @@
 		"sstream": "c",
 		"minishell.h": "c",
 		"history.h": "c",
-		"parsing.h": "c"
+		"parsing.h": "c",
+		"env.h": "c",
+		"lib.h": "c",
+		"libft.h": "c",
+		"ft_printf.h": "c",
+		"get_next_line_fd.h": "c"
 	}
 }

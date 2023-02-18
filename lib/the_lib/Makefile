@@ -6,12 +6,12 @@
 #    By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/04 14:52:03 by amorvai           #+#    #+#              #
-#    Updated: 2023/01/24 14:50:33 by pnolte           ###   ########.fr        #
+#    Updated: 2023/02/17 15:43:41 by pnolte           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC		:= cc
-CFLAGS	:= -Wall -Wextra -Werror -fsanitize=address
+CFLAGS	:= -Wall -Wextra -Werror
 VPATH	:= printf/ printf/print_conversions/ get_next_line/
 OBJ_DIR	:= obj/
 

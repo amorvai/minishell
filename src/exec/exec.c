@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/16 19:04:25 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/17 16:53:34 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,28 @@ static char *path_hunt(char *cmd);
 
 void	executer(t_simp_com *cmds)
 {
-	init_env();
+	pid_t	pid;
+	
+	// init_env();
 	if (cmds == NULL)
 		return ;
 	// heredoc()
-	printf("Commands: %d\n", command_lst_len(cmds));
 	if (command_lst_len(cmds) > 1)
 		multiple_pipes(cmds, command_lst_len(cmds));
 	else
 	{
-		where_ma_redirec(cmds);
-		decisionmaker(cmds->command,  "parent");
+		if ((pid = fork()) < 0)
+		{
+			perror("Fork creation failed");
+			exit(EXIT_FAILURE);
+			//error handler
+		}
+		else if (pid == 0)
+		{
+			where_ma_redirec(cmds);
+			decisionmaker(cmds->command, "parent");
+		}
+		idle_mode(1);
 	}
 }
 
@@ -63,7 +74,42 @@ void	decisionmaker(char **simple_cmd, char *flex)
 		path_funct(simple_cmd);
 	if (ft_strcmp(flex, "child") == 0)
 		exit(EXIT_SUCCESS);
-	//exit functions needs to be switched
+	//exit status needs to be switched to end status of child 
+}
+
+static char *exec_hunt(char *cmd)
+{
+	char			**split;
+	char			*path_w_slash;
+	char			*path_to_ex;
+	struct	stat	s;
+	int				i;
+	
+	if (cmd[0] == '.' && cmd[1] == '/')
+	{
+		path_w_slash = ft_strjoin(get_env("PWD"), "/");
+		path_to_ex = ft_strjoin(path_w_slash, cmd);
+		free(path_w_slash);
+	}
+	else
+	{
+		split = ft_split(cmd, '/');
+		i = 0;
+		while (split[i] == NULL)
+		{
+			if (split[i][0] == '.' && split[i ][1] == '.')
+			{
+				path_to_ex = NULL;
+			}
+			i++;
+		}
+	}	
+	if (stat(path_to_ex, &s) != 0)
+	{
+		free(path_to_ex);
+		return (NULL);
+	}
+	return (path_to_ex);
 }
 
 static char *path_hunt(char *cmd)
@@ -78,17 +124,9 @@ static char *path_hunt(char *cmd)
 	paths = ft_split(get_env("PATH"), ':');
 	while (paths[i] != NULL)
 	{
-		//
 		path_w_slash = ft_strjoin(paths[i], "/");
 		path_to_ex = ft_strjoin(path_w_slash, cmd);
 		free(path_w_slash);
-		// ^ instead of:
-		// path_to_ex = ft_strjoin(paths[i], ft_strjoin("/", cmd));
-		// 										^ LEAKS (str_join returns newly allocated string)
-		// alternatively:
-		// 		path_to_ex = ft_strjoin(paths[i], "/");
-		// 		append_str(&path_to_ex, cmd, 0, ft_strlen(cmd));
-		
 		if (stat(path_to_ex, &s) == 0)
 			break;
 		i++;
@@ -102,21 +140,19 @@ static char *path_hunt(char *cmd)
 static void path_funct(char **simple_cmd)
 {
 	char		*path_to_ex;
+	int			i;
 	
-	path_to_ex = path_hunt(simple_cmd[0]);
-	if (path_to_ex != NULL)
+	i = 0;
+	while (simple_cmd[0][i] != '\0')
 	{
-		// sleep(1000);
-		execve(path_to_ex, simple_cmd, g_envp);
-		//if (just one command)
-			// free_env();
-			// init_env();
-		//this env doesnt change our env
-		//global variable need protection from data races
-			// idle_mode(1);
-			//this shit so weird
-		free(path_to_ex);
+		if (simple_cmd[0][i] == '.' && simple_cmd[0][i + 1] == '/')
+			path_to_ex = exec_hunt(simple_cmd[0]);
+		i++;
 	}
+	if (path_to_ex != NULL)
+		path_to_ex = path_hunt(simple_cmd[0]);
+	if (path_to_ex != NULL)
+		execve(path_to_ex, simple_cmd, g_envp);
 	else
 	{
 		ft_putstr_fd("bash: ", 2);

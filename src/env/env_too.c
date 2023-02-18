@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 18:00:03 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/16 16:45:00 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/17 16:19:09 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ int	del_env(char *key)
 	}
 	if (g_envp[i] == NULL)
 		return (1);
-	i = split_count(g_envp);
+	//return need to be 0 i think
+	while (g_envp[i] != NULL)
+		i++;
 	g_envp[temp] = g_envp[i - 1];
 	g_envp[i - 1] = NULL;
 	return (0);
