@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:58:59 by pnolte            #+#    #+#             */
-/*   Updated: 2023/01/24 14:49:32 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/20 16:53:13 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define BUILTINS_H
 
 void	bi_echo(char **simple_command);
-void	bi_cd(char *path);
+int		bi_cd(char *path);
 void	bi_pwd();
 void	bi_exit();
 void	bi_unset();

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/20 16:40:49 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/20 17:04:57 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,20 @@
 #include "../../lib/the_lib/lib.h"
 #include <stdio.h>
 
-static void	bi_cd2(char *path, char *cwd);
-static char *check_for_cwd();
-static char *cd_cut(char *path);
-
-void bi_cd(char *path)
+int bi_cd(char *path)
 {
-	char		*str;
-	char		*cwd;
-	struct stat	s;
+	int i;
 	
-	str = NULL;
-	cwd = check_for_cwd();
-	stat(path, &s);
-	if (path[0] == '.' && path[1] == '\0')
-		return;
-	else if (path == NULL || (path != NULL && path[0] == '~' && path[1] == '\0'))
-		chdir("")
-	
-	
-	// else if (path[0] == '.' && path[1] == '.' && path[2] == '\0')
+	add_env(ft_strjoin("OLDPWD=", (getenv("PWD"))));
+	i = chdir(path);
+	if (i < 0)
+	{
+		ft_putstr_fd("🐚: cd: Something went wrong", 2);
+		return(EXIT_FAILURE);
+	}
+	add_env(ft_strjoin("PWD=", (getenv("PWD"))));
+	printf("OLDPWD:%s\nPWD:%s\n", get_env("OLDPWD"), get_env("PWD"));
+	return(EXIT_SUCCESS);
 	// {
 	// 	str = cd_cut(cwd);
 	// 	add_env(ft_strjoin("PWD=", str));
@@ -78,21 +72,21 @@ void bi_cd(char *path)
 // 	}
 // }
 
-static char *check_for_cwd()
-{
-	char *cwd;
+// static char *check_for_cwd()
+// {
+// 	char *cwd;
 	
-	cwd = get_env("PWD");
-	if (get_env("HOME") == NULL || ft_strcmp(get_env("HOME"), "") == 0)
+// 	cwd = get_env("PWD");
+// 	if (get_env("HOME") == NULL || ft_strcmp(get_env("HOME"), "") == 0)
 		
-	if (cwd == NULL || ft_strcmp(cwd, "") == 0)
-	{
-		if (get_env("OLDPWD") == NULL || ft_strcmp(get_env("OLDPWD"), "") == 0)
-			add_env(ft_strdup("PWD=/"));
-		cwd = get_env("OLDPWD");
-	}
-	return (cwd);
-}
+// 	if (cwd == NULL || ft_strcmp(cwd, "") == 0)
+// 	{
+// 		if (get_env("OLDPWD") == NULL || ft_strcmp(get_env("OLDPWD"), "") == 0)
+// 			add_env(ft_strdup("PWD=/"));
+// 		cwd = get_env("OLDPWD");
+// 	}
+// 	return (cwd);
+// }
 
 // static char *cd_cut(char *path)
 // {
