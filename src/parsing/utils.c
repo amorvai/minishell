@@ -6,11 +6,12 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:27:14 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/18 10:00:16 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/19 19:40:21 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../token/token.h"
+#include "../env/env.h"
 #include "../../lib/the_lib/lib.h"
 
 void	append_str(char **command_str, char *str, size_t start, size_t len)
@@ -34,6 +35,7 @@ void	append_str(char **command_str, char *str, size_t start, size_t len)
 
 void	print_syntax_error(const t_token *nearby_token)
 {
+	add_env(ft_strdup("?=2"));
 	ft_putstr_fd("miesmushell: syntax error near unexpected token ", 2);
 	if (!nearby_token)
 		ft_putstr_fd("\'newline\'\n", 2);
