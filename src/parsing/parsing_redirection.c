@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:23:38 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/21 17:35:11 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/21 19:12:39 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	extract_redirections(t_token *it, t_token *next_lst, t_simp_com *command)
 		{
 			if (it->next != NULL && it->next->token != WORD)
 				return (print_syntax_error(it->next), 1);
-			if (it->next == NULL && next_lst)
-				return (print_syntax_error(NULL), 1);
 			if (it->next == NULL && !next_lst)
+				return (print_syntax_error(NULL), 1);
+			if (it->next == NULL && next_lst)
 				return (print_syntax_error(&a), 1);
 			if (is_redirection_input(it->token))
 				add_redirection(it->token, it->next->word,
