@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/21 12:09:38 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/21 12:40:03 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,5 @@ int bi_cd(char *path)
 	}	
 	if (r_v[1] == EXIT_FAILURE)
 		return(EXIT_FAILURE);
-	printf("OLDPWD:%s\nPWD:%s\n", get_env("OLDPWD"), get_env("PWD"));
 	return(EXIT_SUCCESS);
 }
