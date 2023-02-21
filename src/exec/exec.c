@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/20 16:08:48 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/21 11:52:52 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static int path_funct(char **simple_cmd)
 	struct stat	s;
 	
 	//
-	if (stat(simple_cmd[0], &s) == 0 && s.st_mode & S_IXUSR)
+	if (stat(simple_cmd[0], &s) == 0 && S_ISREG(s.st_mode))
 	{
 		if (s.st_mode != S_IXUSR)
 			execve(simple_cmd[0], simple_cmd, g_envp);
