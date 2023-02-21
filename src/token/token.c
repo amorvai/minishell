@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:32:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/18 10:02:30 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/21 17:17:16 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,12 @@
 #include "token.h"
 #include <stdlib.h>
 
-// t_token	*tokenlast(t_token *lst)
-// {
-// 	if (lst == NULL)
-// 		return (NULL);
-// 	while (lst->next != NULL)
-// 		lst = lst->next;
-// 	return (lst);
-// }
-
-
-// void	token_delete(t_token **lst, t_token *tobedeleted)
-// {
-// 	t_token	*tmp;
-
-// 	if (*lst == tobedeleted)
-// 	{
-// 		if ((*lst)->next)
-// 			*lst = (*lst)->next;
-// 		(*lst)->prev = NULL;
-// 	}
-// 	else
-// 	{
-// 		tmp = *lst;
-// 		while (tmp->next != NULL)
-// 		{
-// 			if (tmp->next == tobedeleted)
-// 			{
-// 				tmp->next = tmp->next->next;
-// 				if (tmp->next)
-// 					tmp->next->prev = tmp;
-// 			}
-// 			tmp = tmp->next;
-// 		}
-// 	}
-// 	if (tobedeleted->word)
-// 		free(tmp->word);
-// 	free(tobedeleted);
-// }
-
-
 void	token_lst_add_back(t_token **lst, t_token *new_token)
 {
 	t_token	*tmp;
 
 	if (*lst != NULL)
 	{
-		// tmp = tokenlast(*lst);
-
 		tmp = *lst;
 		while (tmp->next != NULL)
 			tmp = tmp->next;
@@ -90,7 +48,6 @@ void	token_delete(t_token **lst, t_token *tobedeleted)
 		free(tobedeleted->word);
 	free(tobedeleted);
 }
-
 
 void	token_lst_clear(t_token **lst)
 {
@@ -140,5 +97,5 @@ void	token_lst_print(t_token *token_lst)
 			ft_printf("LLESS:\t<<\n");
 		token_lst = token_lst->next;
 	}
-			ft_printf("NO MORE TOKENS\n\n");
+	ft_printf("NO MORE TOKENS\n\n");
 }

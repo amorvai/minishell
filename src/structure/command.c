@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 17:41:55 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/18 10:52:08 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/21 15:09:58 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include "redirection.h" // free_redirection
 #include "../../lib/the_lib/lib.h" // ft_printf / free_splits
 
-int command_lst_len(t_simp_com *head)
+int	command_lst_len(t_simp_com *head)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (head != NULL)
 	{

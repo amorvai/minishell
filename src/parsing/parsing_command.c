@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 07:42:02 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/18 10:52:25 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/21 18:05:15 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 static int	command_word_count(t_token *it)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (it)
@@ -34,9 +34,9 @@ static int	command_word_count(t_token *it)
 
 int	extract_command(t_token *it, t_simp_com *command)
 {
-	int i;
+	int	i;
 
-	command->command = malloc((command_word_count(it) + 1)* sizeof(char *));
+	command->command = ft_xcalloc(command_word_count(it) + 1, sizeof(char *));
 	i = 0;
 	while (it)
 	{
