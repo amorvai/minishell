@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/16 16:53:30 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/23 21:01:38 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@
 int bi_env(char **simple_command)
 {
 	//ft_strcmp needs to be not casesensetiv
+	// !!!!!!!! just use to upper or to lower in a string iterator ;P
 	if (ft_strcmp(simple_command[1], "pwd") == 0)
 	{
 		ft_putstr_fd(get_env("PWD"), 1);
+		ft_putstr_fd("\n", 1);
 		return (EXIT_SUCCESS);
 	}
 	else if (simple_command[1] != NULL)
