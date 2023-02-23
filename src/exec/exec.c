@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/18 13:32:52 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/21 11:52:52 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@
 
 extern char		**g_envp;
 
-static void path_funct(char **simple_cmd);
-static char *path_hunt(char *cmd);
+static int path_funct(char **simple_cmd);
+static char *path_hunt(char *cmd, struct stat s);
 
-void	executer(t_simp_com *cmds)
+int	executer(t_simp_com *cmds)
 {
 	pid_t	pid;
 	
 	// init_env();
 	if (cmds == NULL)
-		return ;
+		return (0);
 	// heredoc()
 	if (command_lst_len(cmds) > 1)
 		multiple_pipes(cmds, command_lst_len(cmds));
@@ -47,11 +47,13 @@ void	executer(t_simp_com *cmds)
 		}
 		else if (pid == 0)
 		{
-			where_ma_redirec(cmds);
+			if (where_ma_redirec(cmds) != 0)
+				exit(EXIT_FAILURE);
 			decisionmaker(cmds->command, "parent");
 		}
 		idle_mode(1);
 	}
+	return(EXIT_SUCCESS);
 }
 
 void	decisionmaker(char **simple_cmd, char *flex)
@@ -77,48 +79,12 @@ void	decisionmaker(char **simple_cmd, char *flex)
 	//exit status needs to be switched to end status of child 
 }
 
-static char *exec_hunt(char *cmd)
-{
-	char			**split;
-	char			*path_w_slash;
-	char			*path_to_ex;
-	struct	stat	s;
-	int				i;
-	
-	if (cmd[0] == '.' && cmd[1] == '/')
-	{
-		path_w_slash = ft_strjoin(get_env("PWD"), "/");
-		path_to_ex = ft_strjoin(path_w_slash, cmd);
-		free(path_w_slash);
-	}
-	else
-	{
-		split = ft_split(cmd, '/');
-		i = 0;
-		while (split[i] == NULL)
-		{
-			if (split[i][0] == '.' && split[i ][1] == '.')
-			{
-				path_to_ex = NULL;
-			}
-			i++;
-		}
-	}	
-	if (stat(path_to_ex, &s) != 0)
-	{
-		free(path_to_ex);
-		return (NULL);
-	}
-	return (path_to_ex);
-}
-
-static char *path_hunt(char *cmd)
+static char *path_hunt(char *cmd, struct stat s)
 {
 	int		i;
 	char	**paths;
 	char	*path_w_slash;
 	char	*path_to_ex;
-	struct	stat	s;
 	
 	i = 0;
 	paths = ft_split(get_env("PATH"), ':');
@@ -137,28 +103,38 @@ static char *path_hunt(char *cmd)
 	return(path_to_ex);
 }
 
-static void path_funct(char **simple_cmd)
+static int path_funct(char **simple_cmd)
 {
 	char		*path_to_ex;
-	int			i;
+	struct stat	s;
 	
-	i = 0;
-	while (simple_cmd[0][i] != '\0')
+	//
+	if (stat(simple_cmd[0], &s) == 0 && S_ISREG(s.st_mode))
 	{
-		if (simple_cmd[0][i] == '.' && simple_cmd[0][i + 1] == '/')
-			path_to_ex = exec_hunt(simple_cmd[0]);
-		i++;
+		if (s.st_mode != S_IXUSR)
+			execve(simple_cmd[0], simple_cmd, g_envp);
+		else
+		{
+			ft_putstr_fd("🐚: ", 2);
+			ft_putstr_fd(simple_cmd[0], 2);
+			ft_putstr_fd(": Permission denied Executable\n", 2);
+			return (EXIT_FAILURE);
+		}
 	}
-	if (path_to_ex != NULL)
-		path_to_ex = path_hunt(simple_cmd[0]);
-	if (path_to_ex != NULL)
-		execve(path_to_ex, simple_cmd, g_envp);
 	else
 	{
-		ft_putstr_fd("bash: ", 2);
-		ft_putstr_fd(simple_cmd[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
+		path_to_ex = path_hunt(simple_cmd[0], s);
+		if (path_to_ex != NULL)
+			execve(path_to_ex, simple_cmd, g_envp);
+		else
+		{
+			ft_putstr_fd("🐚: ", 2);
+			ft_putstr_fd(simple_cmd[0], 2);
+			ft_putstr_fd(": command not found\n", 2);
+			return (EXIT_FAILURE);
+		}
 	}
+	return (EXIT_SUCCESS);
 }
 
 // static char **env_to_dchar()

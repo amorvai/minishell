@@ -6,110 +6,68 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/17 16:26:45 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/21 12:40:03 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../env/env.h"
-#include <sys/stat.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include "../../lib/the_lib/lib.h"
+
+#include <unistd.h>
+#include <limits.h>
+#include <sys/stat.h>
 #include <stdio.h>
 
-static void	bi_cd2(char *path, char *cwd);
-static char *check_for_cwd();
-static char *cd_cut(char *path);
-
-void bi_cd(char *path)
+static int switch_heel(char *path)
 {
-	char		*str;
-	struct stat	path_stat;
-	char		*cwd;
+	char		oldpwd[PATH_MAX];
+	char		cwd[PATH_MAX];
 	
-	str = NULL;
-	cwd = check_for_cwd();
-	stat(path, &path_stat);
-	if (path[0] == '.' && path[1] == '\0')
-		return;
-	else if (path == NULL || (path != NULL && path[0] == '~' && path[1] == '\0'))
-		add_env(ft_strjoin("PWD=", get_env("HOME")));
-	else if (path[0] == '.' && path[1] == '.' && path[2] == '\0')
-	{
-		str = cd_cut(cwd);
-		add_env(ft_strjoin("PWD=", str));
-	}
-	else if ((path_stat.st_mode & S_IFMT) == S_IFREG)
-		printf("MML: cd: %s: Not a directory:\n", path);
-	else if (path != NULL)
-		bi_cd2(path, cwd);
+	if (getcwd(oldpwd, sizeof(oldpwd)) != NULL)
+		add_env(ft_strjoin("OLDPWD=", oldpwd));
 	else
-		printf("MML: cd: %s: Something went not as planned\n", str);
-}
-
-static void	bi_cd2(char *path, char *cwd)
-{
-	char *str;
-	char *str2;
-	
-	if (path[0] != '/')
+		ft_putstr_fd("🐚: cd: getcwd OLDPWD error\n", 2);
+	if (chdir(path) < 0)
 	{
-		str2 = ft_strjoin("/", path);
-		str = ft_strjoin(cwd, str2);
-		free(str2);
-		if (chdir(str) == -1)
+		ft_putstr_fd("🐚: cd: chdir error\n", 2);
+		return(EXIT_FAILURE);
+	}
+	else
+	{
+		if(getcwd(cwd, sizeof(cwd)) != NULL)
+			add_env(ft_strjoin("PWD=", cwd));
+		else
 		{
-			printf("MML: cd: %s: No such file or directory:\n", path);
-			return ;
-		}	
-		add_env(ft_strjoin("PWD=", str));
-		free(str);
+			ft_putstr_fd("🐚: cd: getcwd PWD error\n", 2);
+			return(EXIT_FAILURE);
+		}
 	}
-	else if (path[0] == '/')
-	{
-		if (chdir(path) == -1)
-		{
-			printf("MML: cd: %s: No such file or directory:\n", path);
-			return ;
-		}	
-		add_env(ft_strjoin("PWD=", path));
-	}
+	return(EXIT_SUCCESS);
 }
 
-static char *check_for_cwd()
-{
-	char *cwd;
-	
-	cwd = get_env("PWD");
-	if (get_env("HOME") == NULL || ft_strcmp(get_env("HOME"), "") == 0)
-		add_env(ft_strjoin("HOME=", "/"));
-	if (cwd == NULL || ft_strcmp(cwd, "") == 0)
-	{
-		if (get_env("OLDPWD") == NULL || ft_strcmp(get_env("OLDPWD"), "") == 0)
-			add_env(ft_strjoin("PWD=", "/"));
-		cwd = get_env("OLDPWD");
-	}
-	return (cwd);
-}
 
-static char *cd_cut(char *path)
+int bi_cd(char *path)
 {
-	char	*shortend_path;
-	int		i;
-	int		j;
+	struct stat	s;
+	int			r_v[2];
 	
-	i = ft_strlen(path);
-	while (path[i] != '/')
-		i--;
-	shortend_path = malloc(sizeof(char) * i + 1);
-	if (shortend_path == NULL)
-		return (NULL);
-	j = 0;
-	while (j < i)
+	if (path[0] == '~' && path[1] == '\0')
+		r_v[1] = switch_heel(get_env("HOME"));
+	else if (path[0] == '-' && path[1] == '\0')
+		r_v[1] = switch_heel(get_env("OLDPWD"));
+	else if ((r_v[0] = stat(path, &s)) >= 0 && S_ISDIR(s.st_mode))
+		r_v[1] = switch_heel(path);
+	else
 	{
-		shortend_path[j] = path[j];
-		j++;	
-	}
-	shortend_path[j] = '\0';
-	return(shortend_path);
+		ft_putstr_fd("🐚: cd: ", 2);
+		ft_putstr_fd(path, 2);	
+		if (r_v[0] == -1)
+			ft_putstr_fd(": No such file or directory\n", 2);
+		else
+			ft_putstr_fd(": Not a directory\n", 2);
+		return(EXIT_FAILURE);
+	}	
+	if (r_v[1] == EXIT_FAILURE)
+		return(EXIT_FAILURE);
+	return(EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:38:05 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/17 14:35:04 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/20 16:16:22 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,26 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 
-int	input_search(t_redirection *input)
+static int	permission_to_do(struct stat s, char *file, char *flex, int e)
 {
-	struct	stat s;
+	if ((e == 0 && ft_strcmp(flex, "input") == 0 && s.st_mode & S_IRUSR) || 
+		(e == 0 && ft_strcmp(flex, "output") == 0 && s.st_mode & S_IWUSR))
+		return(EXIT_SUCCESS);
+	else
+	{
+		ft_putstr_fd("🐚: ", 2);
+		ft_putstr_fd(file, 2);
+		ft_putstr_fd(": Permission denied\n", 2);
+		return(EXIT_FAILURE);
+	}
+}
 
+static int	input_search(t_redirection *input, int existence)
+{
 	if (input->redir_type == LESS)
 	{
 		//stat call needs to be changed, it doesnt catch directorys
-		if (stat(input->file, &s) != 0)
+		if (existence != 0)
 		{
 			// we should have an error handler
 			ft_putstr_fd("🐚: ", 2);
@@ -44,11 +56,9 @@ int	input_search(t_redirection *input)
 	return (EXIT_SUCCESS);
 }
 
-void	output_search(t_redirection *output)
+static int	output_search(t_redirection *output, int existence)
 {
-	struct	stat s;
-
-	if (stat(output->file, &s) != 0)
+	if (existence != 0)
 	{
 		output->fd = open(output->file, O_WRONLY | O_CREAT, 0644);
 		close(output->fd);
@@ -72,23 +82,32 @@ void	output_search(t_redirection *output)
 			close(output->fd);
 		}
 	}
+	return (EXIT_SUCCESS);
 }
 
 int	where_ma_redirec(t_simp_com *single_cmd)
 {
 	t_redirection	*redirection;
+	struct stat		s;
+	int				existence;
 
 	redirection = single_cmd->redirect_input;
 	while (redirection != NULL)
 	{
-		if (input_search(redirection) == EXIT_FAILURE)
+		existence = stat(redirection->file, &s);
+		if (permission_to_do(s, redirection->file, "input", existence) != 0)
+			return(EXIT_FAILURE);
+		if (input_search(redirection, existence) == EXIT_FAILURE)
 			return (EXIT_FAILURE);
 		redirection = redirection->next;
 	}
 	redirection = single_cmd->redirect_output;
 	while (redirection != NULL)
 	{
-		output_search(redirection);
+		existence = stat(redirection->file, &s);
+		if (permission_to_do(s, redirection->file, "output", existence) != 0)
+			return(EXIT_FAILURE);
+		output_search(redirection, existence);
 		redirection = redirection->next;
 	}
 	return (EXIT_SUCCESS);

@@ -1,24 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 16:27:00 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/20 14:56:40 by pnolte           ###   ########.fr       */
+/*   Created: 2023/02/21 12:44:12 by pnolte            #+#    #+#             */
+/*   Updated: 2023/02/21 17:09:18 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#include "../../lib/the_lib/lib.h"
 
-# include "../structure/command.h"
+#include <signal.h>
 
-int		executer(t_simp_com *head);
-int		where_ma_redirec(t_simp_com *single_cmd);
-void	decisionmaker(char **simple_cmd, char *flex);
-void	multiple_pipes(t_simp_com *head, int amo_pipes);
-void	idle_mode(int amo_pipe);
+static void signal_decider()
+{
+	
+}
 
-#endif
+void signal_hand(int signo, siginfo_t *info)
+{
+	SIGQUIT
+	SIGTSTP
+	
+}
+
+struct sigaction init_sig()
+{
+	struct sigaction s_act;
+	
+	s_act.sa_flags = SA_SIGINFO;
+	s_act.sa_sigaction = signal_hand;
+	return(s_act);
+}
