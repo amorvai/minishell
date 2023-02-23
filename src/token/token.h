@@ -6,15 +6,12 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:33:27 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/18 09:43:36 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/23 10:38:09 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKEN_H
 # define TOKEN_H
-
-# include <stdio.h>
-// #include "whateverthefuck"
 
 enum e_token {
 	WORD,
