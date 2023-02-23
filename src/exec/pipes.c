@@ -10,13 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
-#include "../minishell/minishell.h"
-#include "../env/env.h"
 #include <unistd.h>
+#include <stdlib.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+#include "exec.h"
+#include "../env/env.h"
+#include "../minishell/minishell.h"
 #include "../../lib/the_lib/lib.h"
 #include "../builtin/builtins.h"
 #include "../parsing/parsing.h"

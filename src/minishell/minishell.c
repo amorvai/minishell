@@ -18,6 +18,7 @@
 #include "../../lib/the_lib/lib.h"
 
 # include <stdio.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -36,6 +37,7 @@ int	minishell()
 	char		*read_line;
 	t_token		*tokens;
 	t_simp_com	*commands;
+	struct s
 
 	init_env();
 	add_env("?=0");
