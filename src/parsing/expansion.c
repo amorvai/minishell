@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:47:14 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/21 17:31:28 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/23 13:18:34 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*get_key_name(const char *str, int i)
 	return (NULL);
 }
 
-static char	*expand_env_var(char *command_str, const char *str, size_t *i)
+char	*expand_env_var(char *command_str, const char *str, size_t *i)
 {
 	char	*env_key;
 	char	*env_value;
