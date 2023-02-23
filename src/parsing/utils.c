@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:27:14 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/21 17:38:35 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/24 00:21:58 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,18 @@ char	*append_str(char *command_str,
 	if (command_str)
 		free(command_str);
 	return (new_command_str);
+}
+
+char	*expand_doub_quote_simple(char *command_str, const char *str, size_t *i)
+{
+	size_t	j;
+
+	j = 0;
+	while (str[*i + j] != '\"')
+		j++;
+	command_str = append_str(command_str, str, *i, j);
+	*i = *i + j + 1;
+	return (command_str);
 }
 
 void	print_syntax_error(const t_token *nearby_token)

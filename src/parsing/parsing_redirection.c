@@ -6,13 +6,14 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:23:38 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/21 19:12:39 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/23 23:26:51 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include "expansion.h"
 #include "../token/token.h"
+#include "../heredoc/heredoc.h"
 #include "../structure/redirection.h"
 #include "../structure/command.h"
 #include "../../lib/the_lib/lib.h"
@@ -55,7 +56,7 @@ void	add_redirection(enum e_token type, const char *file,
 	if (type != LLESS)
 		new_redirection->file = expand_token(file);
 	else
-		new_redirection->file = ft_xstrdup(file);
+		new_redirection->file = heredoc(file);
 	redir_add_back(redirection, new_redirection);
 }
 

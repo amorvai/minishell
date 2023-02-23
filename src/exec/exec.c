@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/21 11:52:52 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/23 22:29:20 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@ extern char		**g_envp;
 
 static int path_funct(char **simple_cmd);
 static char *path_hunt(char *cmd, struct stat s);
+int	is_builtin(char **simple_cmd);
 
 int	executer(t_simp_com *cmds)
 {
 	pid_t	pid;
+	int		fd_0;
+	int		fd_1;
 	
 	// init_env();
 	if (cmds == NULL)
@@ -37,6 +40,18 @@ int	executer(t_simp_com *cmds)
 	// heredoc()
 	if (command_lst_len(cmds) > 1)
 		multiple_pipes(cmds, command_lst_len(cmds));
+	else if (is_builtin(cmds->command))
+	{
+		fd_1 = dup(STDOUT_FILENO);
+		fd_0 = dup(STDIN_FILENO);
+		if (where_ma_redirec(cmds) != 0)
+				return(EXIT_FAILURE);
+		decisionmaker(cmds->command, "parent");
+		dup2(fd_0, STDIN_FILENO);
+		dup2(fd_1, STDOUT_FILENO);
+		close(fd_0);
+		close(fd_1);
+	}
 	else
 	{
 		if ((pid = fork()) < 0)
@@ -49,7 +64,7 @@ int	executer(t_simp_com *cmds)
 		{
 			if (where_ma_redirec(cmds) != 0)
 				exit(EXIT_FAILURE);
-			decisionmaker(cmds->command, "parent");
+			decisionmaker(cmds->command, "child");
 		}
 		idle_mode(1);
 	}
@@ -77,6 +92,26 @@ void	decisionmaker(char **simple_cmd, char *flex)
 	if (ft_strcmp(flex, "child") == 0)
 		exit(EXIT_SUCCESS);
 	//exit status needs to be switched to end status of child 
+}
+
+int	is_builtin(char **simple_cmd)
+{
+	if (ft_strcmp(simple_cmd[0], "cd") == 0)
+		return (1);
+	else if (ft_strcmp(simple_cmd[0], "echo") == 0)
+		return (1);
+	else if (ft_strcmp(simple_cmd[0], "env") == 0)
+		return (1);
+	else if (ft_strcmp(simple_cmd[0], "exit") == 0)
+		return (1);
+	else if (ft_strcmp(simple_cmd[0], "export") == 0)
+		return (1);
+	else if (ft_strcmp(simple_cmd[0], "pwd") == 0)
+		return (1);
+	else if (ft_strcmp(simple_cmd[0], "unset") == 0)
+		return (1);
+	else
+		return (0);
 }
 
 static char *path_hunt(char *cmd, struct stat s)

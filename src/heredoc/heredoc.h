@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/16 22:05:14 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/24 00:45:12 by amorvai          ###   ########.fr       */
+/*   Created: 2023/02/23 23:24:08 by amorvai           #+#    #+#             */
+/*   Updated: 2023/02/23 23:31:13 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef HEREDOC_H
+# define HEREDOC_H
 
-int	minishell(void);
-int	error_handler(void);
+char	*heredoc(const char *delim);
 
 #endif

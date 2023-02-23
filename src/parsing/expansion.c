@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:47:14 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/23 13:18:34 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/24 00:22:19 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*expand_env_var(char *command_str, const char *str, size_t *i)
 	return (command_str);
 }
 
-static char	*expand_sing_quote(char *command_str, const char *str, size_t *i)
+char	*expand_sing_quote(char *command_str, const char *str, size_t *i)
 {
 	size_t	j;
 

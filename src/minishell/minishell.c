@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/23 21:03:58 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/24 00:45:45 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 #include "../exec/exec.h"
 #include "../../lib/the_lib/lib.h"
 
-# include <stdio.h>
+#include <stdio.h>
 #include <unistd.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
-char	*get_user_input()
+char	*get_user_input(void)
 {
 	char	*read_line;
 
@@ -34,7 +34,7 @@ char	*get_user_input()
 	return (read_line);
 }
 
-int	minishell()
+int	minishell(void)
 {
 	char		*read_line;
 	t_token		*tokens;
@@ -49,14 +49,15 @@ int	minishell()
 			break ;
 		tokens = NULL;
 		commands = NULL;
-		if (token_lst_init(&tokens, read_line) || !tokens || parse(&tokens, &commands))
+		if (token_lst_init(&tokens, read_line) || !tokens
+			|| parse(&tokens, &commands))
 			continue ;
 		// print_command_lst(commands);
-		// heredoc(commands);
 		executer(commands);
 		command_lst_clear(&commands);
 	}
 	free_env();
+	clear_history();
 	// printf("pid %i\n", getpid());
 	// while(1)
 	// 	;
