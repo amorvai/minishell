@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/16 16:53:30 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/24 14:38:27 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,50 +19,20 @@
 
 int bi_env(char **simple_command)
 {
-	//ft_strcmp needs to be not casesensetiv
-	if (ft_strcmp(simple_command[1], "pwd") == 0)
+	if (ft_strcmp(simple_command[1], "pwd") == 0 || ft_strcmp(simple_command[1], "PWD") == 0)
 	{
 		ft_putstr_fd(get_env("PWD"), 1);
+		ft_putstr_fd("\n", 1);
 		return (EXIT_SUCCESS);
 	}
 	else if (simple_command[1] != NULL)
 	{
-		printf("env: %s: No such file or directory", simple_command[1]);
+		ft_putstr_fd("env: ", 2);
+		ft_putstr_fd(simple_command[1], 2);
+		ft_putstr_fd(": No such file or directory", 2);
 		return (EXIT_FAILURE);
 	}
 	else
 		print_env();
 	return(EXIT_SUCCESS);
-		
-	// char *str;
-	// char **split;
-	// bool equal_sign;
-	
-	// if (simple_command[0] == NULL)
-	// 	print_env();
-	// else
-	// {
-	// 	str = get_env(simple_command[0]);
-	// 	equal_sign = false;
-	// 	if (ft_strchr(str, '=') != NULL)
-	// 		equal_sign = true;
-	// 	if (str != NULL && equal_sign == false)
-	// 		ft_putstr_fd(str, 1);
-	// 	else if (equal_sign == true && str == NULL)
-	// 	{
-	// 		print_env();
-	// 		printf("%s\n", simple_command[0]);
-	// 	}
-	// 	else if (equal_sign == true && str != NULL)
-	// 	{
-	// 		split = ft_split(simple_command[0], "=");
-	// 		add_env(split[0], split[1]);
-	// 		print_env();
-	// 	}
-	// 	else
-	// 	{
-	// 		printf("env: %s: No such file or directory", simple_command[0]);
-	// 		return (EXIT_FAILURE);
-	// 	}
-	// }
 }

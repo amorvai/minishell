@@ -6,28 +6,13 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 15:01:05 by amorvai           #+#    #+#             */
-/*   Updated: 2022/09/17 20:40:51 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/23 11:50:56 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_fd.h"
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	char	*ptr;
-	size_t	i;
-
-	ptr = malloc(count * size);
-	if (ptr == NULL)
-		return (NULL);
-	i = 0;
-	while (i < count * size)
-	{
-		ptr[i] = '\0';
-		i++;
-	}
-	return (ptr);
-}
+#include <stdlib.h> // free
+#include <unistd.h> // ssize_t
+#include "../libft/libft.h" // ft_calloc
 
 ssize_t	ft_strlen_mod(const char *s, int c)
 {
@@ -47,22 +32,60 @@ ssize_t	ft_strlen_mod(const char *s, int c)
 	return (-1);
 }
 
-void	*ft_memset(void *str, int c, size_t len)
+char	*append_readline(char *buffer, char *readline)
 {
+	char	*temp;
 	size_t	i;
-	char	*s;
+	size_t	j;
 
 	i = 0;
-	s = str;
-	while (i < len)
+	j = 0;
+	temp = ft_calloc(ft_strlen_mod(buffer, '\0') \
+	+ ft_strlen_mod(readline, '\0') + 1, sizeof(char));
+	if (temp == NULL)
+		return (NULL);
+	while (buffer && buffer[i] != '\0')
 	{
-		s[i] = c;
+		temp[i] = buffer[i];
 		i++;
 	}
-	return (str);
+	while (readline && readline[j] != '\0')
+	{
+		temp[i + j] = readline[j];
+		j++;
+	}
+	if (buffer)
+		free(buffer);
+	if (buffer)
+		buffer = NULL;
+	return (temp);
 }
 
-char	*ft_substr_(const char *s, unsigned int start, ssize_t len)
+char	*create_newline(char *buffer)
+{
+	char	*newline;
+	ssize_t	i;
+	ssize_t	pos;
+
+	pos = ft_strlen_mod(buffer, '\n');
+	if (pos == -1)
+		pos = ft_strlen_mod(buffer, '\0');
+	newline = ft_calloc(pos + 1, sizeof(char));
+	i = 0;
+	while (i < pos && buffer[i] != '\0')
+	{
+		newline[i] = buffer[i];
+		i++;
+	}
+	if (i == 0)
+	{
+		free(newline);
+		newline = NULL;
+	}
+	return (newline);
+}
+
+static char	*ft_substr_mod(const char *s, unsigned int start, ssize_t len)
 {
 	char	*substr;
 	ssize_t	i;
@@ -80,4 +103,33 @@ char	*ft_substr_(const char *s, unsigned int start, ssize_t len)
 	}
 	substr[i] = '\0';
 	return (substr);
+}
+
+char	*buffer_restructure(char *buffer)
+{
+	char	*nextline;
+	ssize_t	i;
+	ssize_t	j;
+
+	i = 0;
+	j = 0;
+	nextline = NULL;
+	i = ft_strlen_mod(buffer, '\n');
+	if (i == -1)
+	{
+		free(buffer);
+		buffer = NULL;
+		return (buffer);
+	}
+	j = ft_strlen_mod(buffer, '\0');
+	if ((j - i) > 0)
+		nextline = ft_substr_mod(buffer, (unsigned int) i, j - i);
+	free(buffer);
+	buffer = NULL;
+	if ((j - i) > 0)
+	{
+		buffer = ft_substr_mod(nextline, 0, j - i);
+		free(nextline);
+	}
+	return (buffer);
 }

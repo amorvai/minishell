@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 18:39:08 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/17 15:16:21 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/20 23:50:59 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdlib.h>
 
 int		ft_atoi(const char *str, int *result);
+int		ft_atoll(const char *str, long long *result);
 char	*ft_itoa(int n);
 char	*ft_xitoa(int n);
 
@@ -26,6 +27,7 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
+int		ft_isspace(int c);
 
 int		ft_toupper(int c);
 int		ft_tolower(int c);

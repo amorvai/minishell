@@ -6,64 +6,22 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:32:51 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/18 10:02:30 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/23 10:38:16 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../lib/the_lib/lib.h"
 #include "token.h"
 #include <stdlib.h>
-
-// t_token	*tokenlast(t_token *lst)
-// {
-// 	if (lst == NULL)
-// 		return (NULL);
-// 	while (lst->next != NULL)
-// 		lst = lst->next;
-// 	return (lst);
-// }
-
-
-// void	token_delete(t_token **lst, t_token *tobedeleted)
-// {
-// 	t_token	*tmp;
-
-// 	if (*lst == tobedeleted)
-// 	{
-// 		if ((*lst)->next)
-// 			*lst = (*lst)->next;
-// 		(*lst)->prev = NULL;
-// 	}
-// 	else
-// 	{
-// 		tmp = *lst;
-// 		while (tmp->next != NULL)
-// 		{
-// 			if (tmp->next == tobedeleted)
-// 			{
-// 				tmp->next = tmp->next->next;
-// 				if (tmp->next)
-// 					tmp->next->prev = tmp;
-// 			}
-// 			tmp = tmp->next;
-// 		}
-// 	}
-// 	if (tobedeleted->word)
-// 		free(tmp->word);
-// 	free(tobedeleted);
-// }
-
+#include <stdio.h>
 
 void	token_lst_add_back(t_token **lst, t_token *new_token)
 {
 	t_token	*tmp;
 
-	if (*lst != NULL)
+	if (*lst)
 	{
-		// tmp = tokenlast(*lst);
-
 		tmp = *lst;
-		while (tmp->next != NULL)
+		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new_token;
 		new_token->prev = tmp;
@@ -74,7 +32,7 @@ void	token_lst_add_back(t_token **lst, t_token *new_token)
 
 void	token_delete(t_token **lst, t_token *tobedeleted)
 {
-	if (tobedeleted->prev == NULL)
+	if (!tobedeleted->prev)
 	{
 		*lst = (*lst)->next;
 		if (*lst)
@@ -83,7 +41,7 @@ void	token_delete(t_token **lst, t_token *tobedeleted)
 	else
 	{
 		tobedeleted->prev->next = tobedeleted->next;
-		if (tobedeleted->next != NULL)
+		if (tobedeleted->next)
 			tobedeleted->next->prev = tobedeleted->prev;
 	}
 	if (tobedeleted->word)
@@ -91,21 +49,17 @@ void	token_delete(t_token **lst, t_token *tobedeleted)
 	free(tobedeleted);
 }
 
-
 void	token_lst_clear(t_token **lst)
 {
 	t_token	*mem;
 
-	if (lst != NULL)
+	while (*lst)
 	{
-		while (*lst != NULL)
-		{
-			if ((*lst)->word)
-				free((*lst)->word);
-			mem = (*lst)->next;
-			free(*lst);
-			*lst = mem;
-		}
+		if ((*lst)->word)
+			free((*lst)->word);
+		mem = (*lst)->next;
+		free(*lst);
+		*lst = mem;
 	}
 }
 
@@ -127,18 +81,18 @@ void	token_lst_print(t_token *token_lst)
 	while (token_lst)
 	{
 		if (token_lst->token == WORD)
-			ft_printf("WORD:\t%s\n", token_lst->word);
+			printf("WORD:\t%s\n", token_lst->word);
 		if (token_lst->token == PIPE)
-			ft_printf("PIPE:\t|\n");
+			printf("PIPE:\t|\n");
 		if (token_lst->token == GREAT)
-			ft_printf("GREAT:\t>\n");
+			printf("GREAT:\t>\n");
 		if (token_lst->token == LESS)
-			ft_printf("LESS:\t<\n");
+			printf("LESS:\t<\n");
 		if (token_lst->token == GGREAT)
-			ft_printf("GGREAT:\t>>\n");
+			printf("GGREAT:\t>>\n");
 		if (token_lst->token == LLESS)
-			ft_printf("LLESS:\t<<\n");
+			printf("LLESS:\t<<\n");
 		token_lst = token_lst->next;
 	}
-			ft_printf("NO MORE TOKENS\n\n");
+	printf("NO MORE TOKENS\n\n");
 }

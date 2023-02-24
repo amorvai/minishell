@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 10:15:28 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/16 13:16:32 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/21 15:09:24 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ typedef struct s_redirection
 	struct s_redirection	*next;
 }				t_redirection;
 
-t_redirection	*extract_redirection(t_token *temp_lst);
-
-void			redir_add_back(t_redirection **lst, t_redirection *new_elem);
-void			free_redirection(t_redirection *redirections);
-void			print_redirection(t_redirection *redirection);
+void	redir_add_back(t_redirection **lst, t_redirection *new_elem);
+void	free_redirection(t_redirection *redirections);
+void	print_redirection(t_redirection *redirection);
 
 #endif

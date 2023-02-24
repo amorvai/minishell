@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.h                                           :+:      :+:    :+:   */
+/*   heredoc.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/21 12:43:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/24 16:32:19 by pnolte           ###   ########.fr       */
+/*   Created: 2023/02/23 23:24:08 by amorvai           #+#    #+#             */
+/*   Updated: 2023/02/23 23:31:13 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_H
-# define SIGNAL_H
+#ifndef HEREDOC_H
+# define HEREDOC_H
 
-#include <signal.h>
-
-struct sigaction	init_sig();
-void				signal_decider();
+char	*heredoc(const char *delim);
 
 #endif

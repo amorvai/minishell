@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/16 10:05:00 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/16 10:33:25 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/21 15:10:15 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,9 @@ typedef struct s_simp_command
 	struct s_simp_command	*next;
 }				t_simp_com;
 
-
-void	free_str_arr(char **str); //doesnt belong there
-
-
-int				command_lst_len(t_simp_com *head);
-void			command_lst_add_back(t_simp_com **lst, t_simp_com *new_elem);
-void			command_lst_clear(t_simp_com **lst);
-void			print_command_lst(t_simp_com *command);
+int		command_lst_len(t_simp_com *head);
+void	command_lst_add_back(t_simp_com **lst, t_simp_com *new_elem);
+void	command_lst_clear(t_simp_com **lst);
+void	print_command_lst(t_simp_com *command);
 
 #endif

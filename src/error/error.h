@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal.h                                           :+:      :+:    :+:   */
+/*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/21 12:43:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/24 16:32:19 by pnolte           ###   ########.fr       */
+/*   Created: 2023/02/24 15:55:16 by pnolte            #+#    #+#             */
+/*   Updated: 2023/02/24 16:25:20 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIGNAL_H
-# define SIGNAL_H
+#ifndef ERROR_H
+# define ERROR_H
 
-#include <signal.h>
-
-struct sigaction	init_sig();
-void				signal_decider();
+int	print_permission_denied(char *file);
+int	print_is_directory(char *file);
+int	print_command_not_found(char *file);
+int print_no_such(char *file, char *flex);
+int	print_redirection_protection();
+int print_fork_protection();
 
 #endif

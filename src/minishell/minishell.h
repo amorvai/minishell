@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:05:14 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/17 16:28:39 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/24 00:45:12 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-int	minishell();
-int	error_handler();
+int	minishell(void);
+int	error_handler(void);
 
 #endif

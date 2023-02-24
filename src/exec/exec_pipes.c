@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipes.c                                            :+:      :+:    :+:   */
+/*   exec_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/20 14:47:36 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/24 16:54:46 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <sys/wait.h>
 
 #include "exec.h"
+#include "../error/error.h"
 #include "../env/env.h"
 #include "../minishell/minishell.h"
 #include "../../lib/the_lib/lib.h"
@@ -68,10 +69,7 @@ static void	the_closer(int amo_pipes, int fds[amo_pipes][2], int i, char *flex)
 static void	childish_behaviour(t_simp_com *c, int a_p, int fds[a_p][2], int i)
 {
 	if (where_ma_redirec(c) != 0)
-	{
-		// there needs to be a error handler
-		exit(EXIT_FAILURE);
-	}
+		bi_exit(print_redirection_protection());
 	the_closer(a_p, fds, i, "child");
 	if (i != 0 && c->redirect_input == NULL)
 		dup2(fds[i - 1][0], STDIN_FILENO);
@@ -109,11 +107,7 @@ void multiple_pipes(t_simp_com *cmds, int amo_cmds)
 	while(i < amo_cmds)
 	{
 		if ((pids[i] = fork()) < 0)
-		{
-			perror("Fork creation failed");
-			exit(EXIT_FAILURE);
-			//exit functions needs to be switched
-		}
+			bi_exit(print_fork_protection);
 		else if (pids[i] == 0)
 			childish_behaviour(cmds, amo_pipes, fds, i);
 		cmds = cmds->next; 

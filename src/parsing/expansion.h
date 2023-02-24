@@ -6,13 +6,13 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:36:33 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/17 15:37:10 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/21 13:58:39 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANSION_H
 # define EXPANSION_H
 
-char	*expand_token(char *str);
+char	*expand_token(const char *str);
 
 #endif

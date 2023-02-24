@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 23:02:06 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/18 09:44:08 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/21 17:24:21 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include "token.h"
 #include <stdio.h>
 
-static void	get_token_enum(const char *s, size_t i, size_t j, t_token *new_token)
+static void	get_token_enum(const char *s, size_t i, size_t j,
+							t_token *new_token)
 {
 	if (s[i] == '|')
 		new_token->token = PIPE;
@@ -33,7 +34,7 @@ static void	get_token_enum(const char *s, size_t i, size_t j, t_token *new_token
 	else
 	{
 		new_token->token = WORD;
-		new_token->word = ft_substr(s, i, j);
+		new_token->word = ft_xsubstr(s, i, j);
 	}
 }
 
@@ -44,8 +45,7 @@ static void	init_token_to_list(t_token **token_lst, const char *s,
 
 	if (*j == 0)
 		return ;
-	new_token = ft_calloc(1, sizeof(t_token));
-	// what to fail
+	new_token = ft_xcalloc(1, sizeof(t_token));
 	get_token_enum(s, *i, *j, new_token);
 	if (new_token->token == GGREAT || new_token->token == LLESS)
 		(*j)++;

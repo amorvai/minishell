@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:44:12 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/21 17:09:18 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/24 16:48:50 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 #include <signal.h>
 
-static void signal_decider()
+void signal_decider(struct sigaction s_act)
 {
-	
+	(void)s_act;
 }
 
-void signal_hand(int signo, siginfo_t *info)
+void signal_hand(int signo, siginfo_t *info, void *context)
 {
-	SIGQUIT
-	SIGTSTP
-	
+	(void)signo;
+	(void)info;
+	(void)context;
 }
 
 struct sigaction init_sig()

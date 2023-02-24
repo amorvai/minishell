@@ -6,11 +6,13 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:47:16 by amorvai           #+#    #+#             */
-/*   Updated: 2022/09/17 20:41:24 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/23 11:50:43 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_fd.h"
+#include "../libft/libft.h" // ft_memset
+#include <unistd.h>
 
 char	*get_next_line(int fd)
 {
@@ -38,86 +40,4 @@ char	*get_next_line(int fd)
 		return (newline);
 	}
 	return (NULL);
-}
-
-char	*append_readline(char *buffer, char *readline)
-{
-	char	*temp;
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	temp = ft_calloc(ft_strlen_mod(buffer, '\0') \
-	+ ft_strlen_mod(readline, '\0') + 1, sizeof(char));
-	if (temp == NULL)
-		return (NULL);
-	while (buffer && buffer[i] != '\0')
-	{
-		temp[i] = buffer[i];
-		i++;
-	}
-	while (readline && readline[j] != '\0')
-	{
-		temp[i + j] = readline[j];
-		j++;
-	}
-	if (buffer)
-		free(buffer);
-	if (buffer)
-		buffer = NULL;
-	return (temp);
-}
-
-char	*create_newline(char *buffer)
-{
-	char	*newline;
-	ssize_t	i;
-	ssize_t	pos;
-
-	pos = ft_strlen_mod(buffer, '\n');
-	if (pos == -1)
-		pos = ft_strlen_mod(buffer, '\0');
-	newline = ft_calloc(pos + 1, sizeof(char));
-	i = 0;
-	while (i < pos && buffer[i] != '\0')
-	{
-		newline[i] = buffer[i];
-		i++;
-	}
-	if (i == 0)
-	{
-		free(newline);
-		newline = NULL;
-	}
-	return (newline);
-}
-
-char	*buffer_restructure(char *buffer)
-{
-	char	*nextline;
-	ssize_t	i;
-	ssize_t	j;
-
-	i = 0;
-	j = 0;
-	nextline = NULL;
-	i = ft_strlen_mod(buffer, '\n');
-	if (i == -1)
-	{
-		free(buffer);
-		buffer = NULL;
-		return (buffer);
-	}
-	j = ft_strlen_mod(buffer, '\0');
-	if ((j - i) > 0)
-		nextline = ft_substr_(buffer, (unsigned int) i, j - i);
-	free(buffer);
-	buffer = NULL;
-	if ((j - i) > 0)
-	{
-		buffer = ft_substr_(nextline, 0, j - i);
-		free(nextline);
-	}
-	return (buffer);
 }
