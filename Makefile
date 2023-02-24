@@ -2,15 +2,16 @@ NAME	:= minishell
 CC		:= cc
 CFLAGS	:= -I src/ -I lib/ -g3 -Wall -Werror -Wextra 
 LDFLAGS	:= -L ./lib/the_lib -l_extended -lreadline -L ~/.brew/opt/readline/lib/
-VPATH	:= src/ src/env/ src/parsing/ src/token/ src/minishell/ src/builtin/ src/exec/ src/structure/
+VPATH	:= src/ src/builtin/ src/env/ src/exec/ src/heredoc/ src/minishell/ src/parsing/ src/structure/ src/token/
 OBJ_DIR	:= obj/
 
 SRC		:=	main.c \
 			minishell.c \
 			env.c env_too.c \
-			parsing.c parsing_command.c parsing_redirection.c expansion.c utils.c \
 			command.c redirection.c \
 			token.c token_init.c \
+			parsing.c parsing_command.c parsing_redirection.c expansion.c utils.c \
+			heredoc.c \
 			exec.c pipes.c exec_rede.c\
 			bi_cd.c bi_echo.c bi_env.c bi_exit.c bi_export.c bi_pwd.c bi_unset.c\
 			
