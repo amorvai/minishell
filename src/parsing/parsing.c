@@ -6,14 +6,12 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:58:08 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/21 17:37:26 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/24 17:59:14 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include "utils.h"
-#include "../structure/command.h"
-#include "../structure/redirection.h"
+#include "../error/error.h"
 #include "../../lib/the_lib/lib.h"
 
 static int	command_count(t_token *current)
