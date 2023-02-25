@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:01:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 10:25:31 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 14:42:27 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,30 +49,6 @@ static char	*expand_delimiter(const char *str)
 	return (append_str(command_str, str, i, j));
 }
 
-static char	*expand_heredoc(const char *line)
-{
-	char	*expanded_line;
-	size_t	i;
-	size_t	j;
-
-	expanded_line = NULL;
-	i = 0;
-	j = 0;
-	while (line[i + j] != '\0')
-	{
-		if (line[i + j] == '$')
-		{
-			expanded_line = append_str(expanded_line, line, i, j);
-			i = i + j + 1;
-			j = 0;
-			expanded_line = expand_env_var(expanded_line, line, &i);
-		}
-		else
-			j++;
-	}
-	return (append_str(expanded_line, line, i, j));
-}
-
 static void	read_to_fd(int fd, const char *delim)
 {
 	char	*line;
@@ -87,9 +63,8 @@ static void	read_to_fd(int fd, const char *delim)
 		delim = exp_delim;
 	while (1)
 	{
-		line = get_next_line(0);
-		if (line < 0)
-			return;
+		line = NULL;
+		/*rvalue = */get_next_line(0, &line);
 		if (!line || ft_strncmp(line, delim, ft_strlen(delim)) == 0)
 			break ;
 		if (exp_delim)

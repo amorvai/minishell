@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 11:26:35 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 14:40:58 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,14 @@ char	*get_user_input()
 {
 	char	*read_line;
 
+	read_line = NULL;
 	if (!isatty(0))
-		return (get_next_line(0));
-	read_line = readline("🐚...");
+	{
+		get_next_line(0, &read_line);
+		return (read_line);
+	}
+	printf("miesmushell is listening from %s", get_env("PWD"));
+	read_line = readline("\n🐚... ");
 	add_history(read_line);
 	return (read_line);
 }
