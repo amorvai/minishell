@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/25 11:28:54 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/25 11:48:34 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,23 @@
 
 char	*grab_cwd()
 {
-	char	buf[PATH_MAX];
+	char	*buf;
+	char	*ptr;
 
-	if (getcwd(buf, sizeof(buf)))
-		return (buf);
+	buf = ft_xcalloc(PATH_MAX, sizeof(char));
+	ptr = getcwd(buf, PATH_MAX);
+	if (ptr)
+		return (ptr);
+	free(buf);
 	return (NULL);
 }
 
 void bi_pwd()
 {
-	ft_putstr_fd(grab_cwd(), 1);
+	char	*cwd;
+
+	cwd = grab_cwd();
+	ft_putstr_fd(cwd, 1);
 	ft_putchar_fd('\n', 1);
+	free(cwd);
 }
