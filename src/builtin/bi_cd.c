@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/25 05:28:55 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 10:43:37 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int switch_heel(char *path)
 }
 
 
-int bi_cd(char *path)
+void bi_cd(char *path)
 {
 	struct stat	s;
 	int			r_v[2];
@@ -65,9 +65,10 @@ int bi_cd(char *path)
 			ft_putstr_fd(": No such file or directory\n", 2);
 		else
 			ft_putstr_fd(": Not a directory\n", 2);
-		return(EXIT_FAILURE);
+		add_env(ft_strdup("?=1"));
+		return ;
 	}	
 	if (r_v[1] == EXIT_FAILURE)
-		return(EXIT_FAILURE);
-	return(EXIT_SUCCESS);
+		add_env(ft_strdup("?=1"));
+	return ;
 }

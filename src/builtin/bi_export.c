@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/25 06:28:19 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 10:36:37 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool variable_name_allowed(char *str, char *export_value)
 	return(misery);
 }
 
-int bi_export(char **simple_command)
+void bi_export(char **simple_command)
 {
 	char	**split;
 	int		i;
@@ -65,6 +65,5 @@ int bi_export(char **simple_command)
 		i++;
 	}
 	if (misery == true)
-		return(EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+		add_env(ft_strdup("?=1"));
 }

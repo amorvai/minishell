@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:28:52 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/24 00:43:01 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/24 17:39:21 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,5 @@ char	*expand_doub_quote_simple(char *command_str,
 
 char	*append_str(char *command_str,
 			const char *str, size_t start, size_t len);
-
-void	print_syntax_error(const t_token *nearby_token);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/25 06:09:06 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 10:51:38 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,6 @@ static void	the_closer(int amo_pipes, int fds[amo_pipes][2], int i, char *flex)
 
 static void	childish_behaviour(t_simp_com *c, int a_p, int fds[a_p][2], int i)
 {
-	int exit_code_child;
-	
-	exit_code_child = EXIT_SUCCESS;
 	if (where_ma_redirec(c) != 0)
 		bi_exit(print_redirection_protection());
 	the_closer(a_p, fds, i, "child");
@@ -83,7 +80,7 @@ static void	childish_behaviour(t_simp_com *c, int a_p, int fds[a_p][2], int i)
 		dup2(fds[i][1], STDOUT_FILENO);
 	if (i < a_p)
 		close(fds[i][1]);
-	decisionmaker(c->command, "child", exit_code_child);
+	decisionmaker(c->command, "child");
 }
 
 int idle_mode(int amo_cmd)

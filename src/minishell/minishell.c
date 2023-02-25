@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 10:03:41 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 11:26:35 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ char	*get_user_input()
 
 int	minishell(void)
 {
-	char				*read_line;
-	t_token				*tokens;
-	t_simp_com			*commands;
-	int					exit_code;
-	char				*tmp;
+	char		*read_line;
+	t_token		*tokens;
+	t_simp_com	*commands;
+	int			exit_code = 0;
 	
 	init_env();
 	signal(SIGQUIT, SIG_IGN);
@@ -59,18 +58,14 @@ int	minishell(void)
 			|| parse(&tokens, &commands))
 			continue ;
 		// print_command_lst(commands);
-		exit_code = executer(commands);
-		tmp = ft_itoa(exit_code % 256);
-		add_env(ft_strjoin("?=", tmp));
-		free(tmp);
+		executer(commands);
 		command_lst_clear(&commands);
 	}
 	if (isatty(STDERR_FILENO) != 0)
 		ft_putstr_fd("exit\n", STDERR_FILENO);
-	free_env();
 	clear_history();
 	// printf("pid %i\n", getpid());
 	// while(1)
-	// 	;
+	free_env();
 	return (exit_code);
 }

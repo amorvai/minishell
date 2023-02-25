@@ -6,12 +6,12 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:47:14 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/24 00:22:19 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/24 17:45:46 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
-#include "../env/env.h"
+#include "utils.h" // append_str
+#include "../env/env.h" // get_env
 #include "../../lib/the_lib/lib.h"
 #include <stdio.h> // for NULL
 

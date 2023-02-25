@@ -6,14 +6,12 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:58:08 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 07:25:45 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 10:33:42 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-#include "utils.h"
-#include "../structure/command.h"
-#include "../structure/redirection.h"
+#include "../error/error.h"
 #include "../../lib/the_lib/lib.h"
 
 static int	command_count(t_token *current)

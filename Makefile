@@ -13,7 +13,7 @@ SRC		:=	main.c \
 			parsing.c parsing_command.c parsing_redirection.c expansion.c utils.c \
 			exec.c exec_pipes.c exec_rede.c\
 			heredoc.c \
-			error.c \
+			error.c error_parsing.c \
 			signals.c \
 			bi_cd.c bi_echo.c bi_env.c bi_exit.c bi_export.c bi_pwd.c bi_unset.c\
 			
@@ -46,4 +46,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all, clean, fclean, re, libft $(LIBFT)
+.PHONY: all, clean, fclean, re, libft
