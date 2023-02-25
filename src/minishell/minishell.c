@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 03:31:01 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 06:55:31 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ int	minishell(void)
 	char				*read_line;
 	t_token				*tokens;
 	t_simp_com			*commands;
-
+	int					exit_code;
+	char				*tmp;
+	
 	init_env();
 	signal(SIGQUIT, SIG_IGN);
 	add_env(ft_strdup("?=0"));
@@ -50,23 +52,25 @@ int	minishell(void)
 		terminal_switcher("input");
 		read_line = get_user_input();
 		if (!read_line)
-		{
-			if (isatty(STDERR_FILENO) != 0)
-				ft_putstr_fd("exit\n", STDERR_FILENO);
 			break ;
-		}
 		tokens = NULL;
 		commands = NULL;
 		if (token_lst_init(&tokens, read_line) || !tokens
 			|| parse(&tokens, &commands))
 			continue ;
-		executer(commands);
+		// print_command_lst(commands);
+		exit_code = executer(commands);
+		tmp = ft_itoa(exit_code % 256);
+		add_env(ft_strjoin("?=", tmp));
+		free(tmp);
 		command_lst_clear(&commands);
 	}
+	if (isatty(STDERR_FILENO) != 0)
+		ft_putstr_fd("exit\n", STDERR_FILENO);
 	free_env();
 	clear_history();
 	// printf("pid %i\n", getpid());
 	// while(1)
 	// 	;
-	return (1);
+	return (exit_code);
 }

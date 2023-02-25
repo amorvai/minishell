@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:01:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/24 00:43:54 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/25 07:08:44 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../structure/command.h"
 #include "../parsing/utils.h"
 #include "../../lib/the_lib/lib.h"
+#include "../signal/signals.h"
 #include <unistd.h>
 #include <fcntl.h>
 
@@ -115,6 +116,7 @@ char	*heredoc(const char *delim)
 	char	*filename;
 
 	filename = NULL;
+	terminal_switch("execute");
 	fd = create_tmp_file(&filename);
 	if (fd == -1)
 	{

@@ -3,19 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 17:27:55 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/23 11:23:56 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/25 04:08:07 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell/minishell.h"
 
-int	main(int argc, char **argv)
+int	main()
 {
-	if (argc != 1)
-		return (1);
-	(void)argv;
 	return (minishell());
 }

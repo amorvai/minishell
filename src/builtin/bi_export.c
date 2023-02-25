@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/18 13:38:58 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/25 06:28:19 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ bool variable_name_allowed(char *str, char *export_value)
 	int	j;
 	bool misery;
 	
-	if (ft_isdigit(str[0]) != 0)
+	misery = false;
+	if (str == NULL || ft_isdigit(str[0]) != 0)
 		misery = true;		
 	j = 0;
-	while (str[j] != '\0' && misery == false)
+	while (misery == false && str[j] != '\0')
 	{
 		misery = true;
 		if (ft_isalnum(str[j]) == true || str[j] == '_')

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/21 12:40:03 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 05:28:55 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int bi_cd(char *path)
 	struct stat	s;
 	int			r_v[2];
 	
-	if (path[0] == '~' && path[1] == '\0')
+	if (path == NULL || (path[0] == '~' && path[1] == '\0'))
 		r_v[1] = switch_heel(get_env("HOME"));
 	else if (path[0] == '-' && path[1] == '\0')
 		r_v[1] = switch_heel(get_env("OLDPWD"));

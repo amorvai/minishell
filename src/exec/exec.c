@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/25 03:46:45 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 06:22:48 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,27 @@ int	is_builtin(char **simple_cmd);
 
 int	executer(t_simp_com *cmds)
 {
+	int		exit_code;
 	pid_t	pid;
 	int		fd_0;
 	int		fd_1;
 	
 	if (cmds == NULL)
 		return (0);
-	terminal_switcher("execute");
+	exit_code = EXIT_SUCCESS;
 	signal(SIGINT, SIG_IGN);
+	terminal_switcher("execute");
+	signal(SIGINT, sig_hand);
+	signal(SIGQUIT, sig_hand);
 	if (command_lst_len(cmds) > 1)
-		multiple_pipes(cmds, command_lst_len(cmds));
+		exit_code = multiple_pipes(cmds, command_lst_len(cmds));
 	else if (is_builtin(cmds->command))
 	{
 		fd_1 = dup(STDOUT_FILENO);
 		fd_0 = dup(STDIN_FILENO);
 		if (where_ma_redirec(cmds) != 0)
 				return(print_redirection_protection());
-		decisionmaker(cmds->command, "parent");
+		exit_code = decisionmaker(cmds->command, "parent", exit_code);
 		dup2(fd_0, STDIN_FILENO);
 		dup2(fd_1, STDOUT_FILENO);
 		close(fd_0);
@@ -57,42 +61,41 @@ int	executer(t_simp_com *cmds)
 	}
 	else
 	{
-		signal(SIGINT, sig_hand);
-		signal(SIGQUIT, sig_hand);
 		if ((pid = fork()) < 0)
 			return(print_fork_protection());
 		else if (pid == 0)
 		{
 			if (where_ma_redirec(cmds) != 0)
 				bi_exit(print_redirection_protection());
-			decisionmaker(cmds->command, "child");
+			exit_code = decisionmaker(cmds->command, "child", exit_code);
 		}
 		idle_mode(1);
 		signal(SIGQUIT, SIG_IGN);
 	}
-	return(EXIT_SUCCESS);
+	return(exit_code);
 }
 
-void	decisionmaker(char **simple_cmd, char *flex)
+int	decisionmaker(char **simple_cmd, char *flex, int exit_code)
 {
 	if (ft_strcmp(simple_cmd[0], "cd") == 0)
-		bi_cd(simple_cmd[1]);
+		exit_code = bi_cd(simple_cmd[1]);
 	else if (ft_strcmp(simple_cmd[0], "echo") == 0)
 		bi_echo(simple_cmd);
 	else if (ft_strcmp(simple_cmd[0], "env") == 0)
-		bi_env(simple_cmd);
+		exit_code = bi_env(simple_cmd);
 	else if (ft_strcmp(simple_cmd[0], "exit") == 0)
 		bi_exit(simple_cmd);
 	else if (ft_strcmp(simple_cmd[0], "export") == 0)
-		bi_export(simple_cmd);
+		exit_code = bi_export(simple_cmd);
 	else if (ft_strcmp(simple_cmd[0], "pwd") == 0)
-		bi_pwd();
+		exit_code = bi_pwd();
 	else if (ft_strcmp(simple_cmd[0], "unset") == 0)
 		bi_unset(simple_cmd);
 	else
-		path_funct(simple_cmd);
+		exit_code = path_funct(simple_cmd);
 	if (ft_strcmp(flex, "child") == 0)
-		exit(EXIT_SUCCESS);
+		exit(exit_code);
+	return (exit_code);
 	//exit status needs to be switched to end status of child 
 }
 
