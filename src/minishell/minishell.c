@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/24 16:51:49 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 11:43:32 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,12 @@ char	*get_user_input(void)
 {
 	char	*read_line;
 
+	read_line = NULL;
 	if (!isatty(0))
-		return (get_next_line(0));
+	{
+		get_next_line(0, &read_line);
+		return (read_line);
+	}
 	printf("miesmushell is listening from %s", get_env("PWD"));
 	read_line = readline("\n🐚... ");
 	add_history(read_line);
@@ -45,7 +49,6 @@ int	minishell(void)
 
 	init_env();
 	s_act = init_sig();
-	add_env(ft_strdup("?=0"));
 	while (1)
 	{
 		read_line = get_user_input();
