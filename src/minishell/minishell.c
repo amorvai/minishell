@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 14:40:58 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 16:39:58 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "../env/env.h"
 #include "../token/token.h"
+#include "../builtin/builtins.h"
 #include "../parsing/parsing.h"
 #include "../exec/exec.h"
 #include "../signal/signals.h"
@@ -45,11 +46,10 @@ int	minishell(void)
 	char		*read_line;
 	t_token		*tokens;
 	t_simp_com	*commands;
-	int			exit_code = 0;
+	// int			exit_status;
 	
 	init_env();
 	signal(SIGQUIT, SIG_IGN);
-	add_env(ft_strdup("?=0"));
 	while (1)
 	{
 		signal(SIGINT, redisplay_the_muschel);
@@ -61,7 +61,8 @@ int	minishell(void)
 		commands = NULL;
 		if (token_lst_init(&tokens, read_line) || !tokens
 			|| parse(&tokens, &commands))
-			continue ;
+			continue ; // free(read_line);
+		free(read_line);
 		// print_command_lst(commands);
 		executer(commands);
 		command_lst_clear(&commands);
@@ -69,8 +70,9 @@ int	minishell(void)
 	if (isatty(STDERR_FILENO) != 0)
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 	clear_history();
+	free_env();
 	// printf("pid %i\n", getpid());
 	// while(1)
-	free_env();
-	return (exit_code);
+	// ft_atoi(get_env("?"), &exit_status);
+	return (0);
 }

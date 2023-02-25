@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/25 10:51:38 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 18:25:58 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 #include "../../lib/the_lib/lib.h"
 #include "../builtin/builtins.h"
 #include "../parsing/parsing.h"
-
 
 static void fabricating_pipes(int amo_pipes, int fds[amo_pipes][2])
 {
@@ -69,8 +68,11 @@ static void	the_closer(int amo_pipes, int fds[amo_pipes][2], int i, char *flex)
 
 static void	childish_behaviour(t_simp_com *c, int a_p, int fds[a_p][2], int i)
 {
-	if (where_ma_redirec(c) != 0)
-		bi_exit(print_redirection_protection());
+	if (redirector(c))
+	{
+		print_redirection_protection();
+		return ;
+	}
 	the_closer(a_p, fds, i, "child");
 	if (i != 0 && c->redirect_input == NULL)
 		dup2(fds[i - 1][0], STDIN_FILENO);
@@ -80,28 +82,35 @@ static void	childish_behaviour(t_simp_com *c, int a_p, int fds[a_p][2], int i)
 		dup2(fds[i][1], STDOUT_FILENO);
 	if (i < a_p)
 		close(fds[i][1]);
-	decisionmaker(c->command, "child");
+	decisionmaker(c->command);
 }
 
-int idle_mode(int amo_cmd)
+void idle_mode(int amo_cmd)
 {
-	int status;
+	int		status;
+	int		exitstatus;
+	char	*exitcode;
 	
 	while (amo_cmd > 0)
 	{
 		wait(&status);
+		if (WIFEXITED(status))
+			exitstatus = WEXITSTATUS(status);
+		else
+			exitstatus = 1;
 		amo_cmd--;
 	}
-	return(status);
+	exitcode = ft_itoa(exitstatus);
+	add_env(ft_xstrjoin("?=", exitcode));
+	free(exitcode);
 }
 
-int multiple_pipes(t_simp_com *cmds, int amo_cmds)
+void	multiple_pipes(t_simp_com *cmds, int amo_cmds)
 {
 	pid_t		pids[amo_cmds];
 	int			fds[amo_cmds - 1][2];
 	int			amo_pipes;
 	int			i;
-	int			exit_code;
 
 	i = 0;
 	amo_pipes = amo_cmds - 1;
@@ -109,13 +118,15 @@ int multiple_pipes(t_simp_com *cmds, int amo_cmds)
 	while(i < amo_cmds)
 	{
 		if ((pids[i] = fork()) < 0)
-			bi_exit(print_fork_protection);
+		{
+			print_fork_protection();
+			bi_exit(NULL);
+		}
 		else if (pids[i] == 0)
 			childish_behaviour(cmds, amo_pipes, fds, i);
 		cmds = cmds->next; 
 		i++;
 	}
 	the_closer(amo_pipes, fds, 0, "parent");
-	exit_code = idle_mode(amo_cmds);
-	return(exit_code);
+	idle_mode(amo_cmds);
 }
