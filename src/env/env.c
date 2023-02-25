@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 01:25:40 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 12:05:38 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/25 15:50:56 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	init_env(void)
 		}
 	}
 	add_env(ft_xstrdup("?=0"));
+	add_env(ft_xstrdup("42heredoc=no"));
 	return (0);
 }
 
@@ -58,7 +59,11 @@ void	print_env(void)
 	}
 	while (g_envp && g_envp[i] != NULL)
 	{
-		printf("%s\n", g_envp[i]);
+		if (ft_strncmp("42heredoc", g_envp[i], 9) == 0 
+			|| ft_strncmp("?", g_envp[i], 1) == 0)
+			;
+		else
+			printf("%s\n", g_envp[i]);
 		i++;
 	}
 }

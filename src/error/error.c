@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:55:22 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/25 10:55:24 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 17:34:47 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_command_not_found(char *file)
 	ft_putstr_fd("🐚: ", 2);
 	ft_putstr_fd(file, 2);
 	ft_putstr_fd(": command not found\n", 2);
-	add_env(ft_strdup("?=1"));
+	add_env(ft_xstrdup("?=1"));
 }
 
 void	print_permission_denied(char *file)
@@ -28,7 +28,7 @@ void	print_permission_denied(char *file)
 	ft_putstr_fd("🐚: ", 2);
 	ft_putstr_fd(file, 2);
 	ft_putstr_fd(": Permission denied\n", 2);
-	add_env(ft_strdup("?=1"));
+	add_env(ft_xstrdup("?=1"));
 }
 
 void	print_no_such(char *file, char *flex)
@@ -42,7 +42,7 @@ void	print_no_such(char *file, char *flex)
 		ft_putstr_fd(" directory\n", 2);
 	if (ft_strcmp("file_or_dire", flex) == 0)
 		ft_putstr_fd(" file or directory\n", 2);
-	add_env(ft_strdup("?=1"));
+	add_env(ft_xstrdup("?=1"));
 }
 
 void	print_is_directory(char *file)
@@ -50,17 +50,28 @@ void	print_is_directory(char *file)
 	ft_putstr_fd("🐚: ", 2);
 	ft_putstr_fd(file, 2);
 	ft_putstr_fd(": Is a directory\n", 2);
-	add_env(ft_strdup("?=1"));
+	add_env(ft_xstrdup("?=1"));
 }
 
 void	print_fork_protection()
 {
 	ft_putstr_fd("🐚: Fork creation failed ", 2);
-	add_env(ft_strdup("?=1"));
+	add_env(ft_xstrdup("?=1"));
 }
 
 void	print_redirection_protection()
 {
 	ft_putstr_fd("🐚: Redirection failed ", 2);
-	add_env(ft_strdup("?=1"));
+	add_env(ft_xstrdup("?=1"));
+}
+
+void	print_export_unset(char *value, char *flex)
+{
+	if (ft_strcmp("export", flex) == 0)
+		ft_putstr_fd("🐚: export: `", 2);
+	else if (ft_strcmp("unset", flex) == 0)
+		ft_putstr_fd("🐚: unset: `", 2);
+	ft_putstr_fd(value, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
+	add_env(ft_xstrdup("?=1"));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_redirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 15:23:38 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/24 18:00:38 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/25 15:58:50 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "../structure/redirection.h"
 #include "../error/error.h"
 #include "../../lib/the_lib/lib.h"
+
 #include <stdbool.h>
 
 static int	is_redirection_input(enum e_token token_type)

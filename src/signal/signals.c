@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:44:12 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/25 10:15:38 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 15:39:40 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void destroy_heredoc(int signum, siginfo_t *info, void *context)
 	{
 		ft_putchar_fd('\0', STDIN_FILENO);
 		ft_putchar_fd('\n', 2);
+		add_env(ft_strdup("42heredoc=quit"));
+		add_env(ft_strdup("?=1"));
 	}
 }
 

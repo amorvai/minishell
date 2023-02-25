@@ -6,23 +6,18 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/25 14:44:24 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 17:38:13 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../env/env.h"
+#include "../error/error.h"
 #include "../../lib/the_lib/lib.h"
+
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
-
-static void puke_error(char *export_value)
-{
-	ft_putstr_fd("bash: export: `", 2);
-	ft_putstr_fd(export_value, 2);
-	ft_putstr_fd("': not a valid identifier\n", 2);
-}
 
 bool variable_name_allowed(char *str, char *export_value)
 {
@@ -41,7 +36,7 @@ bool variable_name_allowed(char *str, char *export_value)
 		j++;
 	}
 	if (misery == true)
-		puke_error(export_value);
+		print_export_unset(export_value, "export");
 	return(misery);
 }
 
@@ -52,19 +47,22 @@ void bi_export(char **simple_command)
 	bool	misery;
 	
 	i = 1;
+	split = NULL;
 	while (simple_command[i] != NULL)
 	{
 		if (ft_strchr(simple_command[i], '=') != NULL)
 		{
 			split = ft_split(simple_command[i], '=');
 			misery = variable_name_allowed(split[0], simple_command[i]);
-			if (misery == false)
-				add_env(ft_strdup(simple_command[i]));
-			free_splits(split);
 		}
+		else
+			misery = variable_name_allowed(simple_command[i], simple_command[i]);
+		if (misery == false)
+			add_env(ft_strdup(simple_command[i]));
+		if (split != NULL)
+			free_splits(split);
 		i++;
 	}
-	if (misery == true)
-		add_env(ft_strdup("?=1"));
-	add_env(ft_strdup("?=0"));
+	if (misery != true)
+		add_env(ft_xstrdup("?=0"));
 }

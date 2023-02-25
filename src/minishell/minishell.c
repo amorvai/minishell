@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 14:40:58 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 17:45:00 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ char	*get_user_input()
 	char	*read_line;
 
 	read_line = NULL;
+	add_env(ft_xstrdup("42heredoc="));
 	if (!isatty(0))
 	{
 		get_next_line(0, &read_line);
@@ -45,11 +46,10 @@ int	minishell(void)
 	char		*read_line;
 	t_token		*tokens;
 	t_simp_com	*commands;
-	int			exit_code = 0;
+	int			exit_code;
 	
 	init_env();
 	signal(SIGQUIT, SIG_IGN);
-	add_env(ft_strdup("?=0"));
 	while (1)
 	{
 		signal(SIGINT, redisplay_the_muschel);
@@ -69,6 +69,7 @@ int	minishell(void)
 	if (isatty(STDERR_FILENO) != 0)
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 	clear_history();
+	ft_atoi(get_env("?"), &exit_code); 
 	// printf("pid %i\n", getpid());
 	// while(1)
 	free_env();
