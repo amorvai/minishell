@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/24 16:46:42 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 03:46:45 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@
 #include "../structure/command.h"
 #include "../../lib/the_lib/lib.h"
 #include "../error/error.h"
+#include "../signal/signals.h"
 
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <signal.h>
 #include <sys/stat.h>
 
 extern char		**g_envp;
@@ -37,7 +39,8 @@ int	executer(t_simp_com *cmds)
 	
 	if (cmds == NULL)
 		return (0);
-	// heredoc()
+	terminal_switcher("execute");
+	signal(SIGINT, SIG_IGN);
 	if (command_lst_len(cmds) > 1)
 		multiple_pipes(cmds, command_lst_len(cmds));
 	else if (is_builtin(cmds->command))
@@ -54,6 +57,8 @@ int	executer(t_simp_com *cmds)
 	}
 	else
 	{
+		signal(SIGINT, sig_hand);
+		signal(SIGQUIT, sig_hand);
 		if ((pid = fork()) < 0)
 			return(print_fork_protection());
 		else if (pid == 0)
@@ -63,6 +68,7 @@ int	executer(t_simp_com *cmds)
 			decisionmaker(cmds->command, "child");
 		}
 		idle_mode(1);
+		signal(SIGQUIT, SIG_IGN);
 	}
 	return(EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:27:00 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/20 14:56:40 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 03:24:24 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXEC_H
 
 # include "../structure/command.h"
+#include <signal.h>
 
 int		executer(t_simp_com *head);
 int		where_ma_redirec(t_simp_com *single_cmd);

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/24 16:54:46 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 03:02:19 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <sys/wait.h>
 
 #include "exec.h"
+#include "../signal/signals.h"
 #include "../error/error.h"
 #include "../env/env.h"
 #include "../minishell/minishell.h"

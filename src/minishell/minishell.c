@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/24 16:51:49 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 03:31:01 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../token/token.h"
 #include "../parsing/parsing.h"
 #include "../exec/exec.h"
-#include "../signal/signal.h"
+#include "../signal/signals.h"
 #include "../../lib/the_lib/lib.h"
 
 # include <stdio.h>
@@ -24,14 +24,13 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-char	*get_user_input(void)
+char	*get_user_input()
 {
 	char	*read_line;
 
 	if (!isatty(0))
 		return (get_next_line(0));
-	printf("miesmushell is listening from %s", get_env("PWD"));
-	read_line = readline("\n🐚... ");
+	read_line = readline("🐚...");
 	add_history(read_line);
 	return (read_line);
 }
@@ -41,22 +40,26 @@ int	minishell(void)
 	char				*read_line;
 	t_token				*tokens;
 	t_simp_com			*commands;
-	struct sigaction	s_act;
 
 	init_env();
-	s_act = init_sig();
+	signal(SIGQUIT, SIG_IGN);
 	add_env(ft_strdup("?=0"));
 	while (1)
 	{
+		signal(SIGINT, redisplay_the_muschel);
+		terminal_switcher("input");
 		read_line = get_user_input();
 		if (!read_line)
+		{
+			if (isatty(STDERR_FILENO) != 0)
+				ft_putstr_fd("exit\n", STDERR_FILENO);
 			break ;
+		}
 		tokens = NULL;
 		commands = NULL;
 		if (token_lst_init(&tokens, read_line) || !tokens
 			|| parse(&tokens, &commands))
 			continue ;
-		print_command_lst(commands);
 		executer(commands);
 		command_lst_clear(&commands);
 	}
