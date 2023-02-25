@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 01:25:40 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/16 16:22:35 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 12:05:38 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include "../builtin/builtins.h"
 #include "../../lib/the_lib/lib.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -18,25 +19,34 @@
 extern char	**environ;
 char		**g_envp;
 
-int	init_env()
+int	init_env(void)
 {
-	int	i;
+	int		i;
+	char	*cwd;
 
 	i = split_count(environ);
-	g_envp = ft_calloc(i + 1, sizeof(char *));
+	g_envp = ft_xcalloc(i + 1, sizeof(char *));
 	i = 0;
 	while (environ[i] != NULL)
 	{
-		g_envp[i] = ft_substr(environ[i], 0, ft_strlen(environ[i]));
-		if (g_envp[i] == NULL)
-			return (1); // solve alternatively / calloc or die
+		g_envp[i] = ft_xsubstr(environ[i], 0, ft_strlen(environ[i]));
 		i++;
 	}
 	g_envp[i] = NULL;
+	if (!get_env("PWD"))
+	{
+		cwd = grab_cwd();
+		if (cwd)
+		{
+			add_env(ft_xstrjoin("PWD=", cwd));
+			free(cwd);
+		}
+	}
+	add_env(ft_xstrdup("?=0"));
 	return (0);
 }
 
-void	print_env()
+void	print_env(void)
 {
 	int	i;
 

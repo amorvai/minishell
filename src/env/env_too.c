@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 18:00:03 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/18 13:36:06 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/25 12:06:37 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ static int	copy_env_plusone(char *new_env, int env_len)
 	char	**envp_copy;
 
 	envp_copy = g_envp;
-	g_envp = ft_calloc(env_len + 2, sizeof(char *));
-	if (!g_envp)
-		return (1);
+	g_envp = ft_xcalloc(env_len + 2, sizeof(char *));
 	ft_memcpy(g_envp, envp_copy, env_len * sizeof(char *));
 	g_envp[env_len] = new_env;
 	g_envp[env_len + 1] = NULL;
@@ -50,6 +48,8 @@ int	add_env(char *new_env)
 	char	**key_value;
 	int		i;
 
+	if (!new_env)
+		return (1);
 	i = 0;
 	key_value = ft_split(new_env, '=');
 	while (g_envp[i] != NULL)
