@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_fd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:47:16 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/23 11:50:43 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/25 10:26:36 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_fd.h"
 #include "../libft/libft.h" // ft_memset
 #include <unistd.h>
+#include <stdio.h>
 
 char	*get_next_line(int fd)
 {
@@ -30,7 +31,7 @@ char	*get_next_line(int fd)
 		ft_memset(readline, '\0', BUFFER_SIZE + 1);
 		rvalue = read(fd, readline, BUFFER_SIZE);
 		if (rvalue == -1)
-			return (NULL);
+			return (0);
 		buffer[fd] = append_readline(buffer[fd], readline);
 	}
 	if (buffer[fd])
@@ -41,3 +42,5 @@ char	*get_next_line(int fd)
 	}
 	return (NULL);
 }
+
+

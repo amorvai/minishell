@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:44:12 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/25 03:57:05 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 10:15:38 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,19 @@
 #include <readline/readline.h>
 #include <unistd.h>
 #include <termios.h>
+#include <sys/stat.h>
 
+void destroy_heredoc(int signum, siginfo_t *info, void *context)
+{
+	(void)info;
+	(void)context;
+	
+	if (signum == SIGINT)
+	{
+		ft_putchar_fd('\0', STDIN_FILENO);
+		ft_putchar_fd('\n', 2);
+	}
+}
 
 void redisplay_the_muschel(int signum)
 {

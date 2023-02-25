@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 14:00:22 by pnolte            #+#    #+#             */
-/*   Updated: 2022/07/06 11:28:08 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 10:18:19 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,10 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			i;
 
-	if (read(fd, NULL, 0) < 0 || BUFFER_SIZE <= 0)
+	if (read(fd, NULL, 0) < 0 || BUFFER_SIZE <= 0) {
+		printf("ads\n");
 		return (NULL);
+	}
 	remember = gnl_read(remember, fd);
 	if (remember == NULL)
 		return (NULL);

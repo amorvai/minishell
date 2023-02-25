@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:01:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 07:08:44 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/25 10:25:31 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #include "../parsing/utils.h"
 #include "../../lib/the_lib/lib.h"
 #include "../signal/signals.h"
+#include "../exec/exec.h"
+#include "../builtin/builtins.h"
+#include "../error/error.h"
 #include <unistd.h>
 #include <fcntl.h>
 
@@ -75,13 +78,18 @@ static void	read_to_fd(int fd, const char *delim)
 	char	*line;
 	char	*exp_line;
 	char	*exp_delim;
-
+	struct sigaction s_act = {0};
+	
+	s_act.sa_sigaction = destroy_heredoc;
+	sigaction(SIGINT, &s_act, NULL);
 	exp_delim = expand_delimiter(delim);
 	if (exp_delim)
 		delim = exp_delim;
 	while (1)
 	{
 		line = get_next_line(0);
+		if (line < 0)
+			return;
 		if (!line || ft_strncmp(line, delim, ft_strlen(delim)) == 0)
 			break ;
 		if (exp_delim)
@@ -97,6 +105,7 @@ static void	read_to_fd(int fd, const char *delim)
 	if (exp_delim)
 		free(exp_delim);
 }
+
 
 int	create_tmp_file(char **filename)
 {
@@ -116,7 +125,6 @@ char	*heredoc(const char *delim)
 	char	*filename;
 
 	filename = NULL;
-	terminal_switch("execute");
 	fd = create_tmp_file(&filename);
 	if (fd == -1)
 	{
