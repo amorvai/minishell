@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:01:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/24 00:43:54 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/25 14:30:24 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,42 +45,20 @@ static char	*expand_delimiter(const char *str)
 	return (append_str(command_str, str, i, j));
 }
 
-static char	*expand_heredoc(const char *line)
-{
-	char	*expanded_line;
-	size_t	i;
-	size_t	j;
-
-	expanded_line = NULL;
-	i = 0;
-	j = 0;
-	while (line[i + j] != '\0')
-	{
-		if (line[i + j] == '$')
-		{
-			expanded_line = append_str(expanded_line, line, i, j);
-			i = i + j + 1;
-			j = 0;
-			expanded_line = expand_env_var(expanded_line, line, &i);
-		}
-		else
-			j++;
-	}
-	return (append_str(expanded_line, line, i, j));
-}
-
 static void	read_to_fd(int fd, const char *delim)
 {
 	char	*line;
 	char	*exp_line;
 	char	*exp_delim;
+	// int		rvalue;
 
 	exp_delim = expand_delimiter(delim);
 	if (exp_delim)
 		delim = exp_delim;
 	while (1)
 	{
-		line = get_next_line(0);
+		line = NULL;
+		/*rvalue = */get_next_line(0, &line);
 		if (!line || ft_strncmp(line, delim, ft_strlen(delim)) == 0)
 			break ;
 		if (exp_delim)

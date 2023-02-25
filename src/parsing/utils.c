@@ -6,10 +6,11 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:27:14 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/24 17:39:01 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/25 12:15:10 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "utils.h"
 #include "../../lib/the_lib/lib.h"
 
 char	*append_str(char *command_str,
@@ -42,4 +43,28 @@ char	*expand_doub_quote_simple(char *command_str, const char *str, size_t *i)
 	command_str = append_str(command_str, str, *i, j);
 	*i = *i + j + 1;
 	return (command_str);
+}
+
+char	*expand_heredoc(const char *line)
+{
+	char	*expanded_line;
+	size_t	i;
+	size_t	j;
+
+	expanded_line = NULL;
+	i = 0;
+	j = 0;
+	while (line[i + j] != '\0')
+	{
+		if (line[i + j] == '$')
+		{
+			expanded_line = append_str(expanded_line, line, i, j);
+			i = i + j + 1;
+			j = 0;
+			expanded_line = expand_env_var(expanded_line, line, &i);
+		}
+		else
+			j++;
+	}
+	return (append_str(expanded_line, line, i, j));
 }
