@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 01:25:40 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 12:05:38 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/27 22:43:04 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,11 @@ void	print_env(void)
 
 	i = 0;
 	if (!g_envp)
-	{
-		printf("(there is nothing here)\n");
 		return ;
-	}
 	while (g_envp && g_envp[i] != NULL)
 	{
-		printf("%s\n", g_envp[i]);
+		if (ft_strncmp(g_envp[i], "?=", 2))
+			printf("%s\n", g_envp[i]);
 		i++;
 	}
 }

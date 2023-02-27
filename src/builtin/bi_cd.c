@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/25 10:43:37 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/27 21:43:34 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,7 @@ void bi_cd(char *path)
 	}	
 	if (r_v[1] == EXIT_FAILURE)
 		add_env(ft_strdup("?=1"));
+	else
+		add_env(ft_strdup("?=0"));
 	return ;
 }

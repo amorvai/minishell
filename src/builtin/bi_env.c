@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/25 10:38:13 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/27 21:52:36 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void bi_env(char **simple_command)
 	{
 		ft_putstr_fd(get_env("PWD"), 1);
 		ft_putstr_fd("\n", 1);
-		add_env(ft_strdup("?=0"));
-		return ;
 	}
 	else if (simple_command[1] != NULL)
 	{

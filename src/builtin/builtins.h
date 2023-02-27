@@ -6,12 +6,14 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:58:59 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/25 16:28:38 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/27 22:16:02 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
+
+# include <stdbool.h>
 
 char	*grab_cwd();
 

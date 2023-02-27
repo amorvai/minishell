@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:38:05 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/24 18:53:58 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/27 19:50:37 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,67 +15,59 @@
 #include "../structure/command.h"
 #include "../../lib/the_lib/lib.h"
 
-#include <unistd.h>
-#include <stdio.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include <sys/stat.h>
 
-static int	permission_to_do(char *file)
+int	open_dup_close(t_redirection *redir, int o_flags, int fd_to_change)
 {
-	struct stat		s;
-
-	if (stat(file, &s))
-		return (print_no_such(file, "file_or_dire"));
-	if (!(s.st_mode & S_IRUSR))
-		return (print_permission_denied(file));
-	return(EXIT_SUCCESS);
+	redir->fd = open(redir->file, o_flags);
+	if (redir->fd < 0)
+		return (/*print_open_protection(), */1);
+	dup2(redir->fd, fd_to_change);
+	close(redir->fd);
+	return (0);
 }
+//open calls need to be protected against directorys probably
 
 static int	input_search(t_redirection *input)
 {
-	//stat call needs to be changed, it doesnt catch directorys
+	if (check_validity(input->file, NULL))
+			return (1);
 	if (input->next == NULL)
-	{
-		input->fd = open(input->file, O_RDONLY);
-		dup2(input->fd, STDIN_FILENO);
-		close(input->fd);
-	}
-	//open calls need to be protected against directorys probably
-	return (EXIT_SUCCESS);
+		if (open_dup_close(input, O_RDONLY, STDIN_FILENO))
+			return (1);
+	return (0);
 }
 
 static int	output_search(t_redirection *output)
 {
-	struct stat		s;
+	struct stat	s;
 	
 	if (stat(output->file, &s))
 	{
 		output->fd = open(output->file, O_WRONLY | O_CREAT, 0644);
+		if (output->fd < 0)
+			return (/*print_open_protection(), */1);
 		close(output->fd);
 	}
 	else if (!(s.st_mode & S_IWUSR))
-		return (print_permission_denied(output->file));
-	if (output->redir_type == GREAT)
+		return (print_permission_denied(output->file), 1);
+	if (output->next == NULL)
 	{
-		if (output->next == NULL)
+		if (output->redir_type == GREAT)
 		{
-			output->fd = open(output->file, O_WRONLY | O_TRUNC);
-			dup2(output->fd, STDOUT_FILENO);
-			close(output->fd);
+			if (open_dup_close(output, O_WRONLY | O_TRUNC, STDOUT_FILENO))
+				return (1);
 		}
-		//open calls need to be protected against directorys probably
+		else
+			if (open_dup_close(output, O_WRONLY | O_APPEND, STDOUT_FILENO))
+				return (1);
 	}
-	else if (output->redir_type == GGREAT)
-	{
-		if (output->next == NULL)
-		{
-			output->fd = open(output->file, O_WRONLY | O_APPEND);
-			dup2(output->fd, STDOUT_FILENO);
-			close(output->fd);
-		}
-	}
-	return (EXIT_SUCCESS);
+	return (0);
 }
+	// if (output->redir_type == GREAT && output->next == NULL)
+	// else if (output->redir_type == GGREAT && output->next == NULL)
 
 int	redirector(t_simp_com *single_cmd)
 {
@@ -84,8 +76,6 @@ int	redirector(t_simp_com *single_cmd)
 	redirection = single_cmd->redirect_input;
 	while (redirection != NULL)
 	{
-		if (permission_to_do(redirection->file) != 0)
-			return (EXIT_FAILURE);
 		if (input_search(redirection))
 			return (EXIT_FAILURE);
 		redirection = redirection->next;

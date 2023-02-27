@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:55:22 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/25 15:59:51 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/27 22:47:28 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_command_not_found(char *file)
 
 void	print_permission_denied(char *file)
 {
-	add_env(ft_strdup("?=1"));
+	add_env(ft_strdup("?=126"));
 	ft_putstr_fd("miesmushell: ", 2);
 	ft_putstr_fd(file, 2);
 	ft_putstr_fd(": Permission denied\n", 2);

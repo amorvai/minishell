@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 16:39:58 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/27 22:04:30 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ int	minishell(void)
 		commands = NULL;
 		if (token_lst_init(&tokens, read_line) || !tokens
 			|| parse(&tokens, &commands))
-			continue ; // free(read_line);
+		{
+			free(read_line);
+			continue ;
+		}
 		free(read_line);
 		// print_command_lst(commands);
 		executer(commands);
@@ -71,8 +74,5 @@ int	minishell(void)
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 	clear_history();
 	free_env();
-	// printf("pid %i\n", getpid());
-	// while(1)
-	// ft_atoi(get_env("?"), &exit_status);
 	return (0);
 }
