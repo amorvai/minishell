@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_rede.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:38:05 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/24 16:19:59 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/24 18:53:58 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	permission_to_do(char *file)
 	if (stat(file, &s))
 		return (print_no_such(file, "file_or_dire"));
 	if (!(s.st_mode & S_IRUSR))
-		return(print_permission_denied(file));
+		return (print_permission_denied(file));
 	return(EXIT_SUCCESS);
 }
 
@@ -54,7 +54,7 @@ static int	output_search(t_redirection *output)
 		close(output->fd);
 	}
 	else if (!(s.st_mode & S_IWUSR))
-		return(print_permission_denied(output->file));
+		return (print_permission_denied(output->file));
 	if (output->redir_type == GREAT)
 	{
 		if (output->next == NULL)
@@ -77,7 +77,7 @@ static int	output_search(t_redirection *output)
 	return (EXIT_SUCCESS);
 }
 
-int	where_ma_redirec(t_simp_com *single_cmd)
+int	redirector(t_simp_com *single_cmd)
 {
 	t_redirection	*redirection;
 	
@@ -85,7 +85,7 @@ int	where_ma_redirec(t_simp_com *single_cmd)
 	while (redirection != NULL)
 	{
 		if (permission_to_do(redirection->file) != 0)
-			return(EXIT_FAILURE);
+			return (EXIT_FAILURE);
 		if (input_search(redirection))
 			return (EXIT_FAILURE);
 		redirection = redirection->next;
