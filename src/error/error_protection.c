@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_protection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 13:56:14 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 13:59:41 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/27 15:54:29 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,3 +26,11 @@ int print_redirection_protection()
 	ft_putstr_fd("miesmushell: Redirection failed", 2);
 	return(EXIT_FAILURE);
 }
+
+int print_open_protection()
+{
+	add_env(ft_strdup("?=1"));
+	ft_putstr_fd("miesmushell: Open failed", 2);
+	return(EXIT_FAILURE);
+}
+
