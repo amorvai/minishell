@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:55:22 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/27 18:45:37 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/27 19:18:28 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,14 @@ void	print_is_directory(char *file)
 	ft_putstr_fd("miesmushell: ", 2);
 	ft_putstr_fd(file, 2);
 	ft_putstr_fd(": Is a directory\n", 2);
+}
+
+void	print_export_unset(char *value, char *flex)
+{
+	if (ft_strcmp(flex, "export") == 0)
+		ft_putstr_fd("miesmushell: export: `", 2);
+	else if (ft_strcmp(flex, "unset") == 0)
+		ft_putstr_fd("miesmushell: unset: `", 2);	
+	ft_putstr_fd(value, 2);
+	ft_putstr_fd("': not a valid identifier\n", 2);
 }

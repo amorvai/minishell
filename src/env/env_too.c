@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_too.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 18:00:03 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 12:06:37 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/27 19:13:47 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,27 @@
 
 extern char	**g_envp;
 
+static char	*add_equal_sign(char *key)
+{
+	char *tmp;
+	
+	if (ft_strchr(key, '=') == NULL)
+	{
+		tmp = ft_strjoin(key, "=");
+		free(key);
+		return(tmp);
+	}
+	else
+		return(key);
+}
+
 char	*get_env(char *key)
 {
-	int	i;
-
+	int		i;
+	
 	i = 0;
+	
+	key = add_equal_sign(key);
 	while (g_envp[i] != NULL)
 	{
 		if (!ft_strncmp(g_envp[i], key, ft_strlen(key)))
@@ -52,6 +68,7 @@ int	add_env(char *new_env)
 		return (1);
 	i = 0;
 	key_value = ft_split(new_env, '=');
+	key_value[0] = add_equal_sign(key_value[0]);
 	while (g_envp[i] != NULL)
 	{
 		if (!ft_strncmp(g_envp[i], key_value[0], ft_strlen(key_value[0])))
@@ -74,6 +91,7 @@ int	del_env(char *key)
 	int	i;
 
 	i = 0;
+	key = add_equal_sign(key);
 	while (g_envp[i] != NULL)
 	{
 		if (!ft_strncmp(g_envp[i], key, ft_strlen(key)))
