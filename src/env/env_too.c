@@ -6,13 +6,14 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 18:00:03 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/27 19:13:47 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/27 19:37:32 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 #include "../../lib/the_lib/lib.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 extern char	**g_envp;
 
@@ -21,13 +22,10 @@ static char	*add_equal_sign(char *key)
 	char *tmp;
 	
 	if (ft_strchr(key, '=') == NULL)
-	{
-		tmp = ft_strjoin(key, "=");
-		free(key);
-		return(tmp);
-	}
-	else
-		return(key);
+		tmp = ft_xstrjoin(key, "=");
+	tmp = key;
+	//dont i leak?
+	return (tmp);
 }
 
 char	*get_env(char *key)
@@ -35,7 +33,6 @@ char	*get_env(char *key)
 	int		i;
 	
 	i = 0;
-	
 	key = add_equal_sign(key);
 	while (g_envp[i] != NULL)
 	{
