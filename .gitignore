@@ -1,7 +1,7 @@
 inspiration/
 Simple-Ubuntu/
 .vscode/
-minishell
+suppress_readline/
 # Prerequisites
 *.d
 
