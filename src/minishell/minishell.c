@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 10:54:58 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 12:11:46 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,17 @@
 #include "../signal/signals.h"
 #include "../../lib/the_lib/lib.h"
 
-# include <stdio.h>
-# include <signal.h>
-# include <unistd.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#include <stdio.h>
+#include <signal.h>
+#include <unistd.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
-char	*get_user_input()
+char	*get_user_input(void)
 {
 	char	*read_line;
 
 	read_line = NULL;
-	
 	add_env(ft_xstrdup("42heredoc=not_used"));
 	if (!isatty(0))
 	{

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:01:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 10:40:55 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 11:59:29 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,9 @@ static int	read_to_fd(int fd, const char *delim)
 	char	*line;
 	char	*exp_line;
 	char	*exp_delim;
-	struct sigaction s_act = {0};
 	int		rvalue;
 	
-	s_act.sa_sigaction = destroy_heredoc;
-	sigaction(SIGINT, &s_act, NULL);
+	sigact_heredoc();
 	exp_delim = expand_delimiter(delim);
 	if (exp_delim)
 		delim = exp_delim;
@@ -82,7 +80,8 @@ static int	read_to_fd(int fd, const char *delim)
 	{
 		line = NULL;
 		rvalue = get_next_line(0, &line);
-		if (!line || ft_strncmp(line, delim, ft_strlen(delim)) == 0 || rvalue != 0)
+		if (!line || (ft_strncmp(line, delim, ft_strlen(delim)) == 0 &&	
+			ft_strlen(line) == ft_strlen(delim) + 1) || rvalue != 0)
 			break ;
 		write_to_file(fd, line, &exp_line, exp_delim);
 		free(line);

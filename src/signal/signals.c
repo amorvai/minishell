@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:44:12 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 10:35:57 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 12:03:17 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@
 #include <termios.h>
 #include <sys/stat.h>
 
-void destroy_heredoc(int signum, siginfo_t *info, void *context)
+void	destroy_heredoc(int signum, siginfo_t *info, void *context)
 {
 	(void)info;
 	(void)context;
-	
 	if (signum == SIGINT)
 	{
 		ft_putchar_fd('\0', STDIN_FILENO);
@@ -36,7 +35,7 @@ void destroy_heredoc(int signum, siginfo_t *info, void *context)
 	}
 }
 
-void redisplay_the_muschel(int signum)
+void	redisplay_the_muschel(int signum)
 {
 	if (signum == SIGINT)
 	{
@@ -62,10 +61,18 @@ void	sig_hand(int signum)
 	}
 }
 
-void terminal_switcher(char *flex)
+void	sigact_heredoc(void)
 {
-	struct termios termios;
-	
+	struct sigaction	s_act;
+
+	s_act.sa_sigaction = destroy_heredoc;
+	sigaction(SIGINT, &s_act, NULL);
+}
+
+void	terminal_switcher(char *flex)
+{
+	struct termios	termios;
+
 	if (ft_strcmp(flex, "input") == 0)
 	{
 		tcgetattr(STDOUT_FILENO, &termios);
@@ -79,5 +86,3 @@ void terminal_switcher(char *flex)
 		tcsetattr(STDOUT_FILENO, TCSANOW, &termios);
 	}
 }
-
-//tcsanow = make changes immediatley
