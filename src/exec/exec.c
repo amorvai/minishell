@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 19:30:25 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 20:12:54 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ static void	single_builtin(t_simp_com **c)
 	int	fd_one;
 
 	if (ft_strcmp((*c)->command[0], "exit") == 0)
+	{
 		execute_builtin(c);
+		return ;
+	}
 	fd_zer = dup(STDIN_FILENO);
 	fd_one = dup(STDOUT_FILENO);
 	if (redirector(c))
