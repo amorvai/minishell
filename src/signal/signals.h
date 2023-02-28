@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:43:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 12:02:59 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 15:42:49 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	destroy_heredoc(int signum, siginfo_t *info, void *context);
 void	sig_hand(int signum);
 void	redisplay_the_muschel(int signum);
 void	rl_replace_line(const char *text, int clear_undo);
+int		get_signals_return_value(int signum);
 void	sigact_heredoc(void);
 
 #endif

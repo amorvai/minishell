@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:47:14 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/27 22:53:17 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 13:37:23 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,21 @@
 #include "../env/env.h" // get_env
 #include "../../lib/the_lib/lib.h"
 #include <stdio.h> // for NULL
+#include <stdbool.h>
 
 static char	*get_key_name(const char *str, int i)
 {
 	int	j;
 
 	j = 0;
-	while (str[i + j] != '\0' && !ft_strchr("\'\"$ \t\n", str[i + j]))
+	while (str[i + j] != '\0' && !ft_strchr("\'\"$:.,/~%%^+= \t\n", str[i + j]))
 		j++;
 	if (j > 0)
 		return (ft_xsubstr(str, i, j));
 	return (NULL);
 }
 
-char	*expand_env_var(char *command_str, const char *str, size_t *i)
+char	*expand_env_var(char *command_str, const char *str, size_t *i, bool quoted)
 {
 	char	*env_key;
 	char	*env_value;
@@ -35,7 +36,8 @@ char	*expand_env_var(char *command_str, const char *str, size_t *i)
 	env_key = get_key_name(str, *i);
 	if (!env_key)
 	{
-		command_str = append_str(command_str, "$", 0, 1);
+		if ((!quoted && str[*i] == '\0') || (!quoted && !ft_strchr("\'\"$", str[*i])) || quoted)
+			command_str = append_str(command_str, "$", 0, 1);
 		return (command_str);
 	}
 	env_value = get_env(env_key);
@@ -73,7 +75,7 @@ static char	*expand_doub_quote(char *command_str, const char *str, size_t *i)
 			quoted = append_str(quoted, str, *i, j);
 			*i = *i + j + 1;
 			j = 0;
-			quoted = expand_env_var(quoted, str, i);
+			quoted = expand_env_var(quoted, str, i, true);
 		}
 		else
 			j++;
@@ -106,7 +108,7 @@ char	*expand_token(const char *str)
 			else if (str[i - 1] == '\'')
 				command_str = expand_sing_quote(command_str, str, &i);
 			else
-				command_str = expand_env_var(command_str, str, &i);
+				command_str = expand_env_var(command_str, str, &i, false);
 		}
 		else
 			j++;

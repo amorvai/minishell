@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:44:12 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 12:03:17 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 15:42:37 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,16 @@
 #include <termios.h>
 #include <sys/stat.h>
 
-void	destroy_heredoc(int signum, siginfo_t *info, void *context)
+int	get_signals_return_value(int signum)
+{
+	if (signum == SIGINT)
+		return (130);
+	if (signum == SIGQUIT)
+		return (131);
+	return (2);
+}
+
+void destroy_heredoc(int signum, siginfo_t *info, void *context)
 {
 	(void)info;
 	(void)context;

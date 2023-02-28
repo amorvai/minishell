@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 14:13:53 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 15:37:13 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	idle_mode(int amo_cmd, pid_t pids[amo_cmd])
 		waitpid(pids[i], &status, 0);
 		if (WIFEXITED(status))
 			exitstatus = WEXITSTATUS(status);
-		else
-			exitstatus = 1;
+		else if (WIFSIGNALED(status))
+			exitstatus = get_signals_return_value(WTERMSIG(status));
 		i++;
 	}
 	exitcode = ft_itoa(exitstatus);
@@ -81,12 +81,10 @@ static void	create_environment_and_execute(char *executable, t_simp_com **cmds)
 	}
 	else if (pid[0] == 0)
 	{
-		if (redirector(cmds))
-		{
-			ft_atoi(get_env("?"), &exit_status);
-			exit(exit_status);
-		}
-		execve(executable, (*cmds)->command, g_envp);
+		if (!redirector(cmds) && executable)
+			execve(executable, (*cmds)->command, g_envp);
+		ft_atoi(get_env("?"), &exit_status);
+		exit(exit_status);
 	}
 	idle_mode(1, pid);
 }
@@ -96,8 +94,6 @@ static void	execute_other(t_simp_com **cmds)
 	char	*executable;
 
 	executable = get_executable_path((*cmds)->command[0]);
-	if (!executable)
-		return ;
 	create_environment_and_execute(executable, cmds);
 	if (executable != (*cmds)->command[0])
 		free(executable);

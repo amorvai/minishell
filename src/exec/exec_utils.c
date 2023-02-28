@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:09:39 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 14:08:47 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 15:40:37 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	path_hunt(char *cmd, char **path_to_ex)
 	int			i;
 
 	paths = NULL;
-	if (!ft_strchr(cmd, '/'))
+	if (/*cmd && */!ft_strchr(cmd, '/'))
 		paths = ft_split(get_env("PATH"), ':');
 	if (paths == NULL || paths[0] == NULL)
 		*path_to_ex = cmd;
@@ -74,6 +74,8 @@ char	*get_executable_path(char *arg_one)
 {
 	char	*executable;
 
+	if (arg_one == NULL)
+		return (NULL);
 	if (arg_one[0] == '\0' || (ft_strcmp(arg_one, ".") == 0
 			|| ft_strcmp(arg_one, "..") == 0))
 	{
