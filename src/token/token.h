@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 00:33:27 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/23 10:38:09 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 18:52:45 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ typedef struct s_token
 	struct s_token	*prev;
 	struct s_token	*next;
 }				t_token;
-
-// t_token	*tokenlast(t_token *lst);
 
 void	token_lst_add_back(t_token **lst, t_token *new_token);
 void	token_delete(t_token **lst, t_token *tobedeleted);

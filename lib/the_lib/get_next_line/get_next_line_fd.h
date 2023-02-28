@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_fd.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 14:47:09 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 11:07:01 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 18:34:15 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,3 @@ char	*create_newline(char *buffer);
 char	*buffer_restructure(char *buffer);
 
 #endif
-

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:55:22 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 15:48:15 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 19:25:13 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,29 @@
 
 void	print_command_not_found(char *file)
 {
-	add_env(ft_strdup("?=127"));
+	add_env(ft_xstrdup("?=127"));
 	ft_putstr_fd("miesmushell: ", 2);
 	ft_putstr_fd(file, 2);
 	ft_putstr_fd(": command not found\n", 2);
 }
 
-void	print_permission_denied(char *file)
+void	print_permission_denied(char *file, int ident)
 {
-	add_env(ft_strdup("?=126"));
+	if (ident == 'c')
+		add_env(ft_xstrdup("?=126"));
+	if (ident == 'r')
+		add_env(ft_xstrdup("?=1"));
 	ft_putstr_fd("miesmushell: ", 2);
 	ft_putstr_fd(file, 2);
 	ft_putstr_fd(": Permission denied\n", 2);
 }
 
-void	print_no_such(char *file, char *flex)
+void	print_no_such(char *file, char *flex, int ident)
 {
-	add_env(ft_strdup("?=127"));
+	if (ident == 'c')
+		add_env(ft_xstrdup("?=127"));
+	if (ident == 'r')
+		add_env(ft_xstrdup("?=1"));
 	ft_putstr_fd("miesmushell: ", 2);
 	ft_putstr_fd(file, 2);
 	ft_putstr_fd(": No such", 2);
@@ -47,7 +53,7 @@ void	print_no_such(char *file, char *flex)
 
 void	print_is_directory(char *file)
 {
-	add_env(ft_strdup("?=126"));
+	add_env(ft_xstrdup("?=126"));
 	ft_putstr_fd("miesmushell: ", 2);
 	ft_putstr_fd(file, 2);
 	ft_putstr_fd(": Is a directory\n", 2);

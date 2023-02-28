@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 18:10:00 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 19:03:32 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 19:35:03 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ void signal_deactivater(void)
 void	sigact_heredoc(void)
 {
 	struct sigaction	s_act;
-
+	
+	s_act.sa_flags = 0;
+	sigemptyset(&s_act.sa_mask);
 	s_act.sa_sigaction = destroy_heredoc;
 	sigaction(SIGINT, &s_act, NULL);
 }

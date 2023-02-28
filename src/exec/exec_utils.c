@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:09:39 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 15:40:37 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 19:32:19 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,14 @@ int	check_validity(char *filename, char *path)
 	if (!path)
 		path = filename;
 	if (stat(path, &s))
-	{
-		return (print_no_such(filename, "file_or_dire"), 1);
-	}
+		return (print_no_such(filename, "file_or_dire", 'c'), 1);
 	if (s.st_mode & S_IXUSR)
 	{
 		if (S_ISDIR(s.st_mode))
 			return (print_is_directory(filename), 1);
 	}
 	else
-		// perror("open");
-		return (print_permission_denied(filename), 1);
+		return (print_permission_denied(filename, 'c'), 1);
 	return (0);
 }
 
@@ -49,7 +46,7 @@ static void	path_hunt(char *cmd, char **path_to_ex)
 	int			i;
 
 	paths = NULL;
-	if (/*cmd && */!ft_strchr(cmd, '/'))
+	if (!ft_strchr(cmd, '/'))
 		paths = ft_split(get_env("PATH"), ':');
 	if (paths == NULL || paths[0] == NULL)
 		*path_to_ex = cmd;

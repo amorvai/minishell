@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 18:47:14 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 13:37:23 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 18:51:10 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static char	*get_key_name(const char *str, int i)
 	return (NULL);
 }
 
-char	*expand_env_var(char *command_str, const char *str, size_t *i, bool quoted)
+char	*expand_env_var(char *command_str, const char *str, size_t *i,
+							bool quoted)
 {
 	char	*env_key;
 	char	*env_value;
@@ -36,7 +37,8 @@ char	*expand_env_var(char *command_str, const char *str, size_t *i, bool quoted)
 	env_key = get_key_name(str, *i);
 	if (!env_key)
 	{
-		if ((!quoted && str[*i] == '\0') || (!quoted && !ft_strchr("\'\"$", str[*i])) || quoted)
+		if ((!quoted && str[*i] == '\0')
+			|| (!quoted && !ft_strchr("\'\"$", str[*i])) || quoted)
 			command_str = append_str(command_str, "$", 0, 1);
 		return (command_str);
 	}

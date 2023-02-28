@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:38:05 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 14:08:59 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 19:27:53 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ static int	input_search(t_redirection *input)
 	if (input->next == NULL)
 	{
 		if (stat(input->file, &s))
-			return (print_no_such(input->file, "file_or_dire"), 1);
+			return (print_no_such(input->file, "file_or_dire", 'r'), 1);
 		if (s.st_mode & S_IRUSR)
 		{
 			if (S_ISDIR(s.st_mode))
 				return (print_is_directory(input->file), 1);
 		}
+		else
+			return (print_permission_denied(input->file, 'r'), 1);
 		if (open_dup_close(input, O_RDONLY, STDIN_FILENO))
 			return (1);
 	}
@@ -61,7 +63,7 @@ static int	output_search(t_redirection *output)
 		close(output->fd);
 	}
 	else if (!(s.st_mode & S_IWUSR))
-		return (print_permission_denied(output->file), 1);
+		return (print_permission_denied(output->file, 'r'), 1);
 	if (output->next == NULL)
 	{
 		if (output->redir_type == GREAT)
@@ -75,8 +77,6 @@ static int	output_search(t_redirection *output)
 	}
 	return (0);
 }
-	// if (output->redir_type == GREAT && output->next == NULL)
-	// else if (output->redir_type == GGREAT && output->next == NULL)
 
 int	redirector(t_simp_com **single_cmd)
 {

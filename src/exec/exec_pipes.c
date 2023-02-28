@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 19:03:47 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 19:26:42 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 extern char	**g_envp;
 
-static void	fabricating_pipes(int amo_pipes, int fds[amo_pipes][2])
+static void	fabricating_pipes(int amo_pipes, int fds[1024][2])
 {
 	int	i;
 
@@ -34,7 +34,7 @@ static void	fabricating_pipes(int amo_pipes, int fds[amo_pipes][2])
 	}
 }
 
-static void	the_closer(int amo_pipes, int fds[amo_pipes][2], int i, char *flex)
+static void	the_closer(int amo_pipes, int fds[1024][2], int i, char *flex)
 {
 	int	z;
 
@@ -61,7 +61,7 @@ static void	the_closer(int amo_pipes, int fds[amo_pipes][2], int i, char *flex)
 	}
 }
 
-static int	childish_fds(t_simp_com **c, int nb_p, int fds[nb_p][2], int i)
+static int	childish_fds(t_simp_com **c, int nb_p, int fds[1024][2], int i)
 {
 	the_closer(nb_p, fds, i, "child");
 	if (i != 0 && (*c)->redirect_input == NULL)
@@ -77,7 +77,7 @@ static int	childish_fds(t_simp_com **c, int nb_p, int fds[nb_p][2], int i)
 	return (0);
 }
 
-static int	execute_child(t_simp_com **c, int nb_p, int fds[nb_p][2], int i)
+static int	execute_child(t_simp_com **c, int nb_p, int fds[1024][2], int i)
 {
 	char	*executable;
 	int		exit_status;
