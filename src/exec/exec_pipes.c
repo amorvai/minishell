@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 14:21:02 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 15:38:13 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 
 extern char	**g_envp;
 
-static void fabricating_pipes(int amo_pipes, int fds[amo_pipes][2])
+static void	fabricating_pipes(int amo_pipes, int fds[amo_pipes][2])
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (i < amo_pipes)
 	{
@@ -36,7 +36,7 @@ static void fabricating_pipes(int amo_pipes, int fds[amo_pipes][2])
 static void	the_closer(int amo_pipes, int fds[amo_pipes][2], int i, char *flex)
 {
 	int	z;
-	
+
 	z = 0;
 	if (ft_strcmp("parent", flex) == 0)
 	{
@@ -60,28 +60,28 @@ static void	the_closer(int amo_pipes, int fds[amo_pipes][2], int i, char *flex)
 	}
 }
 
-static int	childish_fds(t_simp_com **c, int nb_pipes, int fds[nb_pipes][2], int i)
+static int	childish_fds(t_simp_com **c, int nb_p, int fds[nb_p][2], int i)
 {
-	the_closer(nb_pipes, fds, i, "child");
+	the_closer(nb_p, fds, i, "child");
 	if (i != 0 && (*c)->redirect_input == NULL)
 		dup2(fds[i - 1][0], STDIN_FILENO);
 	if (i != 0)
-		close(fds[i - 1][0]);	
-	if (i < nb_pipes && (*c)->redirect_output == NULL)
+		close(fds[i - 1][0]);
+	if (i < nb_p && (*c)->redirect_output == NULL)
 		dup2(fds[i][1], STDOUT_FILENO);
-	if (i < nb_pipes)
+	if (i < nb_p)
 		close(fds[i][1]);
 	if (redirector(c))
 		return (1);
 	return (0);
 }
 
-static int	execute_child(t_simp_com **c, int nb_pipes, int fds[nb_pipes][2], int i)
+static int	execute_child(t_simp_com **c, int nb_p, int fds[nb_p][2], int i)
 {
 	char	*executable;
 	int		exit_status;
-	
-	if (!childish_fds(c, nb_pipes, fds, i))
+
+	if (!childish_fds(c, nb_p, fds, i))
 	{
 		if (is_builtin((*c)->command[0]))
 			execute_builtin(c);
@@ -115,7 +115,7 @@ void	multiple_pipes(t_simp_com **cmds, int nb_cmds)
 			print_fork_protection(); // more? exit? return? 
 		else if (pids[i] == 0)
 			execute_child(&temp, nb_pipes, fds, i);
-		temp = temp->next; 
+		temp = temp->next;
 		i++;
 	}
 	the_closer(nb_pipes, fds, 0, "parent");

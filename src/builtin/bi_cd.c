@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/27 21:43:34 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 14:27:46 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 #include <sys/stat.h>
 #include <stdio.h>
 
-static int switch_heel(char *path)
+static int	switch_heel(char *path)
 {
 	char		oldpwd[PATH_MAX];
 	char		cwd[PATH_MAX];
-	
+
 	if (getcwd(oldpwd, sizeof(oldpwd)) != NULL)
 		add_env(ft_strjoin("OLDPWD=", oldpwd));
 	else
@@ -30,27 +30,26 @@ static int switch_heel(char *path)
 	if (chdir(path) < 0)
 	{
 		ft_putstr_fd("🐚: cd: chdir error\n", 2);
-		return(EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	else
 	{
-		if(getcwd(cwd, sizeof(cwd)) != NULL)
+		if (getcwd(cwd, sizeof(cwd)) != NULL)
 			add_env(ft_strjoin("PWD=", cwd));
 		else
 		{
 			ft_putstr_fd("🐚: cd: getcwd PWD error\n", 2);
-			return(EXIT_FAILURE);
+			return (EXIT_FAILURE);
 		}
 	}
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
-
-void bi_cd(char *path)
+void	bi_cd(char *path)
 {
 	struct stat	s;
 	int			r_v[2];
-	
+
 	if (path == NULL || (path[0] == '~' && path[1] == '\0'))
 		r_v[1] = switch_heel(get_env("HOME"));
 	else if (path[0] == '-' && path[1] == '\0')
@@ -60,7 +59,7 @@ void bi_cd(char *path)
 	else
 	{
 		ft_putstr_fd("🐚: cd: ", 2);
-		ft_putstr_fd(path, 2);	
+		ft_putstr_fd(path, 2);
 		if (r_v[0] == -1)
 			ft_putstr_fd(": No such file or directory\n", 2);
 		else

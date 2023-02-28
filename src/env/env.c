@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 01:25:40 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 10:44:41 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 14:20:14 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	print_env(void)
 		return ;
 	while (g_envp && g_envp[i] != NULL)
 	{
-		if (ft_strncmp(g_envp[i], "?=", 2) && ft_strncmp(g_envp[i], "42heredoc=", 10))
+		if (ft_strncmp(g_envp[i], "?=", 2)
+			&& ft_strncmp(g_envp[i], "42heredoc=", 10))
 			printf("%s\n", g_envp[i]);
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:27:00 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 12:05:27 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 14:13:24 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*get_executable_path(char *arg_one);
 
 // exec
 
-void 	idle_mode(int amo_cmd, pid_t pids[amo_cmd]);
+void	idle_mode(int amo_cmd, pid_t pids[amo_cmd]);
 void	executer(t_simp_com **cmds);
 
 #endif

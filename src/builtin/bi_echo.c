@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/27 21:50:35 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 14:29:32 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #include "../../lib/the_lib/lib.h"
 #include <stdio.h>
 
-static void bi_echo2(char **simple_command);
+static void	bi_echo2(char **simple_command);
 
-void bi_echo(char **simple_command)
+void	bi_echo(char **simple_command)
 {
-	int i;
-	
+	int	i;
+
 	if (ft_strcmp(simple_command[1], "-n") != 0)
 	{
 		i = 1;
@@ -30,17 +30,17 @@ void bi_echo(char **simple_command)
 				ft_putchar_fd(' ', 1);
 			i++;
 		}
-		ft_putchar_fd('\n', 1);	
+		ft_putchar_fd('\n', 1);
 	}
 	else
 		bi_echo2(simple_command);
 	add_env(ft_strdup("?=0"));
 }
 
-static void bi_echo2(char **simple_command)
+static void	bi_echo2(char **simple_command)
 {
-	int i;
-	
+	int	i;
+
 	i = 2;
 	while (simple_command[i] != NULL)
 	{

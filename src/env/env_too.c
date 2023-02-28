@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 18:00:03 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 10:40:27 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 14:19:42 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*add_equal_sign(char *str)
 char	*get_env(char *key)
 {
 	char	*keyn;
-	int	i;
+	int		i;
 
 	keyn = add_equal_sign(key);
 	i = 0;
@@ -63,6 +63,7 @@ int	add_env(char *new_env)
 	char	**key_value;
 	char	*keyn;
 	int		i;
+	//maybe struct cause norm
 
 	if (!new_env)
 		return (1);
@@ -92,6 +93,7 @@ int	del_env(char *key)
 	char	*keyn;
 	int		temp;
 	int		i;
+	//maybe struct cause norm
 
 	i = 0;
 	temp = -1;

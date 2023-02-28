@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:09:39 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 14:15:17 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 15:40:37 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ int	check_validity(char *filename, char *path)
 	if (!path)
 		path = filename;
 	if (stat(path, &s))
+	{
 		return (print_no_such(filename, "file_or_dire"), 1);
+	}
 	if (s.st_mode & S_IXUSR)
 	{
 		if (S_ISDIR(s.st_mode))
@@ -72,9 +74,16 @@ char	*get_executable_path(char *arg_one)
 {
 	char	*executable;
 
+	if (arg_one == NULL)
+		return (NULL);
+	if (arg_one[0] == '\0' || (ft_strcmp(arg_one, ".") == 0
+			|| ft_strcmp(arg_one, "..") == 0))
+	{
+		print_command_not_found(arg_one);
+		return (NULL);
+	}
 	executable = NULL;
-	if (arg_one)
-		path_hunt(arg_one, &executable);
+	path_hunt(arg_one, &executable);
 	if (!executable || check_validity(arg_one, executable))
 	{
 		if (executable && executable != arg_one)

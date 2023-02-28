@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 09:24:30 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 14:27:00 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-static void puke_error(char *export_value)
+static void	puke_error(char *export_value)
 {
 	add_env(ft_strdup("?=1"));
 	ft_putstr_fd("miesmushell: export: `", 2);
@@ -27,14 +27,14 @@ static void puke_error(char *export_value)
 	ft_putstr_fd("': not a valid identifier\n", 2);
 }
 
-static bool variable_name_allowed(char *str, char *export_value)
+static bool	variable_name_allowed(char *str, char *export_value)
 {
-	int	j;
-	bool misery;
-	
+	int		j;
+	bool	misery;
+
 	misery = false;
 	if (str == NULL || ft_isdigit(str[0]) != 0)
-		misery = true;		
+		misery = true;
 	j = 0;
 	while (misery == false && str[j] != '\0')
 	{
@@ -50,25 +50,25 @@ static bool variable_name_allowed(char *str, char *export_value)
 	return (misery);
 }
 
-void bi_export(char **simple_command)
+void	bi_export(char **smpl_cmd)
 {
 	char	**split;
 	int		i;
 	bool	misery;
-	
+
 	i = 1;
 	split = NULL;
-	while (simple_command[i] != NULL)
+	while (smpl_cmd[i] != NULL)
 	{
-		if (ft_strchr(simple_command[i], '=') != NULL)
+		if (ft_strchr(smpl_cmd[i], '=') != NULL)
 		{
-			split = ft_split(simple_command[i], '=');
-			misery = variable_name_allowed(split[0], simple_command[i]);
+			split = ft_split(smpl_cmd[i], '=');
+			misery = variable_name_allowed(split[0], smpl_cmd[i]);
 		}
 		else
-			misery = variable_name_allowed(simple_command[i], simple_command[i]);
+			misery = variable_name_allowed(smpl_cmd[i], smpl_cmd[i]);
 		if (misery == false)
-			add_env(ft_strdup(simple_command[i]));
+			add_env(ft_strdup(smpl_cmd[i]));
 		if (split != NULL)
 			free_splits(split);
 		i++;

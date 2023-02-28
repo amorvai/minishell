@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:01:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 10:40:55 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 14:06:06 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	*expand_delimiter(const char *str)
 	return (append_str(command_str, str, i, j));
 }
 
-static void write_to_file(int fd, char *line, char **exp_line, char *exp_delim)
+static void	write_to_file(int fd, char *line, char **exp_line, char *exp_delim)
 {
 	if (exp_delim)
 		write(fd, line, ft_strlen(line));
@@ -61,7 +61,7 @@ static void write_to_file(int fd, char *line, char **exp_line, char *exp_delim)
 	{
 		*exp_line = expand_heredoc(line);
 		write(fd, *exp_line, ft_strlen(*exp_line));
-		free(*exp_line);	
+		free(*exp_line);
 	}
 }
 
@@ -70,11 +70,9 @@ static int	read_to_fd(int fd, const char *delim)
 	char	*line;
 	char	*exp_line;
 	char	*exp_delim;
-	struct sigaction s_act = {0};
 	int		rvalue;
-	
-	s_act.sa_sigaction = destroy_heredoc;
-	sigaction(SIGINT, &s_act, NULL);
+
+	sigact_heredoc();
 	exp_delim = expand_delimiter(delim);
 	if (exp_delim)
 		delim = exp_delim;
@@ -82,7 +80,8 @@ static int	read_to_fd(int fd, const char *delim)
 	{
 		line = NULL;
 		rvalue = get_next_line(0, &line);
-		if (!line || ft_strncmp(line, delim, ft_strlen(delim)) == 0 || rvalue != 0)
+		if (!line || (ft_strncmp(line, delim, ft_strlen(delim)) == 0
+				&& ft_strlen(line) == ft_strlen(delim) + 1) || rvalue != 0)
 			break ;
 		write_to_file(fd, line, &exp_line, exp_delim);
 		free(line);
@@ -91,9 +90,8 @@ static int	read_to_fd(int fd, const char *delim)
 		free(exp_delim);
 	if (line)
 		free(line);
-	return(rvalue);
+	return (rvalue);
 }
-
 
 int	create_tmp_file(char **filename)
 {
@@ -115,7 +113,10 @@ char	*heredoc(const char *delim)
 	filename = NULL;
 	fd[0] = create_tmp_file(&filename);
 	if (ft_strcmp(get_env("42heredoc"), "used") == 0)
+	{
+		close(fd[0]);
 		return (filename);
+	}
 	if (fd[0] == -1)
 		exit(print_open_protection());
 	if (read_to_fd(fd[0], delim) != 0)

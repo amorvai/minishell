@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 14:20:31 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 15:37:13 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 extern char	**g_envp;
 
-void idle_mode(int amo_cmd, pid_t pids[amo_cmd])
+void	idle_mode(int amo_cmd, pid_t pids[amo_cmd])
 {
 	int		status;
 	int		exitstatus;
