@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_rede.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:38:05 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 14:08:59 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 17:05:54 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,14 @@ static int	input_search(t_redirection *input)
 	if (input->next == NULL)
 	{
 		if (stat(input->file, &s))
-			return (print_no_such(input->file, "file_or_dire"), 1);
+			return (print_no_such(input->file, "file_or_dire", 'r'), 1);
 		if (s.st_mode & S_IRUSR)
 		{
 			if (S_ISDIR(s.st_mode))
 				return (print_is_directory(input->file), 1);
 		}
+		else
+			return (print_permission_denied(input->file, 'r'), 1);
 		if (open_dup_close(input, O_RDONLY, STDIN_FILENO))
 			return (1);
 	}
@@ -61,7 +63,7 @@ static int	output_search(t_redirection *output)
 		close(output->fd);
 	}
 	else if (!(s.st_mode & S_IWUSR))
-		return (print_permission_denied(output->file), 1);
+		return (print_permission_denied(output->file, 'r'), 1);
 	if (output->next == NULL)
 	{
 		if (output->redir_type == GREAT)

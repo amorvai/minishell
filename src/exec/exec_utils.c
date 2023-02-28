@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:09:39 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 15:40:37 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 17:04:58 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	check_validity(char *filename, char *path)
 		path = filename;
 	if (stat(path, &s))
 	{
-		return (print_no_such(filename, "file_or_dire"), 1);
+		return (print_no_such(filename, "file_or_dire", 'c'), 1);
 	}
 	if (s.st_mode & S_IXUSR)
 	{
@@ -37,7 +37,7 @@ int	check_validity(char *filename, char *path)
 	}
 	else
 		// perror("open");
-		return (print_permission_denied(filename), 1);
+		return (print_permission_denied(filename, 'c'), 1);
 	return (0);
 }
 

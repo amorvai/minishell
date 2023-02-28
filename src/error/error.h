@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:55:16 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 14:14:34 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 17:08:32 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 void	print_syntax_error(const t_token *nearby_token);
 
-int		print_permission_denied(char *file);
+void	print_permission_denied(char *file, int ident);
 int		print_is_directory(char *file);
 int		print_command_not_found(char *file);
-int		print_no_such(char *file, char *flex);
+void	print_no_such(char *file, char *flex, int ident);
 
 int		print_redirection_protection(void);
 int		print_fork_protection(void);
