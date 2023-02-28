@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 12:15:20 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 14:03:54 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	minishell(void)
 	t_token		*tokens;
 	t_simp_com	*commands;
 	int			exit_status;
-	
+
 	init_env();
 	signal(SIGQUIT, SIG_IGN);
 	while (1)

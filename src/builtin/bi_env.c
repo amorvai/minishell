@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/27 21:52:36 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 14:29:43 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-void bi_env(char **simple_command)
+void	bi_env(char **simple_command)
 {
-	if (ft_strcmp(simple_command[1], "pwd") == 0 || ft_strcmp(simple_command[1], "PWD") == 0)
+	if (ft_strcmp(simple_command[1], "pwd") == 0
+		|| ft_strcmp(simple_command[1], "PWD") == 0)
 	{
 		ft_putstr_fd(get_env("PWD"), 1);
 		ft_putstr_fd("\n", 1);

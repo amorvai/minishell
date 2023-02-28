@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:58:59 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 10:53:49 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 14:20:55 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 # include <stdbool.h>
 # include "../structure/command.h"
 
-char	*grab_cwd();
+char	*grab_cwd(void);
 
 void	bi_echo(char **simple_command);
 int		bi_cd(char *path);
-int		bi_pwd();
+int		bi_pwd(void);
 void	bi_exit(t_simp_com **c);
-void	bi_unset();
+void	bi_unset(void);
 int		bi_env(char **simple_command);
 int		bi_export(char **simple_command);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/27 21:34:55 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 14:22:25 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define PATH_MAX 1024
 #endif
 
-char	*grab_cwd()
+char	*grab_cwd(void)
 {
 	char	*buf;
 	char	*ptr;
@@ -33,7 +33,7 @@ char	*grab_cwd()
 	return (NULL);
 }
 
-void bi_pwd()
+void	bi_pwd(void)
 {
 	char	*cwd;
 

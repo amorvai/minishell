@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:38:05 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 10:53:10 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 14:08:59 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,15 @@ int	open_dup_close(t_redirection *redir, int o_flags, int fd_to_change)
 	close(redir->fd);
 	return (0);
 }
-//open calls need to be protected against directorys probably
 
 static int	input_search(t_redirection *input)
 {
-	struct stat s;
-	
+	struct stat	s;
+
 	if (input->next == NULL)
 	{
 		if (stat(input->file, &s))
-			return(print_no_such(input->file, "file_or_dire"), 1);
+			return (print_no_such(input->file, "file_or_dire"), 1);
 		if (s.st_mode & S_IRUSR)
 		{
 			if (S_ISDIR(s.st_mode))
@@ -53,7 +52,7 @@ static int	input_search(t_redirection *input)
 static int	output_search(t_redirection *output)
 {
 	struct stat	s;
-	
+
 	if (stat(output->file, &s))
 	{
 		output->fd = open(output->file, O_WRONLY | O_CREAT, 0644);
@@ -82,7 +81,7 @@ static int	output_search(t_redirection *output)
 int	redirector(t_simp_com **single_cmd)
 {
 	t_redirection	*redirection;
-	
+
 	redirection = (*single_cmd)->redirect_input;
 	while (redirection != NULL)
 	{

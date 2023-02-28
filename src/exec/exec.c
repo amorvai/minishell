@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 12:15:33 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 14:13:53 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 extern char	**g_envp;
 
-void idle_mode(int amo_cmd, pid_t pids[amo_cmd])
+void	idle_mode(int amo_cmd, pid_t pids[amo_cmd])
 {
 	int		status;
 	int		exitstatus;
@@ -41,10 +41,7 @@ void idle_mode(int amo_cmd, pid_t pids[amo_cmd])
 		if (WIFEXITED(status))
 			exitstatus = WEXITSTATUS(status);
 		else
-		{
 			exitstatus = 1;
-			printf("hi there I shouldnt be here");
-		}
 		i++;
 	}
 	exitcode = ft_itoa(exitstatus);

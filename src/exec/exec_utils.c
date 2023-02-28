@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:09:39 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 10:53:53 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 14:08:47 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ int	check_validity(char *filename, char *path)
 	if (!path)
 		path = filename;
 	if (stat(path, &s))
+	{
 		return (print_no_such(filename, "file_or_dire"), 1);
+	}
 	if (s.st_mode & S_IXUSR)
 	{
 		if (S_ISDIR(s.st_mode))
@@ -72,6 +74,12 @@ char	*get_executable_path(char *arg_one)
 {
 	char	*executable;
 
+	if (arg_one[0] == '\0' || (ft_strcmp(arg_one, ".") == 0
+			|| ft_strcmp(arg_one, "..") == 0))
+	{
+		print_command_not_found(arg_one);
+		return (NULL);
+	}
 	executable = NULL;
 	path_hunt(arg_one, &executable);
 	if (!executable || check_validity(arg_one, executable))

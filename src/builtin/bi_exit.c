@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 11:42:32 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 14:26:16 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	free_and_exit(long long exit_status, t_simp_com **c)
 
 	exit_status = exit_status % 256;
 	// everything that needs to happen before exiting
-	
 	exit_nb = ft_itoa(exit_status);
 	add_env(ft_xstrjoin("?=", exit_nb));
 	free(exit_nb);
