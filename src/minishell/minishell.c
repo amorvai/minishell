@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/27 22:04:30 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 10:45:18 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	minishell(void)
 		}
 		free(read_line);
 		// print_command_lst(commands);
-		executer(commands);
+		executer(&commands);
 		command_lst_clear(&commands);
 	}
 	if (isatty(STDERR_FILENO) != 0)

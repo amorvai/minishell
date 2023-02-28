@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:38:05 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/27 19:50:37 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 10:38:57 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <stdio.h>
 
 int	open_dup_close(t_redirection *redir, int o_flags, int fd_to_change)
 {
@@ -47,7 +48,7 @@ static int	output_search(t_redirection *output)
 	if (stat(output->file, &s))
 	{
 		output->fd = open(output->file, O_WRONLY | O_CREAT, 0644);
-		if (output->fd < 0)
+		if (output->fd < 0)	
 			return (/*print_open_protection(), */1);
 		close(output->fd);
 	}
@@ -69,18 +70,18 @@ static int	output_search(t_redirection *output)
 	// if (output->redir_type == GREAT && output->next == NULL)
 	// else if (output->redir_type == GGREAT && output->next == NULL)
 
-int	redirector(t_simp_com *single_cmd)
+int	redirector(t_simp_com **single_cmd)
 {
 	t_redirection	*redirection;
 	
-	redirection = single_cmd->redirect_input;
+	redirection = (*single_cmd)->redirect_input;
 	while (redirection != NULL)
 	{
 		if (input_search(redirection))
 			return (EXIT_FAILURE);
 		redirection = redirection->next;
 	}
-	redirection = single_cmd->redirect_output;
+	redirection = (*single_cmd)->redirect_output;
 	while (redirection != NULL)
 	{
 		if (output_search(redirection))
