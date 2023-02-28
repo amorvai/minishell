@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:44:12 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 10:35:57 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 14:06:31 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@
 #include <unistd.h>
 #include <termios.h>
 #include <sys/stat.h>
+
+int	get_signals_return_value(int signum)
+{
+	if (signum == SIGINT)
+		return (130);
+	if (signum == SIGQUIT)
+		return (131);
+	return (2);
+}
 
 void destroy_heredoc(int signum, siginfo_t *info, void *context)
 {

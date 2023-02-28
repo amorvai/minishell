@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:09:39 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 10:53:53 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 14:15:17 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	path_hunt(char *cmd, char **path_to_ex)
 	int			i;
 
 	paths = NULL;
-	if (!ft_strchr(cmd, '/'))
+	if (/*cmd && */!ft_strchr(cmd, '/'))
 		paths = ft_split(get_env("PATH"), ':');
 	if (paths == NULL || paths[0] == NULL)
 		*path_to_ex = cmd;
@@ -73,7 +73,8 @@ char	*get_executable_path(char *arg_one)
 	char	*executable;
 
 	executable = NULL;
-	path_hunt(arg_one, &executable);
+	if (arg_one)
+		path_hunt(arg_one, &executable);
 	if (!executable || check_validity(arg_one, executable))
 	{
 		if (executable && executable != arg_one)
