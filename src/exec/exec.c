@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 10:54:34 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 12:09:07 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,29 @@
 #include <stdio.h>
 #include <signal.h>
 #include <sys/wait.h>
+#include <sys/types.h>
 
 extern char	**g_envp;
 
-void idle_mode(int amo_cmd)
+void idle_mode(int amo_cmd, pid_t pids[amo_cmd])
 {
 	int		status;
 	int		exitstatus;
 	char	*exitcode;
-	
-	while (amo_cmd > 0)
+	int		i;
+
+	i = 0;
+	while (amo_cmd > i)
 	{
-		wait(&status);
+		waitpid(pids[i], &status, 0);
 		if (WIFEXITED(status))
 			exitstatus = WEXITSTATUS(status);
 		else
+		{
 			exitstatus = 1;
-		amo_cmd--;
+			printf("hi there I shouldnt be here");
+		}
+		i++;
 	}
 	exitcode = ft_itoa(exitstatus);
 	add_env(ft_xstrjoin("?=", exitcode));
@@ -67,16 +73,16 @@ static void	single_builtin(t_simp_com **c)
 
 static void	create_environment_and_execute(char *executable, t_simp_com **cmds)
 {
-	pid_t	pid;
+	pid_t	pid[1];
 	int		exit_status;
 
-	pid = fork();
-	if (pid < 0)
+	pid[0] = fork();
+	if (pid[0] < 0)
 	{
 		print_fork_protection();
 		return ;
 	}
-	else if (pid == 0)
+	else if (pid[0] == 0)
 	{
 		if (redirector(cmds))
 		{
@@ -85,7 +91,7 @@ static void	create_environment_and_execute(char *executable, t_simp_com **cmds)
 		}
 		execve(executable, (*cmds)->command, g_envp);
 	}
-	idle_mode(1);
+	idle_mode(1, pid);
 }
 
 static void	execute_other(t_simp_com **cmds)

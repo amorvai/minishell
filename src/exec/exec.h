@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 16:27:00 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 10:43:42 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 12:05:27 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXEC_H
 
 # include "../structure/command.h"
+# include <sys/types.h>
 
 // exec_pipes
 
@@ -32,7 +33,7 @@ char	*get_executable_path(char *arg_one);
 
 // exec
 
-void 	idle_mode(int amo_cmd);
+void 	idle_mode(int amo_cmd, pid_t pids[amo_cmd]);
 void	executer(t_simp_com **cmds);
 
 #endif

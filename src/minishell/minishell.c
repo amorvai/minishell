@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 10:54:58 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 11:51:10 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	minishell(void)
 	char		*read_line;
 	t_token		*tokens;
 	t_simp_com	*commands;
+	int			exit_status;
 	
 	init_env();
 	signal(SIGQUIT, SIG_IGN);
@@ -74,6 +75,7 @@ int	minishell(void)
 	if (isatty(STDERR_FILENO) != 0)
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 	clear_history();
+	ft_atoi(get_env("?"), &exit_status);
 	free_env();
-	return (0);
+	return (exit_status);
 }
