@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:58:59 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 14:20:55 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 15:45:12 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	bi_echo(char **simple_command);
 int		bi_cd(char *path);
 int		bi_pwd(void);
 void	bi_exit(t_simp_com **c);
-void	bi_unset(void);
+void	bi_unset(char **cmds);
 int		bi_env(char **simple_command);
 int		bi_export(char **simple_command);
 
