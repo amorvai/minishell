@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 12:03:42 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 12:31:06 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,5 @@ void	multiple_pipes(t_simp_com **cmds, int nb_cmds)
 		i++;
 	}
 	the_closer(nb_pipes, fds, 0, "parent");
-	idle_mode(i + 1, pids);
+	idle_mode(i, pids);
 }
