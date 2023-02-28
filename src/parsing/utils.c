@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 08:27:14 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 12:15:10 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 12:44:36 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*expand_heredoc(const char *line)
 			expanded_line = append_str(expanded_line, line, i, j);
 			i = i + j + 1;
 			j = 0;
-			expanded_line = expand_env_var(expanded_line, line, &i);
+			expanded_line = expand_env_var(expanded_line, line, &i, false);
 		}
 		else
 			j++;
