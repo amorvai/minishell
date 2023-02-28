@@ -49,4 +49,4 @@ re: fclean all
 valgrind:
 	valgrind --quiet --tool=memcheck --leak-check=full --show-leak-kinds=all --suppressions=supp --track-fds=yes ./minishell
 
-.PHONY: all, clean, fclean, re, libft, $(LIBFT)
+.PHONY: all, clean, fclean, re, libft

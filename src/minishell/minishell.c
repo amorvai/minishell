@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 19:30:48 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 19:53:20 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,12 @@ char	*get_user_input(void)
 	return (read_line);
 }
 
-int	minishell(void)
+void	loop(void)
 {
 	char		*read_line;
 	t_token		*tokens;
 	t_simp_com	*commands;
-	int			exit_status;
 
-	init_env();
-	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
 		signal(SIGINT, redisplay_the_muschel);
@@ -67,11 +64,19 @@ int	minishell(void)
 			continue ;
 		}
 		free(read_line);
-		// print_command_lst(commands);
 		signal_deactivater();
 		executer(&commands);
 		command_lst_clear(&commands);
 	}
+}
+
+int	minishell(void)
+{
+	int			exit_status;
+
+	init_env();
+	signal(SIGQUIT, SIG_IGN);
+	loop();
 	if (isatty(STDERR_FILENO) != 0)
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 	clear_history();

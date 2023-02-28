@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 19:26:42 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 19:45:52 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	multiple_pipes(t_simp_com **cmds, int nb_cmds)
 	{
 		pids[i] = fork();
 		if (pids[i] < 0)
-			print_fork_protection(); // more? exit? return? 
+			print_fork_protection();
 		else if (pids[i] == 0)
 			execute_child(&temp, nb_pipes, fds, i);
 		temp = temp->next;
