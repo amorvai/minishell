@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 10:39:37 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 12:32:31 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,5 @@ void	multiple_pipes(t_simp_com **cmds, int nb_cmds)
 		i++;
 	}
 	the_closer(nb_pipes, fds, 0, "parent");
-	idle_mode(i + 1);
+	idle_mode(i, pids);
 }
