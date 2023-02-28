@@ -6,11 +6,12 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 23:02:06 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/21 17:24:21 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 18:03:58 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/the_lib/lib.h" //for calloc
+#include "../error/error.h"
 #include "token.h"
 #include <stdio.h>
 
@@ -104,7 +105,11 @@ int	token_lst_init(t_token **token_lst, const char *s)
 		if (s[i] == '\0')
 			break ;
 		if (token_detected(token_lst, s, &i))
+		{
+			token_lst_clear(token_lst);
+			print_error_open_quotes();
 			return (1);
+		}
 	}
 	return (0);
 }
