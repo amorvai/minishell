@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 14:27:46 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 17:36:28 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ static int	switch_heel(char *path)
 	if (getcwd(oldpwd, sizeof(oldpwd)) != NULL)
 		add_env(ft_strjoin("OLDPWD=", oldpwd));
 	else
-		ft_putstr_fd("🐚: cd: getcwd OLDPWD error\n", 2);
+		ft_putstr_fd("miesmuschel: cd: getcwd OLDPWD error\n", 2);
 	if (chdir(path) < 0)
 	{
-		ft_putstr_fd("🐚: cd: chdir error\n", 2);
+		ft_putstr_fd("miesmuschel: cd: chdir error\n", 2);
 		return (EXIT_FAILURE);
 	}
 	else
@@ -38,7 +38,7 @@ static int	switch_heel(char *path)
 			add_env(ft_strjoin("PWD=", cwd));
 		else
 		{
-			ft_putstr_fd("🐚: cd: getcwd PWD error\n", 2);
+			ft_putstr_fd("miesmuschel: cd: getcwd PWD error\n", 2);
 			return (EXIT_FAILURE);
 		}
 	}

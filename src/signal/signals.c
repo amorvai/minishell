@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 12:44:12 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 15:42:37 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 19:05:12 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,14 @@ void	sig_hand(int signum)
 {
 	if (signum == SIGINT)
 	{
-		ft_putchar_fd('\n', STDOUT_FILENO);
+		ft_putchar_fd('\n', STDERR_FILENO);
 		add_env(ft_xstrdup("?=130"));
 	}
 	else if (signum == SIGQUIT)
 	{
-		ft_putstr_fd("Quit: 3\n", STDOUT_FILENO);
+		ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
 		add_env(ft_xstrdup("?=131"));
 	}
-}
-
-void	sigact_heredoc(void)
-{
-	struct sigaction	s_act;
-
-	s_act.sa_sigaction = destroy_heredoc;
-	sigaction(SIGINT, &s_act, NULL);
 }
 
 void	terminal_switcher(char *flex)

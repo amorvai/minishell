@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 15:37:13 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 18:54:16 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ static void	create_environment_and_execute(char *executable, t_simp_com **cmds)
 	}
 	else if (pid[0] == 0)
 	{
+		signal_activate("execute");
 		if (!redirector(cmds) && executable)
 			execve(executable, (*cmds)->command, g_envp);
 		ft_atoi(get_env("?"), &exit_status);
@@ -104,9 +105,6 @@ void	executer(t_simp_com **cmds)
 	if (cmds == NULL)
 		return ;
 	terminal_switcher("execute");
-	signal(SIGINT, SIG_IGN);
-	signal(SIGINT, sig_hand);
-	signal(SIGQUIT, sig_hand);
 	if (command_lst_len(*cmds) > 1)
 		multiple_pipes(cmds, command_lst_len(*cmds));
 	else if (is_builtin((*cmds)->command[0]))

@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 14:03:54 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 18:59:39 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	minishell(void)
 		}
 		free(read_line);
 		// print_command_lst(commands);
+		signal_deactivater();
 		executer(&commands);
 		command_lst_clear(&commands);
 	}

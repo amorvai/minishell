@@ -1,6 +1,6 @@
 NAME	:= minishell
 CC		:= cc
-CFLAGS	:= -I src/ -I lib/ -g3 -Wall -Werror -Wextra -fsanitize=address
+CFLAGS	:= -I src/ -I lib/ -g3 -Wall -Werror -Wextra
 LDFLAGS	:= -L ./lib/the_lib -l_extended -lreadline -L ~/.brew/opt/readline/lib/ -I ~/.brew/opt/readline/include/
 VPATH	:= src/ src/builtin/ src/env/ src/error/ src/exec/ src/heredoc/ src/minishell/ src/parsing/ src/signal/ src/structure/ src/token/
 OBJ_DIR	:= obj/
@@ -14,7 +14,7 @@ SRC		:=	main.c \
 			exec.c exec_pipes.c exec_rede.c exec_utils.c\
 			heredoc.c \
 			error.c error_parsing.c error_protection.c\
-			signals.c \
+			signals.c signals2.c \
 			bi_cd.c bi_echo.c bi_env.c bi_exit.c bi_export.c bi_pwd.c bi_unset.c\
 			
 

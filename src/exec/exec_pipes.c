@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/01 14:17:42 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 15:38:13 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 19:03:47 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../error/error.h"
 #include "../env/env.h"
 #include "../../lib/the_lib/lib.h"
+#include "../signal/signals.h"
 
 #include <unistd.h>
 #include <sys/stat.h>
@@ -83,6 +84,7 @@ static int	execute_child(t_simp_com **c, int nb_p, int fds[nb_p][2], int i)
 
 	if (!childish_fds(c, nb_p, fds, i))
 	{
+		signal_activate("execute");
 		if (is_builtin((*c)->command[0]))
 			execute_builtin(c);
 		else
@@ -98,8 +100,8 @@ static int	execute_child(t_simp_com **c, int nb_p, int fds[nb_p][2], int i)
 
 void	multiple_pipes(t_simp_com **cmds, int nb_cmds)
 {
-	pid_t		pids[nb_cmds];
-	int			fds[nb_cmds - 1][2];
+	pid_t		pids[1024];
+	int			fds[1024][2];
 	int			nb_pipes;
 	int			i;
 	t_simp_com	*temp;
