@@ -6,13 +6,13 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 07:42:02 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/24 18:00:21 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 19:02:21 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h" // for is_redirection
 #include "expansion.h" // expand_token
-#include "../../lib/the_lib/lib.h" // ft_strdup
+#include "../../lib/the_lib/lib.h" // ft_xcalloc
 
 static int	command_word_count(t_token *it)
 {

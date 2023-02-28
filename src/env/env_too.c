@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 18:00:03 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 17:31:51 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 18:44:55 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	del_env(char *key)
 		i++;
 	}
 	if (temp == -1)
-		return (free(keyn), 1);
+		return (free(keyn), 0);
 	while (g_envp[i] != NULL)
 		i++;
 	g_envp[temp] = g_envp[i - 1];

@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 15:55:16 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 18:03:05 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 18:34:56 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../token/token.h"
 
 void	print_syntax_error(const t_token *nearby_token);
-void	print_error_open_quotes();
+void	print_error_open_quotes(void);
 
 void	print_permission_denied(char *file, int ident);
 int		print_is_directory(char *file);

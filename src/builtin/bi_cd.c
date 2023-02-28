@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 14:27:46 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 19:01:13 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	switch_heel(char *path)
 	char		cwd[PATH_MAX];
 
 	if (getcwd(oldpwd, sizeof(oldpwd)) != NULL)
-		add_env(ft_strjoin("OLDPWD=", oldpwd));
+		add_env(ft_xstrjoin("OLDPWD=", oldpwd));
 	else
 		ft_putstr_fd("🐚: cd: getcwd OLDPWD error\n", 2);
 	if (chdir(path) < 0)
@@ -64,12 +64,12 @@ void	bi_cd(char *path)
 			ft_putstr_fd(": No such file or directory\n", 2);
 		else
 			ft_putstr_fd(": Not a directory\n", 2);
-		add_env(ft_strdup("?=1"));
+		add_env(ft_xstrdup("?=1"));
 		return ;
 	}	
 	if (r_v[1] == EXIT_FAILURE)
-		add_env(ft_strdup("?=1"));
+		add_env(ft_xstrdup("?=1"));
 	else
-		add_env(ft_strdup("?=0"));
+		add_env(ft_xstrdup("?=0"));
 	return ;
 }
