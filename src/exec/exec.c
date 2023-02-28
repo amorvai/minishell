@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 15:17:53 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 09:37:38 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 10:54:34 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,26 @@ void idle_mode(int amo_cmd)
 	free(exitcode);
 }
 
-static void	single_builtin(t_simp_com *c)
+static void	single_builtin(t_simp_com **c)
 {
 	int	fd_zer;
 	int	fd_one;
 
+	if (ft_strcmp((*c)->command[0], "exit") == 0)
+		execute_builtin(c);
 	fd_zer = dup(STDIN_FILENO);
 	fd_one = dup(STDOUT_FILENO);
 	if (redirector(c))
 		print_redirection_protection();
 	else
-		execute_builtin(c->command);
+		execute_builtin(c);
 	dup2(fd_zer, STDIN_FILENO);
 	dup2(fd_one, STDOUT_FILENO);
 	close(fd_zer);
 	close(fd_one);
 }
 
-static void	create_environment_and_execute(char *executable, t_simp_com *cmds)
+static void	create_environment_and_execute(char *executable, t_simp_com **cmds)
 {
 	pid_t	pid;
 	int		exit_status;
@@ -81,24 +83,24 @@ static void	create_environment_and_execute(char *executable, t_simp_com *cmds)
 			ft_atoi(get_env("?"), &exit_status);
 			exit(exit_status);
 		}
-		execve(executable, cmds->command, g_envp);
+		execve(executable, (*cmds)->command, g_envp);
 	}
 	idle_mode(1);
 }
 
-static void	execute_other(t_simp_com *cmds)
+static void	execute_other(t_simp_com **cmds)
 {
 	char	*executable;
 
-	executable = get_executable_path(cmds->command[0]);
+	executable = get_executable_path((*cmds)->command[0]);
 	if (!executable)
 		return ;
 	create_environment_and_execute(executable, cmds);
-	if (executable != cmds->command[0])
+	if (executable != (*cmds)->command[0])
 		free(executable);
 }
 
-void	executer(t_simp_com *cmds)
+void	executer(t_simp_com **cmds)
 {
 	if (cmds == NULL)
 		return ;
@@ -106,9 +108,9 @@ void	executer(t_simp_com *cmds)
 	signal(SIGINT, SIG_IGN);
 	signal(SIGINT, sig_hand);
 	signal(SIGQUIT, sig_hand);
-	if (command_lst_len(cmds) > 1)
-		multiple_pipes(cmds, command_lst_len(cmds));
-	else if (is_builtin(cmds->command[0]))
+	if (command_lst_len(*cmds) > 1)
+		multiple_pipes(cmds, command_lst_len(*cmds));
+	else if (is_builtin((*cmds)->command[0]))
 		single_builtin(cmds);
 	else
 		execute_other(cmds);

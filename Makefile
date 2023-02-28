@@ -1,7 +1,7 @@
 NAME	:= minishell
 CC		:= cc
-CFLAGS	:= -I src/ -I lib/ -g3 -Wall -Werror -Wextra -fsanitize=address
-LDFLAGS	:= -L ./lib/the_lib -l_extended -lreadline -L ~/.brew/opt/readline/lib/
+CFLAGS	:= -I src/ -I lib/ -g3 -Wall -Werror -Wextra #-fsanitize=address
+LDFLAGS	:= -L ./lib/the_lib -l_extended -lreadline -L ~/.brew/opt/readline/lib/ -I ~/.brew/opt/readline/include/
 VPATH	:= src/ src/builtin/ src/env/ src/error/ src/exec/ src/heredoc/ src/minishell/ src/parsing/ src/signal/ src/structure/ src/token/
 OBJ_DIR	:= obj/
 
@@ -46,4 +46,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all, clean, fclean, re, libft
+valgrind:
+	valgrind --quiet --tool=memcheck --leak-check=full --show-leak-kinds=all --suppressions=supp --track-fds=yes ./minishell
+
+.PHONY: all, clean, fclean, re, libft, $(LIBFT)

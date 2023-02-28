@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:38:05 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 10:20:54 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 10:53:10 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <stdio.h>
 
 int	open_dup_close(t_redirection *redir, int o_flags, int fd_to_change)
 {
@@ -78,18 +79,18 @@ static int	output_search(t_redirection *output)
 	// if (output->redir_type == GREAT && output->next == NULL)
 	// else if (output->redir_type == GGREAT && output->next == NULL)
 
-int	redirector(t_simp_com *single_cmd)
+int	redirector(t_simp_com **single_cmd)
 {
 	t_redirection	*redirection;
 	
-	redirection = single_cmd->redirect_input;
+	redirection = (*single_cmd)->redirect_input;
 	while (redirection != NULL)
 	{
 		if (input_search(redirection))
 			return (EXIT_FAILURE);
 		redirection = redirection->next;
 	}
-	redirection = single_cmd->redirect_output;
+	redirection = (*single_cmd)->redirect_output;
 	while (redirection != NULL)
 	{
 		if (output_search(redirection))

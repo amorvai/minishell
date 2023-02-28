@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:09:39 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 10:16:00 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 10:53:53 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 #include <stdlib.h> // free
 #include <sys/stat.h>
+#include <stdio.h>
 
 int	check_validity(char *filename, char *path)
 {
@@ -33,6 +34,7 @@ int	check_validity(char *filename, char *path)
 			return (print_is_directory(filename), 1);
 	}
 	else
+		// perror("open");
 		return (print_permission_denied(filename), 1);
 	return (0);
 }
@@ -81,22 +83,22 @@ char	*get_executable_path(char *arg_one)
 	return (executable);
 }
 
-void	execute_builtin(char **argv_commands)
+void	execute_builtin(t_simp_com **c)
 {
-	if (ft_strcmp(argv_commands[0], "cd") == 0)
-		bi_cd(argv_commands[1]);
-	else if (ft_strcmp(argv_commands[0], "echo") == 0)
-		bi_echo(argv_commands);
-	else if (ft_strcmp(argv_commands[0], "env") == 0)
-		bi_env(argv_commands);
-	else if (ft_strcmp(argv_commands[0], "exit") == 0)
-		bi_exit(argv_commands);
-	else if (ft_strcmp(argv_commands[0], "export") == 0)
-		bi_export(argv_commands);
-	else if (ft_strcmp(argv_commands[0], "pwd") == 0)
+	if (ft_strcmp((*c)->command[0], "cd") == 0)
+		bi_cd((*c)->command[1]);
+	else if (ft_strcmp((*c)->command[0], "echo") == 0)
+		bi_echo((*c)->command);
+	else if (ft_strcmp((*c)->command[0], "env") == 0)
+		bi_env((*c)->command);
+	else if (ft_strcmp((*c)->command[0], "exit") == 0)
+		bi_exit(c);
+	else if (ft_strcmp((*c)->command[0], "export") == 0)
+		bi_export((*c)->command);
+	else if (ft_strcmp((*c)->command[0], "pwd") == 0)
 		bi_pwd();
-	else if (ft_strcmp(argv_commands[0], "unset") == 0)
-		bi_unset(argv_commands);
+	else if (ft_strcmp((*c)->command[0], "unset") == 0)
+		bi_unset((*c)->command);
 }
 
 int	is_builtin(char *cmd)
