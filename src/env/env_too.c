@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_too.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 18:00:03 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/28 14:19:42 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 17:31:51 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	add_env(char *new_env)
 	char	**key_value;
 	char	*keyn;
 	int		i;
-	//maybe struct cause norm
 
 	if (!new_env)
 		return (1);
@@ -93,29 +92,25 @@ int	del_env(char *key)
 	char	*keyn;
 	int		temp;
 	int		i;
-	//maybe struct cause norm
 
 	i = 0;
 	temp = -1;
 	keyn = add_equal_sign(key);
-	while (g_envp[i] != NULL)
+	while (g_envp[i] != NULL && (i == 0 || g_envp[i - 1] != NULL))
 	{
 		if (!ft_strncmp(g_envp[i], keyn, ft_strlen(keyn)))
 		{
 			temp = i;
 			free(g_envp[i]);
 			g_envp[i] = NULL;
-			i++;
-			break ;
 		}
 		i++;
 	}
-	free(keyn);
 	if (temp == -1)
-		return (1);
+		return (free(keyn), 1);
 	while (g_envp[i] != NULL)
 		i++;
 	g_envp[temp] = g_envp[i - 1];
 	g_envp[i - 1] = NULL;
-	return (0);
+	return (free(keyn), 0);
 }

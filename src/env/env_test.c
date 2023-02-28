@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/07 10:07:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 12:03:15 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 17:43:55 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ int	main(void)
 	init_env();
 	print_env();
 	add_env(ft_strdup("hello=hello"));
-	add_env(ft_strdup("nice=nice"));
+	del_env("LESS");
 	add_env(ft_strdup("TEST=TEST:$hello"));
+	add_env(ft_strdup("nice=nice"));
 	print_env();
 	del_env("TEST");
 	ft_printf("\n");

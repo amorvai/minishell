@@ -6,7 +6,7 @@
 /*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:38:05 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 17:05:54 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 17:42:13 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ static int	output_search(t_redirection *output)
 	}
 	return (0);
 }
-	// if (output->redir_type == GREAT && output->next == NULL)
-	// else if (output->redir_type == GGREAT && output->next == NULL)
 
 int	redirector(t_simp_com **single_cmd)
 {

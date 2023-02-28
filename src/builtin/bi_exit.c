@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 15:37:24 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 17:39:59 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	free_and_exit(long long exit_status, t_simp_com **c)
 	char	*exit_nb;
 
 	exit_status = exit_status % 256;
-	// everything that needs to happen before exiting
 	exit_nb = ft_itoa(exit_status);
 	add_env(ft_xstrjoin("?=", exit_nb));
 	free(exit_nb);
@@ -52,7 +51,7 @@ void	bi_exit(t_simp_com **c)
 	char		*exit_nb;
 
 	exit_status = 1;
-	if (split_count((*c)->command) < 2) // mir ist unklar wie ich das am besten handle
+	if (split_count((*c)->command) < 2)
 	{
 		ft_atoll(get_env("?"), &exit_status);
 		free_and_exit(exit_status, c);
@@ -71,5 +70,3 @@ void	bi_exit(t_simp_com **c)
 	add_env(ft_xstrjoin("?=", exit_nb));
 	free(exit_nb);
 }
-
-// datenstruktur mit allen allokierten sachen reinpassen?
