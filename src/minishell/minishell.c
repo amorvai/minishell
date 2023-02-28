@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 22:04:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/27 15:51:30 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 10:27:51 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ char	*get_user_input()
 	char	*read_line;
 
 	read_line = NULL;
-	add_env(ft_xstrdup("42heredoc="));
+	
+	add_env(ft_xstrdup("42heredoc=not_used"));
 	if (!isatty(0))
 	{
 		get_next_line(0, &read_line);
@@ -47,7 +48,6 @@ int	minishell(void)
 	char		*read_line;
 	t_token		*tokens;
 	t_simp_com	*commands;
-	// int			exit_status;
 	
 	init_env();
 	signal(SIGQUIT, SIG_IGN);
@@ -62,7 +62,10 @@ int	minishell(void)
 		commands = NULL;
 		if (token_lst_init(&tokens, read_line) || !tokens
 			|| parse(&tokens, &commands))
-			continue ; // free(read_line);
+		{
+			free(read_line);
+			continue ;
+		}
 		free(read_line);
 		// print_command_lst(commands);
 		executer(commands);
@@ -72,8 +75,5 @@ int	minishell(void)
 		ft_putstr_fd("exit\n", STDERR_FILENO);
 	clear_history();
 	free_env();
-	// printf("pid %i\n", getpid());
-	// while(1)
-	// ft_atoi(get_env("?"), &exit_status);
 	return (0);
 }

@@ -6,14 +6,14 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:58:59 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/27 19:20:46 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 09:24:39 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-#include <stdbool.h>
+# include <stdbool.h>
 
 char	*grab_cwd();
 

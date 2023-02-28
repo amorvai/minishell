@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
+/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/25 10:40:43 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/27 21:50:35 by amorvai          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void bi_echo(char **simple_command)
 			i++;
 		}
 		ft_putchar_fd('\n', 1);	
-		add_env(ft_strdup("?=0"));
 	}
 	else
 		bi_echo2(simple_command);
+	add_env(ft_strdup("?=0"));
 }
 
 static void bi_echo2(char **simple_command)
@@ -52,6 +52,4 @@ static void bi_echo2(char **simple_command)
 		}
 		i++;
 	}
-	add_env(ft_strdup("?=0"));
 }
-	

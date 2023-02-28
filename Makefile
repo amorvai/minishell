@@ -11,7 +11,7 @@ SRC		:=	main.c \
 			command.c redirection.c \
 			token.c token_init.c \
 			parsing.c parsing_command.c parsing_redirection.c expansion.c utils.c \
-			exec.c exec_pipes.c exec_rede.c\
+			exec.c exec_pipes.c exec_rede.c exec_utils.c\
 			heredoc.c \
 			error.c error_parsing.c error_protection.c\
 			signals.c \

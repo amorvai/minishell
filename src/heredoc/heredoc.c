@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 11:01:59 by amorvai           #+#    #+#             */
-/*   Updated: 2023/02/25 16:04:00 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 10:40:55 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 #include <unistd.h>
 #include <fcntl.h>
+
+#include <stdio.h>
 
 static char	*expand_delimiter(const char *str)
 {
@@ -112,13 +114,10 @@ char	*heredoc(const char *delim)
 
 	filename = NULL;
 	fd[0] = create_tmp_file(&filename);
-	if (ft_strcmp(get_env("42heredoc"), "quit") == 0)
+	if (ft_strcmp(get_env("42heredoc"), "used") == 0)
 		return (filename);
 	if (fd[0] == -1)
-	{
-		perror("open");
-		exit(1);
-	}
+		exit(print_open_protection());
 	if (read_to_fd(fd[0], delim) != 0)
 	{
 		fd[1] = open(filename, O_WRONLY | O_TRUNC, 0644);
