@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bi_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amorvai <amorvai@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 19:54:45 by amorvai          ###   ########.fr       */
+/*   Updated: 2023/02/28 20:09:00 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	switch_heel(char *path)
 	else
 	{
 		if (getcwd(cwd, sizeof(cwd)) != NULL)
-			add_env(ft_strjoin("PWD=", cwd));
+			add_env(ft_xstrjoin("PWD=", cwd));
 		else
 		{
 			ft_putstr_fd("miesmuschel: cd: getcwd PWD error\n", 2);

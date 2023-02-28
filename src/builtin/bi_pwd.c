@@ -6,7 +6,7 @@
 /*   By: pnolte <pnolte@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 19:02:07 by pnolte            #+#    #+#             */
-/*   Updated: 2023/02/28 14:22:25 by pnolte           ###   ########.fr       */
+/*   Updated: 2023/02/28 20:08:29 by pnolte           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,5 @@ void	bi_pwd(void)
 	ft_putstr_fd(cwd, 1);
 	ft_putchar_fd('\n', 1);
 	free(cwd);
-	add_env(ft_strdup("?=0"));
+	add_env(ft_xstrdup("?=0"));
 }
